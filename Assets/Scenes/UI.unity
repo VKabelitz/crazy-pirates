@@ -1024,9 +1024,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46dc2ad76dd02443adf217ccf2e6e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
+  gate: {fileID: 0}
+  projectilePrefab: {fileID: 0}
   projectileSpawnPoint: {fileID: 2106032034}
   projectilePool: {fileID: 1083398806}
+  fireRate: 0.4
+  rangeRadius: 10
+  targetCheckInterval: 0.5
 --- !u!136 &1815035016
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1392,7 +1396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprocketText: {fileID: 1229154048}
   healthbar: {fileID: 1252173892}
-  healthText: {fileID: 0}
+  healthText: {fileID: 1229154048}
 --- !u!1 &2103617116
 GameObject:
   m_ObjectHideFlags: 0
