@@ -14,9 +14,9 @@ public class Health : MonoBehaviour, IHealth
     public void TakeDamage(int damage)
     {
         HealthPoints -= damage;
+        Debug.Log("Health: " + HealthPoints, gameObject);
         if (HealthPoints <= 0)
         {
-            Debug.Log("text: ", gameObject);
             DestroyObject();
         }
     }
@@ -28,9 +28,10 @@ public class Health : MonoBehaviour, IHealth
 
     public void DestroyObject()
     {
+        Debug.Log("Object destroyed: " + gameObject.name, gameObject);
         if (gameObject.TryGetComponent(out IPoolable poolable))
             poolable.ReturnToPool();
         else
-            Destroy(gameObject); // Game Over
+            Destroy(gameObject);
     }
 }

@@ -13,16 +13,13 @@ public class BasicTower : MonoBehaviour, Tower
 
     public void Attack()
     {
-            StartCoroutine(Fire());
-            Debug.Log("Attack");
-
+        StartCoroutine(Fire());
     }
 
     private IEnumerator Fire()
     {
         while (true)
-        {        
-            Debug.Log("IEnumerator1");
+        {
             projectile = projectilePool.GetFromPool();
             projectile.transform.position = projectileSpawnPoint.position;
             projectile.transform.rotation = Quaternion.identity;
@@ -35,7 +32,6 @@ public class BasicTower : MonoBehaviour, Tower
     }
     public void Start()
     {
-        Debug.Log("Start");
         Attack();
     }
 }

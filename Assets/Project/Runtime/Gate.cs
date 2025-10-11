@@ -8,8 +8,14 @@ using UnityEngine.Rendering;
 
 public class Gate : MonoBehaviour
 {
-    public int health = 10;
+    private Health health;
 
+
+    public void Awake()
+    {
+        if (gameObject.TryGetComponent(out Health health))
+            this.health = health;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
@@ -22,7 +28,16 @@ public class Gate : MonoBehaviour
                     poolable.ReturnToPool();
                 }
             }
+            else
+            {
+                Debug.LogWarning("Enemy has no Health component!");
+            }
         }
+
+    }
+    private void OnDestroy()
+    {
+        Debug.Log("Gate destroyed!");
     }
 
 }

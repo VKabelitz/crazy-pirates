@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5211601ff4889684a8f2819a10fda554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 1
 --- !u!54 &8677206723295449261
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,5 +163,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b50d2d9cd437941968b51df780c969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
-  collisionDamage: 10
+  movementSpeed: 5.12
+  collisionDamage: 1
