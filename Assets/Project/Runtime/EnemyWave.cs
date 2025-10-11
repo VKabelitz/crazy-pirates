@@ -11,7 +11,7 @@ public class EnemyWave : ScriptableObject
 [System.Serializable]
 public class EnemyWaveEntry
 {
-    public Vector2 spawnPosition;
+    public Vector3 spawnPosition;
     public float spawnTime;
     public MovementType movementType;
 }
