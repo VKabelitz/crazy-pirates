@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicTower : MonoBehaviour, Tower
+public class BasicTower : Tower
 {
     [SerializeField]
     GameObject projectile;

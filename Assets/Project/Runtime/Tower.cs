@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public interface Tower 
+public interface class Tower
 {
-    public int damage;
-    public int range;
-    public bool attackingEnemy;
+    public static int range;
+    public static bool attackingEnemy;
 
     public void Attack();
 }
