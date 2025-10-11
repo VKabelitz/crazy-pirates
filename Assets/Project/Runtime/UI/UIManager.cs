@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public TextMeshProUGUI sprocketText;
     public Slider healthbar;
-    public TextMeshProUGUI healthText;
+    //public TextMeshProUGUI healthText;
     float healthProgress = 10;
     int sprockets = 0;
 
@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         sprocketText.text = sprockets.ToString() + " Sprockets";
-        healthText.text = healthProgress.ToString();
+        //healthText.text = healthProgress.ToString();
 
     }
 
