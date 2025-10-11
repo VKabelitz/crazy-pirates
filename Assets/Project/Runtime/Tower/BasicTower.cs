@@ -77,7 +77,7 @@ public class BasicTower : MonoBehaviour, Tower
                 if (yawDirection.sqrMagnitude > 0.001f)
                 {
                     // Calculate target yaw angle
-                    float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 90.0f;
+                    float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
 
                     // Get current yaw angle
                     float currentYaw = YawWheel.transform.eulerAngles.y;
