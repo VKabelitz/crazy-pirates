@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/Men\xFC.unity"
     guid: 6ef4476989b23e64cbaa27e174a70fc0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UI.unity
     guid: 070a7a855b668e34e86c8e41eff0daf0
+  - enabled: 1
+    path: Assets/Scenes/Milestone2.unity
+    guid: cb2894f1199f11f4fa92f0c86df5fba9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
