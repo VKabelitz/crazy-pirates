@@ -1,15 +1,15 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 public class UIManager : MonoBehaviour
 {
-
     public static UIManager instance;
     public TextMeshProUGUI sprocketText;
     public Slider healthbar;
-    public TextMeshProUGUI healthText;
+
+    //public TextMeshProUGUI healthText;
     float healthProgress = 10;
     int sprockets = 0;
 
@@ -21,21 +21,14 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         sprocketText.text = sprockets.ToString() + " Sprockets";
-        healthText.text = healthProgress.ToString();
-
+        //healthText.text = healthProgress.ToString();
     }
 
-    void Update()
-    {
-        
-    }
+    void Update() { }
 
-    public void AddSprocket(int amount) 
+    public void UpdateSprockets(int currentSprocketAmount)
     {
-        sprockets += amount;
-        //TODO: not always +1, different points for different enemies?
-        sprocketText.text = sprockets.ToString() + " Sprockets";
-
+        sprocketText.text = currentSprocketAmount.ToString() + " Sprockets";
     }
 
     public void UpdateHealth(int damage)
@@ -43,5 +36,4 @@ public class UIManager : MonoBehaviour
         healthProgress -= damage;
         healthbar.value = healthProgress;
     }
-
 }

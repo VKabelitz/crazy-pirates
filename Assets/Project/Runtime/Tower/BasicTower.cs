@@ -1,22 +1,43 @@
-using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class BasicTower : MonoBehaviour, Tower
 {
-    [SerializeField] private GameObject gate;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform projectileSpawnPoint;
-    [SerializeField] private ObjectPool projectilePool;
-    [SerializeField] private float fireRate = 0.4f;
-    [SerializeField] private float rangeRadius = 10f;
-    [SerializeField] private float targetCheckInterval = 0.5f;
-    [SerializeField] private GameObject YawWheel;
-    [SerializeField] private GameObject PitchWheel;
-    [SerializeField] private float rotationSpeed = 0.001f;
-    private Quaternion initialPitchRotation;
+    [SerializeField]
+    private GameObject gate;
 
+    [SerializeField]
+    private GameObject projectilePrefab;
+
+    [SerializeField]
+    private Transform projectileSpawnPoint;
+
+    [SerializeField]
+    private ObjectPool projectilePool;
+
+    [SerializeField]
+    private float fireRate = 0.4f;
+
+    [SerializeField]
+    private float rangeRadius = 10f;
+
+    [SerializeField]
+    private float targetCheckInterval = 0.5f;
+
+    [SerializeField]
+    private GameObject YawWheel;
+
+    [SerializeField]
+    private GameObject PitchWheel;
+
+    [SerializeField]
+    private float rotationSpeed = 0.001f;
+
+    [SerializeField]
+    private int sprocketCosts = 20;
+    private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
 
@@ -27,6 +48,11 @@ public class BasicTower : MonoBehaviour, Tower
             Debug.LogWarning("Gate reference is missing in BasicTower.");
         StartCoroutine(TargetUpdater());
         StartCoroutine(Fire());
+    }
+
+    public int GetSprocketCosts()
+    {
+        return sprocketCosts;
     }
 
     private IEnumerator TargetUpdater()
@@ -69,7 +95,6 @@ public class BasicTower : MonoBehaviour, Tower
         {
             if (currentTarget != null)
             {
-
                 Vector3 targetPos = currentTarget.transform.position;
 
                 // --- YAW: Horizontal rotation around Y axis ---
@@ -79,13 +104,18 @@ public class BasicTower : MonoBehaviour, Tower
                 if (yawDirection.sqrMagnitude > 0.001f)
                 {
                     // Calculate target yaw angle
-                    float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
+                    float targetYaw =
+                        Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
 
                     // Get current yaw angle
                     float currentYaw = YawWheel.transform.eulerAngles.y;
 
                     // Smoothly interpolate yaw
-                    float smoothYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.deltaTime * rotationSpeed);
+                    float smoothYaw = Mathf.LerpAngle(
+                        currentYaw,
+                        targetYaw,
+                        Time.deltaTime * rotationSpeed
+                    );
 
                     // Apply rotation (preserve other axes if needed)
                     YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 90.0f);
@@ -101,8 +131,6 @@ public class BasicTower : MonoBehaviour, Tower
                 //     Quaternion pitchRotation = Quaternion.Euler(targetPitch, 90f, 90f);
                 //     PitchWheel.transform.localRotation = initialPitchRotation * pitchRotation;
                 // }
-
-
             }
             timePassed += Time.deltaTime;
             if (timePassed >= fireRate)
