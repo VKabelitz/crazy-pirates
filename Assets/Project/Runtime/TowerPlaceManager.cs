@@ -48,6 +48,7 @@ public class TowerPlaceManager : MonoBehaviour
             return;
         }
         currentTower = Instantiate(towerPrefab); // erstelle einen Tower wenn keiner grade platziert wird
+        currentTower.GetComponent<BasicTower>().enabled = false;
         // Transparenz aktivieren
         towerRenderers.Clear();
         originalColors.Clear();
@@ -73,6 +74,7 @@ public class TowerPlaceManager : MonoBehaviour
 
     private void PlaceTower()
     {
+        currentTower.GetComponent<BasicTower>().enabled = true;
         // Transparenz zurücksetzen
             for (int i = 0; i < towerRenderers.Count; i++)
             {

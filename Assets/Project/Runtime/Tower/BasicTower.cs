@@ -12,11 +12,17 @@ public class BasicTower : MonoBehaviour, Tower
     [SerializeField] private float fireRate = 0.4f;
     [SerializeField] private float rangeRadius = 10f;
     [SerializeField] private float targetCheckInterval = 0.5f;
+    [SerializeField] private GameObject YawWheel;
+    [SerializeField] private GameObject PitchWheel;
+    [SerializeField] private float rotationSpeed = 0.001f;
+    private Quaternion initialPitchRotation;
+
 
     private GameObject currentTarget;
 
     private void Start()
     {
+        initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
         StartCoroutine(TargetUpdater());
@@ -58,11 +64,53 @@ public class BasicTower : MonoBehaviour, Tower
 
     private IEnumerator Fire()
     {
+        float timePassed = 0f;
         while (true)
         {
             if (currentTarget != null)
+            {
+
+                Vector3 targetPos = currentTarget.transform.position;
+
+                // --- YAW: Horizontal rotation around Y axis ---
+                Vector3 yawDirection = targetPos - YawWheel.transform.position;
+                yawDirection.y = 0; // Ignore vertical component
+
+                if (yawDirection.sqrMagnitude > 0.001f)
+                {
+                    // Calculate target yaw angle
+                    float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
+
+                    // Get current yaw angle
+                    float currentYaw = YawWheel.transform.eulerAngles.y;
+
+                    // Smoothly interpolate yaw
+                    float smoothYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.deltaTime * rotationSpeed);
+
+                    // Apply rotation (preserve other axes if needed)
+                    YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 90.0f);
+                }
+                // Vector3 targetDirection = currentTarget.transform.position - PitchWheel.transform.position;
+                // Vector3 localDirection = PitchWheel.transform.InverseTransformDirection(targetDirection);
+
+                // if (localDirection.sqrMagnitude > 0.001f)
+                // {
+                //     float targetPitch = Mathf.Atan2(localDirection.y, localDirection.z) * Mathf.Rad2Deg;
+
+                //     // Apply pitch only on X axis, preserving original Y/Z
+                //     Quaternion pitchRotation = Quaternion.Euler(targetPitch, 90f, 90f);
+                //     PitchWheel.transform.localRotation = initialPitchRotation * pitchRotation;
+                // }
+
+
+            }
+            timePassed += Time.deltaTime;
+            if (timePassed >= fireRate)
+            {
+                timePassed = 0f;
                 Attack();
-            yield return new WaitForSeconds(fireRate);
+            }
+            yield return null;
         }
     }
 
@@ -76,21 +124,22 @@ public class BasicTower : MonoBehaviour, Tower
         poolable?.OnActivate();
 
         var projectileComp = projectile.GetComponent<Projectile>();
-        projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
+        if (currentTarget != null)
+            projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
     }
 
-    #if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(0f, 1f, 0f, 0.12f);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, rangeRadius);
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0f, 1f, 0f, 0.12f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, rangeRadius);
 
-            if (currentTarget != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(transform.position, currentTarget.transform.position);
-            }
+        if (currentTarget != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, currentTarget.transform.position);
         }
-    #endif
+    }
+#endif
 }
