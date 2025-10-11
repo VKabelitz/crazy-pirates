@@ -64,7 +64,8 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
         {
             // ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
             // scoreManager.AddScore(5);
-            UIManager.instance.AddSprocket(sprocketAmount);
+            
+            SprocketManager.instance.AddSprockets(sprocketAmount);
         }
         gameObject.SetActive(false);
     }
