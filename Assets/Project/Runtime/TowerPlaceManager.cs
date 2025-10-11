@@ -43,6 +43,7 @@ public class TowerPlaceManager : MonoBehaviour
     }
     public void StartPlacingTower()
     {
+        Debug.Log("StartPlacingTower called");
         if (towerPrefab == null)
         {
             return;
@@ -74,15 +75,15 @@ public class TowerPlaceManager : MonoBehaviour
     private void PlaceTower()
     {
         // Transparenz zurücksetzen
-            for (int i = 0; i < towerRenderers.Count; i++)
+        for (int i = 0; i < towerRenderers.Count; i++)
+        {
+            for (int j = 0; j < towerRenderers[i].materials.Length; j++)
             {
-                for (int j = 0; j < towerRenderers[i].materials.Length; j++)
-                {
-                    var mat = towerRenderers[i].materials[j];
-                    Color c = originalColors[i][j];
-                    mat.color = c;
-                }
+                var mat = towerRenderers[i].materials[j];
+                Color c = originalColors[i][j];
+                mat.color = c;
             }
+        }
         //Geld abziehen von Singlketon Sprocket Börse
 
     }
