@@ -43,12 +43,12 @@ public class TowerPlaceManager : MonoBehaviour
     }
     public void StartPlacingTower()
     {
-        Debug.Log("StartPlacingTower called");
         if (towerPrefab == null)
         {
             return;
         }
         currentTower = Instantiate(towerPrefab); // erstelle einen Tower wenn keiner grade platziert wird
+        currentTower.GetComponent<BasicTower>().enabled = false;
         // Transparenz aktivieren
         towerRenderers.Clear();
         originalColors.Clear();
@@ -74,16 +74,17 @@ public class TowerPlaceManager : MonoBehaviour
 
     private void PlaceTower()
     {
+        currentTower.GetComponent<BasicTower>().enabled = true;
         // Transparenz zurücksetzen
-        for (int i = 0; i < towerRenderers.Count; i++)
-        {
-            for (int j = 0; j < towerRenderers[i].materials.Length; j++)
+            for (int i = 0; i < towerRenderers.Count; i++)
             {
-                var mat = towerRenderers[i].materials[j];
-                Color c = originalColors[i][j];
-                mat.color = c;
+                for (int j = 0; j < towerRenderers[i].materials.Length; j++)
+                {
+                    var mat = towerRenderers[i].materials[j];
+                    Color c = originalColors[i][j];
+                    mat.color = c;
+                }
             }
-        }
         //Geld abziehen von Singlketon Sprocket Börse
 
     }
