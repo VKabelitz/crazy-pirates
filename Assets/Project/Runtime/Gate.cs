@@ -1,3 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
+
 public class Gate : MonoBehaviour
 {
     public int health = 10;
