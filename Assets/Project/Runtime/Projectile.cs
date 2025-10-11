@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IMovable, IPoolable
 {
-    [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private int damage;
     //public Transform target;
     private ObjectPool projectilePool = new ObjectPool();
 
-    public void Move(float horizontal, float vertical)
+    public void Move(float horizontal, float vertical, float depth)
     {
-        Vector3 moveDirection = new Vector3(horizontal, vertical, 0).normalized;
+        Vector3 moveDirection = new Vector3(horizontal, vertical, depth).normalized;
         transform.position += moveDirection * Time.deltaTime * movementSpeed;
         //transform.position = Vector3.MoveTowards(transform.position, target.position, movementSpeed* Time.deltaTime);
     }
@@ -46,6 +46,7 @@ public class Projectile : MonoBehaviour
                 hitObjectHealth.TakeDamage(damage);
                 
             }
+            Debug.Log("Projectile hit enemy");
             ReturnToPool(); //Projektil soll dem Pool zurückgegeben werden
         }
         
@@ -53,8 +54,7 @@ public class Projectile : MonoBehaviour
 
     public void Update()
     {
-
-        Move(1f, 0f);
+        Move(0f, 0f, -1f);
 
         if (transform.position.x > 10f)
         {

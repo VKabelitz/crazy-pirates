@@ -13,21 +13,25 @@ public class BasicTower : MonoBehaviour, Tower
 
     public void Attack()
     {
-        StartCoroutine(Fire());
-        Debug.Log("Attack");
-        
+            StartCoroutine(Fire());
+            Debug.Log("Attack");
+
     }
 
     private IEnumerator Fire()
     {
-        Debug.Log("IEnumerator1");
-        projectile = projectilePool.GetFromPool();
-        projectile.transform.position = projectileSpawnPoint.position;
-        projectile.transform.rotation = Quaternion.identity;
+        while (true)
+        {        
+            Debug.Log("IEnumerator1");
+            projectile = projectilePool.GetFromPool();
+            projectile.transform.position = projectileSpawnPoint.position;
+            projectile.transform.rotation = Quaternion.identity;
 
-        var poolable = projectile.GetComponent<IPoolable>();
-        poolable?.OnActivate();
-        yield return new WaitForSeconds(4f);
+            var poolable = projectile.GetComponent<IPoolable>();
+            Debug.Log("Poolable: " + poolable);
+            poolable?.OnActivate();
+            yield return new WaitForSeconds(0.4f);
+        }
     }
     public void Start()
     {
