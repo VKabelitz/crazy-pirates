@@ -9,6 +9,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private ObjectPool enemyPool;
 
+    [SerializeField]
+    private GameObject spawnPosition;
+
     public void Start()
     {
         StartCoroutine(RunLevelSequence());
@@ -49,6 +52,6 @@ public class LevelManager : MonoBehaviour
         {
             enemyComponent.SetMovementType(enemyWaveEntry.movementType);
         }
-        enemy.transform.position = enemyWaveEntry.spawnPosition;
+        enemy.transform.position = spawnPosition.transform.position;
     }
 }

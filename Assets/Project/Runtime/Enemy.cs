@@ -50,10 +50,10 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
 
     public void Update()
     {
-        if (transform.position.x < -10f)
+        /*if (transform.position.x < -10f)
         {
             ReturnToPool();
-        }
+        }*/
     }
 
     public void SetPool(ObjectPool pool)

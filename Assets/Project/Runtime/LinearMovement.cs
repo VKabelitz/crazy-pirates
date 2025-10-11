@@ -7,7 +7,7 @@ public class LinearMovement : BaseMovement, IMovable
 
     public void FixedUpdate()
     {
-        Move(-1f, 0f, 0f);
+        Move(1f, 0f, 0f);
     }
 
     public void Move(float horizontal, float vertical, float depth)
