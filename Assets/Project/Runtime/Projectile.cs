@@ -4,12 +4,14 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private int damage;
-    public Transform target;
+    //public Transform target;
     private ObjectPool projectilePool = new ObjectPool();
 
     public void Move(float horizontal, float vertical)
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, movementSpeed* Time.deltaTime);
+        Vector3 moveDirection = new Vector3(horizontal, vertical, 0).normalized;
+        transform.position += moveDirection * Time.deltaTime * movementSpeed;
+        //transform.position = Vector3.MoveTowards(transform.position, target.position, movementSpeed* Time.deltaTime);
     }
         
 
