@@ -10,7 +10,7 @@ public abstract class Projectile : MonoBehaviour
     public void Move(float horizontal, float vertical)
     {
         transform.position = Vector3.MoveTowards(transform.position, target.position, movementSpeed* Time.deltaTime);
-}
+    }
         
 
     public void OnActivate()

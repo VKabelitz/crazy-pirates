@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
-using System.Collections;
 public class GameManager : MonoBehaviour
 {
 
@@ -23,7 +22,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        
+
     }
     void Start()
     {
