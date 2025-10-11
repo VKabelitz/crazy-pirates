@@ -1,7 +1,16 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
+
 public class GameManager : MonoBehaviour
 {
 
     #region Variables
+    public static GameManager instance = null;
     #endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,7 +24,6 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        instance.LoadSounds();
     }
     void Start()
     {

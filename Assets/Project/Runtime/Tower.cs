@@ -1,18 +1,9 @@
 using UnityEngine;
 
-public abstract class Tower : MonoBehaviour
+public interface class Tower
 {
-    public int damage;
-    public int range;
-    public bool attackingEnemy;
+    public static int range;
+    public static bool attackingEnemy;
 
-    public virtual void Attack()
-    {
-        //Attack wenn ein Gegner in Reichweite ist
-        if (!attackingEnemy)
-        {
-            Debug.Log("Tower greift an!");
-            attackingEnemy = true;
-        }
-    }
+    public void Attack();
 }
