@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface class Tower
+public interface Tower
 {
     public static int range;
     public static bool attackingEnemy;

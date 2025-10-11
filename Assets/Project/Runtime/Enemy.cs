@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
 
     public void Awake()
     {
+        SetMovementType(MovementType.LinearMovement);
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
     }
