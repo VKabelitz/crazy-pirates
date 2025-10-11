@@ -23,6 +23,7 @@ public class Gate : MonoBehaviour
             if (gameObject.TryGetComponent(out Health health))
             {
                 health.TakeDamage(other.gameObject.GetComponent<Enemy>().collisionDamage);
+                UIManager.instance.UpdateHealth(other.gameObject.GetComponent<Enemy>().collisionDamage);
                 if (other.gameObject.TryGetComponent(out IPoolable poolable))
                 {
                     poolable.ReturnToPool();

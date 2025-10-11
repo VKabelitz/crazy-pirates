@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public TextMeshProUGUI sprocketText;
     public Slider healthbar;
-    int healthProgress = 100;
+    public TextMeshProUGUI healthText;
+    float healthProgress = 10;
     int sprockets = 0;
 
     private void Awake()
@@ -20,6 +21,8 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         sprocketText.text = sprockets.ToString() + " Sprockets";
+        healthText.text = healthProgress.ToString();
+
     }
 
     void Update()
@@ -27,20 +30,18 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void AddSprocket() 
+    public void AddSprocket(int amount) 
     {
-        sprockets += 1;
+        sprockets += amount;
         //TODO: not always +1, different points for different enemies?
         sprocketText.text = sprockets.ToString() + " Sprockets";
 
     }
 
-    //TODO: Add point call in kill enemies
-
-
-    public void UpdateHealth()
+    public void UpdateHealth(int damage)
     {
-        healthProgress--;
+        healthProgress -= damage;
         healthbar.value = healthProgress;
     }
+
 }

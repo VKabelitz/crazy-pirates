@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
     private ObjectPool enemyPool;
     private Health health;
     public int collisionDamage = 10;
+    public int sprocketAmount = 30;
 
     public void Awake()
     {
@@ -76,6 +77,7 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
         {
             // ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
             // scoreManager.AddScore(5);
+            UIManager.instance.AddSprocket(sprocketAmount);
         }
         gameObject.SetActive(false);
     }
