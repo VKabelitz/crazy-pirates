@@ -1300,6 +1300,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   towerHeight: 0.89
+  transparentAlpha: 0.4
 --- !u!4 &1917656698
 Transform:
   m_ObjectHideFlags: 0

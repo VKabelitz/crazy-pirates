@@ -30,10 +30,16 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void AddSprocket(int amount) 
+    public void AddSprocket(int amount)
     {
         sprockets += amount;
         //TODO: not always +1, different points for different enemies?
+        sprocketText.text = sprockets.ToString() + " Sprockets";
+
+    }
+    public void SubstractSprocket(int amount) 
+    {
+        sprockets -= amount;
         sprocketText.text = sprockets.ToString() + " Sprockets";
 
     }

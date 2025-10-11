@@ -1,12 +1,19 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class TowerPlaceManager : MonoBehaviour
 {
-    [SerializeField] GameObject towerPrefab;
-    [SerializeField] LayerMask groundMask;
-    [SerializeField] float towerHeight = 0.89f;
-    [SerializeField] float transparentAlpha = 0.4f;
+    [SerializeField]
+    GameObject towerPrefab;
+
+    [SerializeField]
+    LayerMask groundMask;
+
+    [SerializeField]
+    float towerHeight = 0.89f;
+
+    [SerializeField]
+    float transparentAlpha = 0.4f;
     private GameObject currentTower;
     private Camera mainCamera;
     private List<Renderer> towerRenderers = new List<Renderer>();
@@ -16,6 +23,7 @@ public class TowerPlaceManager : MonoBehaviour
     {
         mainCamera = Camera.main;
     }
+
     void Update()
     {
         if (currentTower != null)
@@ -41,6 +49,7 @@ public class TowerPlaceManager : MonoBehaviour
             }
         }
     }
+
     public void StartPlacingTower()
     {
         if (towerPrefab == null)
@@ -65,7 +74,7 @@ public class TowerPlaceManager : MonoBehaviour
 
                 // wichtig: Shader muss Transparenz unterstützen!
                 r.materials[i].SetFloat("_Surface", 1); // nur bei URP nötig
-                r.materials[i].renderQueue = 3000;      // Transparent-Queue
+                r.materials[i].renderQueue = 3000; // Transparent-Queue
             }
             originalColors.Add(colors);
         }
@@ -74,16 +83,15 @@ public class TowerPlaceManager : MonoBehaviour
     private void PlaceTower()
     {
         // Transparenz zurücksetzen
-            for (int i = 0; i < towerRenderers.Count; i++)
+        for (int i = 0; i < towerRenderers.Count; i++)
+        {
+            for (int j = 0; j < towerRenderers[i].materials.Length; j++)
             {
-                for (int j = 0; j < towerRenderers[i].materials.Length; j++)
-                {
-                    var mat = towerRenderers[i].materials[j];
-                    Color c = originalColors[i][j];
-                    mat.color = c;
-                }
+                var mat = towerRenderers[i].materials[j];
+                Color c = originalColors[i][j];
+                mat.color = c;
             }
-        //Geld abziehen von Singlketon Sprocket Börse
-
+        }
+        //Geld abziehen von Singleton Sprocket Börse
     }
 }
