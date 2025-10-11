@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1a0547b8954234b800134a6a3f3535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
+  prefab: {fileID: 7018481086675214104, guid: 7a966628e8e209946848dde7d1c41bad, type: 3}
   initialPoolSize: 10

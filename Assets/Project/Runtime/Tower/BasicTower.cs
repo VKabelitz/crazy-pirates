@@ -5,13 +5,13 @@ using UnityEngine.AI;
 
 public class BasicTower : MonoBehaviour, Tower
 {
-    [SerializeField] private GameObject gate;
+    private GameObject gate;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private ObjectPool projectilePool;
     [SerializeField] private float fireRate = 0.4f;
     [SerializeField] private float rangeRadius = 10f;
-    [SerializeField] private float targetCheckInterval = 0.5f;
+    [SerializeField] private float targetCheckInterval = 0.01f;
     [SerializeField] private GameObject YawWheel;
     [SerializeField] private GameObject PitchWheel;
     [SerializeField] private float rotationSpeed = 0.001f;
@@ -22,6 +22,7 @@ public class BasicTower : MonoBehaviour, Tower
 
     private void Start()
     {
+        gate = GameObject.FindWithTag("Gate");
         initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
@@ -108,7 +109,8 @@ public class BasicTower : MonoBehaviour, Tower
             if (timePassed >= fireRate)
             {
                 timePassed = 0f;
-                Attack();
+                if (currentTarget != null)
+                    Attack();
             }
             yield return null;
         }
@@ -117,7 +119,7 @@ public class BasicTower : MonoBehaviour, Tower
     public void Attack()
     {
         GameObject projectile = projectilePool.GetFromPool();
-        projectile.transform.position = projectileSpawnPoint.position;
+        projectile.transform.position = projectileSpawnPoint.transform.position;
         projectile.transform.rotation = Quaternion.identity;
 
         var poolable = projectile.GetComponent<IPoolable>();

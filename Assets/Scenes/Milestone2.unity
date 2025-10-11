@@ -124,6 +124,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f8a38efef38a7774baa40092eb075835, type: 3}
   m_PrefabInstance: {fileID: 1362902851}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &35981130 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5413697943940507744, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+  m_PrefabInstance: {fileID: 1653367668}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &37969705
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,17 +553,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
---- !u!114 &275564171 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2286453677775285567, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
-  m_PrefabInstance: {fileID: 275564170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1a0547b8954234b800134a6a3f3535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &281937164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d0d285c160a4a0641bd2371c4769ebee, type: 3}
@@ -1864,6 +1858,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 013b65a46ff470b4b8219df0a8cea0fa, type: 3}
   m_PrefabInstance: {fileID: 1228032931}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1127657575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1127657576}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1127657576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127657575}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.011, y: 0.867, z: 0.111}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 35981130}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1135782585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2697,36 +2722,39 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3198308043127880218, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.386
-      objectReference: {fileID: 0}
-    - target: {fileID: 3198308043127880218, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.93
+      value: 0.867
       objectReference: {fileID: 0}
-    - target: {fileID: 4641664427629114074, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
-      propertyPath: m_Name
-      value: CannonModel
+    - target: {fileID: 3728844517274073397, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728844517274073397, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728844517274073397, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6020758815187381394, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
       propertyPath: gate
       value: 
       objectReference: {fileID: 1297829181}
     - target: {fileID: 6020758815187381394, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
-      propertyPath: rangeRadius
-      value: 7.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 6020758815187381394, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
-      propertyPath: projectilePool
+      propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 275564171}
+      objectReference: {fileID: 7018481086675214104, guid: 7a966628e8e209946848dde7d1c41bad, type: 3}
     - target: {fileID: 8025664517355020572, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
       propertyPath: m_Name
       value: Canon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5413697943940507744, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1127657576}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
 --- !u!4 &1658321940 stripped
@@ -2744,6 +2772,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
       propertyPath: m_Name
+      value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
+      propertyPath: m_TagString
       value: Gate
       objectReference: {fileID: 0}
     - target: {fileID: 6492305133591117839, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
