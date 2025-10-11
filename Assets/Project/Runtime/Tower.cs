@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int damage;
+    public int range;
+    public bool attackingEnemy;
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Attack()
     {
-        
+        //Attack wenn ein Gegner in Reichweite ist
+        if (!attackingEnemy)
+        {
+            Debug.Log("Tower greift an!");
+            attackingEnemy = true;
+        }
     }
 }
