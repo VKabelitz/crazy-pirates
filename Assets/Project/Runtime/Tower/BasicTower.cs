@@ -15,7 +15,6 @@ public class BasicTower : MonoBehaviour, Tower
     [SerializeField] private GameObject YawWheel;
     [SerializeField] private GameObject PitchWheel;
     [SerializeField] private float rotationSpeed = 0.001f;
-    private Quaternion initialPitchRotation;
 
 
     private GameObject currentTarget;
@@ -26,7 +25,6 @@ public class BasicTower : MonoBehaviour, Tower
             Debug.LogWarning("Gate reference is missing in BasicTower.");
         StartCoroutine(TargetUpdater());
         StartCoroutine(Fire());
-        initialPitchRotation = PitchWheel.transform.localRotation;
     }
 
     private IEnumerator TargetUpdater()
