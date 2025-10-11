@@ -128,41 +128,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 49462710}
-  - component: {fileID: 49462709}
-  - component: {fileID: 49462708}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: EnemySpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &49462708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49462707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1a0547b8954234b800134a6a3f3535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 888220439}
-  initialPoolSize: 10
---- !u!114 &49462709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49462707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc02cc17d83d36a499576656495db7d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &49462710
 Transform:
   m_ObjectHideFlags: 0
