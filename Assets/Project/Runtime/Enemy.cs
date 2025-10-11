@@ -1,4 +1,10 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 public enum MovementType
 {
@@ -67,8 +73,8 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
     {
         if (health.HealthPoints < 1)
         {
-            ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
-            scoreManager.AddScore(5);
+            // ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
+            // scoreManager.AddScore(5);
         }
         gameObject.SetActive(false);
     }
