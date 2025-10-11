@@ -27,22 +27,20 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator SpawnWave(EnemyWave wave)
     {
-        float elapsedTime = 0f;
         int currentEntryIndex = 0;
 
-        while (elapsedTime < wave.waveDuration)
-        {
-            while (
-                wave.enemies.Count > currentEntryIndex
-                && wave.enemies[currentEntryIndex].spawnTime <= elapsedTime
-            )
-            {
-                SpawnEnemy(wave.enemies[currentEntryIndex]);
-                currentEntryIndex++;
-            }
-            elapsedTime += Time.deltaTime;
-            yield return null;
+        while (currentEntryIndex < wave.enemies.Count)
+        { 
+            var entry = wave.enemies[currentEntryIndex];
+
+            // Warte die Spawn-Zeit des aktuellen Gegners ab
+            yield return new WaitForSeconds(entry.spawnTime);
+
+            // Spawne den Gegner
+            SpawnEnemy(entry);
+            currentEntryIndex++;
         }
+        yield return new WaitForSeconds(wave.waveDuration);
     }
 
     private void SpawnEnemy(EnemyWaveEntry enemyWaveEntry)
@@ -50,7 +48,7 @@ public class LevelManager : MonoBehaviour
         GameObject enemy = enemyPool.GetFromPool();
         if (enemy.TryGetComponent(out Enemy enemyComponent))
         {
-            enemyComponent.SetMovementType(enemyWaveEntry.movementType);
+            enemyComponent.SetMovementType(enemyWaveEntry.movementType, enemyWaveEntry.movementSpeed);
         }
         enemy.transform.position = spawnPosition.transform.position;
     }
