@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public interface Tower
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public static int range;
+    public static bool attackingEnemy;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void Attack();
 }
