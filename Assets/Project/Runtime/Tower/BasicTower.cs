@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using UnityEngine.AI;
+using System.Numerics;
 
 public class BasicTower : MonoBehaviour, Tower
 {
@@ -15,12 +16,14 @@ public class BasicTower : MonoBehaviour, Tower
     [SerializeField] private GameObject YawWheel;
     [SerializeField] private GameObject PitchWheel;
     [SerializeField] private float rotationSpeed = 0.001f;
+    private Quaternion initialPitchRotation;
 
 
     private GameObject currentTarget;
 
     private void Start()
     {
+        initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
         StartCoroutine(TargetUpdater());
@@ -100,7 +103,24 @@ public class BasicTower : MonoBehaviour, Tower
                 //     PitchWheel.transform.localRotation = initialPitchRotation * pitchRotation;
                 // }
 
+                tartgetPos = currentTarget.transform.position;
+                pitchDirection = targetPos - PitchWheel.transform.position;
+                pitchDirection.x = 0; // Ignore horizontal component
+                if (pitchDirection.sqrMagnitude > 0.001f)
+                {
+                    // Calculate target pitch angle
+                    float targetPitch = Mathf.Atan2(pitchDirection.y, pitchDirection.z) * Mathf.Rad2Deg;
 
+                    // Get current pitch angle
+                    float currentPitch = PitchWheel.transform.localEulerAngles.x;
+                    if (currentPitch > 180f) currentPitch -= 360f; // Convert to -180 to 180 range
+
+                    // Smoothly interpolate pitch
+                    float smoothPitch = Mathf.LerpAngle(currentPitch, targetPitch, Time.deltaTime * rotationSpeed);
+
+                    // Apply rotation (preserve other axes if needed)
+                    PitchWheel.transform.localRotation = Quaternion.Euler(smoothPitch, 90f, 90f);
+                }
             }
             timePassed += Time.deltaTime;
             if (timePassed >= fireRate)
