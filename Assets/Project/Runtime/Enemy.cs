@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Rendering;
 
 public enum MovementType
 {
@@ -44,16 +38,9 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
             case MovementType.LinearMovement:
             default:
                 gameObject.AddComponent<LinearMovement>();
+                Debug.Log("Linear Movement Added");
                 break;
         }
-    }
-
-    public void Update()
-    {
-        /*if (transform.position.x < -10f)
-        {
-            ReturnToPool();
-        }*/
     }
 
     public void SetPool(ObjectPool pool)

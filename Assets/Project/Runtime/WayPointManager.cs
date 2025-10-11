@@ -3,43 +3,19 @@ using UnityEngine;
 
 public class WayPointManager : MonoBehaviour
 {
-    [SerializeField] private List<Transform> wayPoints = new List<Transform>();
-    [SerializeField] private bool isMoving;
-    private int currentWayPointIndex = 0;
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private float rotationSpeed = 5f;
+    private List<Transform> wayPoints = new List<Transform>();
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        if (!isMoving)
-            return;
-
-        if (currentWayPointIndex < wayPoints.Count)
+        foreach (Transform child in transform)
         {
-            MoveToNextWayPoint();
-        }
-        else
-        {
-            // Damage
-            isMoving = false;
-            currentWayPointIndex = 0;
+            wayPoints.Add(child);
+            child.gameObject.SetActive(false);
         }
     }
-    
-    private void MoveToNextWayPoint()
+
+    public List<Transform> GetWayPoints()
     {
-        transform.position = Vector3.MoveTowards(transform.position, wayPoints[currentWayPointIndex].position, Time.deltaTime * speed);
-
-        // Rotation
-        var direction = transform.position - wayPoints[currentWayPointIndex].position;
-        var targetRotation = Quaternion.LookRotation(-direction, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-        var distance = Vector3.Distance(transform.position, wayPoints[currentWayPointIndex].position);
-        if (distance < 0.05f)
-        {
-            currentWayPointIndex++;
-        }
+        return wayPoints;
     }
 }
