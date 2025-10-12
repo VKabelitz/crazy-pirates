@@ -24,7 +24,7 @@ public class AdvancedTower : Tower
     private float rangeRadius = 10f;
 
     [SerializeField]
-    private float targetCheckInterval = 0.5f;
+    private float targetCheckInterval = 0.03f;
 
     [SerializeField]
     private float rotationSpeed = 0.001f;
@@ -111,7 +111,8 @@ public class AdvancedTower : Tower
             if (timePassed >= fireRate)
             {
                 timePassed = 0f;
-                Attack();
+                if (currentTarget != null)
+                    Attack();
             }
             yield return null;
         }

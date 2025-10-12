@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
 {
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private int damage;
+    [SerializeField] private ParticleSystem OnHitEffect;
     private ObjectPool projectilePool;
     private Enemy currentTarget;
 
@@ -31,6 +32,12 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
         {
             if (other.TryGetComponent(out Health hitObjectHealth))
                 hitObjectHealth.TakeDamage(damage);
+
+            if (OnHitEffect != null)
+            {
+                var onHitObj = Instantiate(OnHitEffect, transform.position, Quaternion.identity);
+                Destroy(onHitObj.gameObject, 2f);
+            }
 
             ReturnToPool();
         }

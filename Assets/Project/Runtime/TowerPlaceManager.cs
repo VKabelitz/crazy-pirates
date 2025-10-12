@@ -9,6 +9,9 @@ public class TowerPlaceManager : MonoBehaviour
     GameObject[] towerPrefab;
 
     [SerializeField]
+    GameObject[] buildableSpots;
+
+    [SerializeField]
     LayerMask groundMask;
 
     [SerializeField]
@@ -81,7 +84,6 @@ public class TowerPlaceManager : MonoBehaviour
                     {
                         currentHighlight.GetComponent<Renderer>().material.color = color;
                     }
-                   // currentHighlight.GetComponent<Renderer>().material.color = Color.red;
                 }
 
                 //snappedPos.y = hit.point.y;
@@ -91,6 +93,7 @@ public class TowerPlaceManager : MonoBehaviour
                     if (canBePlaced == true)
                     {
                         PlaceTower();
+                        canBePlaced = false;
                         Destroy(currentHighlight);
                         currentTower.transform.position = snappedPos;
                         currentTower = null; // Tower platzieren
@@ -98,6 +101,11 @@ public class TowerPlaceManager : MonoBehaviour
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
+                    foreach (GameObject spot in buildableSpots)
+                    {
+                        spot.SetActive(false);
+                    }
+                    canBePlaced = false;
                     Destroy(currentHighlight);
                     Destroy(currentTower); // Tower zerstören
                     currentTower = null;
@@ -111,6 +119,10 @@ public class TowerPlaceManager : MonoBehaviour
         if (towerPrefab == null)
         {
             return;
+        }
+        foreach (GameObject spot in buildableSpots)
+        {
+            spot.SetActive(true);
         }
 
         AudioManager.instance.PlaySound("click");
@@ -146,6 +158,10 @@ public class TowerPlaceManager : MonoBehaviour
     private void PlaceTower()
     {
         AudioManager.instance.PlaySound("turret_build");
+        foreach (GameObject spot in buildableSpots)
+        {
+            spot.SetActive(false);
+        }
         if (currentTower.TryGetComponent<Tower>(out Tower tower))
         {
             ((MonoBehaviour)tower).enabled = true;
@@ -163,6 +179,7 @@ public class TowerPlaceManager : MonoBehaviour
                 mat.color = c;
             }
         }
+        
         //Geld abziehen von Singlketon Sprocket Börse
     }
 
