@@ -16,7 +16,9 @@ public class ObjectPool : MonoBehaviour
     public void Awake()
     {
         Debug.Log("Awake called, oobject id: " + this.GetInstanceID());
+        Debug.Log("Objektart" + prefab.name);
         InitializePool();
+
     }
 
     public void InitializePool()

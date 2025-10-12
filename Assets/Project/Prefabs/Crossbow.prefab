@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprocketCosts: 0
-  projectilePool: {fileID: 2286453677775285567, guid: 4be55df1f747e4b06b0729574a81cb3d, type: 3}
+  projectilePoolObject: {fileID: 262824278697953883, guid: 4be55df1f747e4b06b0729574a81cb3d, type: 3}
   fireRate: 0.2
   gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
   projectilePrefab: {fileID: 5307051855296515989, guid: 9f7e3dd4585a9d346b487fd2915ded42, type: 3}

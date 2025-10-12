@@ -32,9 +32,12 @@ public class SuperAdvancedTower : Tower
     private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
+    private ObjectPool projectilePool;
 
     void Awake()
     {
+        projectilePool = projectilePoolObject.GetComponent<ObjectPool>();
+        projectilePool.InitializePool();
         sprocketCosts = 200;
     }
 
