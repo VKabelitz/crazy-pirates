@@ -31,6 +31,7 @@ public class SprocketManager : MonoBehaviour
         //UIManager.instance.AddSprocket(sprocketAmount);
 
         currentSprocketAmount += sprocketAmount;
+        AudioManager.instance.PlaySound("coins");
         UIManager.instance.UpdateSprockets(currentSprocketAmount);
         Towerbutton[] buttons = FindObjectsOfType<Towerbutton>();
         foreach (Towerbutton button in buttons)

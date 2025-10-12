@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TowerPlaceManager : MonoBehaviour
 {
+    public static TowerPlaceManager Instance;
+
     [SerializeField]
     GameObject[] towerPrefab;
 
@@ -20,11 +22,20 @@ public class TowerPlaceManager : MonoBehaviour
     private List<Color[]> originalColors = new List<Color[]>();
 
     public GameObject highlightPrefab;
+
     private GameObject currentHighlight;
+
+    public bool canBePlaced;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         mainCamera = Camera.main;
+        canBePlaced = false;
     }
 
     void Update()
@@ -40,6 +51,7 @@ public class TowerPlaceManager : MonoBehaviour
                 currentTower.transform.position = towerPosition; // Tower positionieren
 
                 Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(hit.point);
+
                 if (currentHighlight == null)
                 {
                     currentHighlight = Instantiate(
@@ -52,16 +64,37 @@ public class TowerPlaceManager : MonoBehaviour
                 {
                     currentHighlight.transform.position = snappedPos;
                 }
+                if (canBePlaced == true)
+                {
+                    Color color;
+                    if (ColorUtility.TryParseHtmlString("#DDB572", out color))
+                    {
+                        currentHighlight.GetComponent<Renderer>().material.color = color;
+                    }
+
+                    Debug.Log("CanBePlaced");
+                }
+                else
+                {
+                    Color color;
+                    if (ColorUtility.TryParseHtmlString("#DD8472", out color))
+                    {
+                        currentHighlight.GetComponent<Renderer>().material.color = color;
+                    }
+                   // currentHighlight.GetComponent<Renderer>().material.color = Color.red;
+                }
 
                 //snappedPos.y = hit.point.y;
 
                 if (Input.GetMouseButtonDown(0)) // Linksklick
                 {
-                    //noch einbauen dass dann das Geld abgezogen wird
-                    PlaceTower();
-                    Destroy(currentHighlight);
-                    currentTower.transform.position = snappedPos;
-                    currentTower = null; // Tower platzieren
+                    if (canBePlaced == true)
+                    {
+                        PlaceTower();
+                        Destroy(currentHighlight);
+                        currentTower.transform.position = snappedPos;
+                        currentTower = null; // Tower platzieren
+                    }
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
@@ -79,6 +112,8 @@ public class TowerPlaceManager : MonoBehaviour
         {
             return;
         }
+
+        AudioManager.instance.PlaySound("click");
         currentTower = Instantiate(towerPrefab[towerIndex]); // erstelle einen Tower wenn keiner grade platziert wird
         if (currentTower.TryGetComponent<Tower>(out Tower tower))
         {
@@ -110,6 +145,7 @@ public class TowerPlaceManager : MonoBehaviour
 
     private void PlaceTower()
     {
+        AudioManager.instance.PlaySound("turret_build");
         if (currentTower.TryGetComponent<Tower>(out Tower tower))
         {
             ((MonoBehaviour)tower).enabled = true;

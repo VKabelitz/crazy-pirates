@@ -2714,7 +2714,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 9d59f86c466e69143b126261268248bb, type: 2}
-  sounds: []
+  sounds:
+  - name: turret1_shoot
+    clip: {fileID: 8300000, guid: ace5600c7e0617744be4d348bb378d31, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 0.67
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: level_start
+    clip: {fileID: 8300000, guid: a34960826715f4d4b9111bd27fa1352b, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 2
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: click
+    clip: {fileID: 8300000, guid: eba2229b7bd4df84cb68a5438d4381a3, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: coins
+    clip: {fileID: 8300000, guid: 3a7d42ac6631df440b9842e79d5f3b72, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: door_damage
+    clip: {fileID: 8300000, guid: 63f0cf428bcf7144e8e3401a905ceb29, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: turret2_shoot
+    clip: {fileID: 8300000, guid: 2de078b174298024cb4aaf04e011b2db, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: turret_build
+    clip: {fileID: 8300000, guid: 1a6fa0ecc46db5b4c99f8cf6d0f89fa5, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
+  - name: victory
+    clip: {fileID: 8300000, guid: bc5391380c3e5f34f967be9a8297be02, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
 --- !u!1 &4855911384663716347
 GameObject:
   m_ObjectHideFlags: 0
