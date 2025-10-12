@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TowerPlaceManager : MonoBehaviour
 {
+    public static TowerPlaceManager Instance;
+
     [SerializeField]
     GameObject[] towerPrefab;
 
@@ -20,13 +22,20 @@ public class TowerPlaceManager : MonoBehaviour
     private List<Color[]> originalColors = new List<Color[]>();
 
     public GameObject highlightPrefab;
-    public GameObject notHighlightPrefab;
+
     private GameObject currentHighlight;
-    private float radius = 5f;
+
+    public bool canBePlaced;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         mainCamera = Camera.main;
+        canBePlaced = false;
     }
 
     void Update()
@@ -42,51 +51,50 @@ public class TowerPlaceManager : MonoBehaviour
                 currentTower.transform.position = towerPosition; // Tower positionieren
 
                 Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(hit.point);
+
                 if (currentHighlight == null)
                 {
-                    Collider[] hitColliders = Physics.OverlapSphere(
-                        currentTower.transform.position,
-                        radius
+                    currentHighlight = Instantiate(
+                        highlightPrefab,
+                        snappedPos,
+                        Quaternion.identity
                     );
-                    foreach (Collider col in hitColliders)
-                    {
-                        Debug.Log("Collider:" + col.gameObject.name);
-                        Debug.Log("LenghtCollider:" + hitColliders.Length);
-                        if (col.gameObject.tag == "BuildAble")
-                        {
-                            Debug.Log("CanBePlaced");
-                            currentHighlight = Instantiate(
-                                highlightPrefab,
-                                snappedPos,
-                                Quaternion.identity
-                            );
-                        }
-                        else
-                        {
-                            Debug.Log("CanNOTBePlaced");
-
-                            currentHighlight = Instantiate(
-                                notHighlightPrefab,
-                                snappedPos,
-                                Quaternion.identity
-                            );
-                        }
-                    }
                 }
                 else
                 {
                     currentHighlight.transform.position = snappedPos;
+                }
+                if (canBePlaced == true)
+                {
+                    Color color;
+                    if (ColorUtility.TryParseHtmlString("#DDB572", out color))
+                    {
+                        currentHighlight.GetComponent<Renderer>().material.color = color;
+                    }
+
+                    Debug.Log("CanBePlaced");
+                }
+                else
+                {
+                    Color color;
+                    if (ColorUtility.TryParseHtmlString("#DD8472", out color))
+                    {
+                        currentHighlight.GetComponent<Renderer>().material.color = color;
+                    }
+                   // currentHighlight.GetComponent<Renderer>().material.color = Color.red;
                 }
 
                 //snappedPos.y = hit.point.y;
 
                 if (Input.GetMouseButtonDown(0)) // Linksklick
                 {
-                    //noch einbauen dass dann das Geld abgezogen wird
-                    PlaceTower();
-                    Destroy(currentHighlight);
-                    currentTower.transform.position = snappedPos;
-                    currentTower = null; // Tower platzieren
+                    if (canBePlaced == true)
+                    {
+                        PlaceTower();
+                        Destroy(currentHighlight);
+                        currentTower.transform.position = snappedPos;
+                        currentTower = null; // Tower platzieren
+                    }
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {

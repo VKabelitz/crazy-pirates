@@ -18,7 +18,7 @@ public class LinearMovement : BaseMovement
             if (wayPointManager != null)
             {
                 wayPoints = wayPointManager.GetWayPoints();
-                Debug.Log("Waypoints loaded: " + wayPoints.Count);
+                //Debug.Log("Waypoints loaded: " + wayPoints.Count);
             }
         }
     }
