@@ -20,7 +20,9 @@ public class TowerPlaceManager : MonoBehaviour
     private List<Color[]> originalColors = new List<Color[]>();
 
     public GameObject highlightPrefab;
+    public GameObject notHighlightPrefab;
     private GameObject currentHighlight;
+    private float radius = 5f;
 
     void Start()
     {
@@ -42,11 +44,34 @@ public class TowerPlaceManager : MonoBehaviour
                 Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(hit.point);
                 if (currentHighlight == null)
                 {
-                    currentHighlight = Instantiate(
-                        highlightPrefab,
-                        snappedPos,
-                        Quaternion.identity
+                    Collider[] hitColliders = Physics.OverlapSphere(
+                        currentTower.transform.position,
+                        radius
                     );
+                    foreach (Collider col in hitColliders)
+                    {
+                        Debug.Log("Collider:" + col.gameObject.name);
+                        Debug.Log("LenghtCollider:" + hitColliders.Length);
+                        if (col.gameObject.tag == "BuildAble")
+                        {
+                            Debug.Log("CanBePlaced");
+                            currentHighlight = Instantiate(
+                                highlightPrefab,
+                                snappedPos,
+                                Quaternion.identity
+                            );
+                        }
+                        else
+                        {
+                            Debug.Log("CanNOTBePlaced");
+
+                            currentHighlight = Instantiate(
+                                notHighlightPrefab,
+                                snappedPos,
+                                Quaternion.identity
+                            );
+                        }
+                    }
                 }
                 else
                 {
