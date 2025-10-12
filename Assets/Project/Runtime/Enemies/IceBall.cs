@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class IceBall : Enemy
 {
-    private float slowScale = 3.0f;
-    private float range = 15f;
+    private float slowScale = 2.0f;
+    private float range = 8f;
 
     public void Update()
     {
