@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 0}
-  collisionDamage: 10
+  collisionDamage: 2
   sprocketAmount: 30
 --- !u!1001 &5839481155046825904
 PrefabInstance:
