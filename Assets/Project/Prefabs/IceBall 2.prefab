@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8677206723295449261}
   - component: {fileID: 4186389721664702875}
   m_Layer: 0
-  m_Name: IceBall 1
+  m_Name: IceBall 2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,23 +230,11 @@ PrefabInstance:
     - target: {fileID: -7601226680800833775, guid: 391139a22cafe3d4eada48e0c66c9e12, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ac8fec977e7af0a4b9e4a8dd6cb23dd9, type: 2}
+      objectReference: {fileID: 2100000, guid: 9cc5f45604cceb94d8b090d6707fceca, type: 2}
     - target: {fileID: -7511558181221131132, guid: 391139a22cafe3d4eada48e0c66c9e12, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3066ef7b9fc86fa4da717f6775b7b590, type: 2}
-    - target: {fileID: -6034480803058315714, guid: 391139a22cafe3d4eada48e0c66c9e12, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: fe5f21b41beb1ec4aae3f72c9d203904, type: 2}
-    - target: {fileID: -4856746350265117782, guid: 391139a22cafe3d4eada48e0c66c9e12, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 4b211c4fbf84bd947950a47b76597091, type: 2}
-    - target: {fileID: -884104258197911889, guid: 391139a22cafe3d4eada48e0c66c9e12, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 8f469e8409f3107429ebfa5e9c5365da, type: 2}
+      objectReference: {fileID: 2100000, guid: 4689a326836b5b045b2e2a5c1c365b7c, type: 2}
     - target: {fileID: 919132149155446097, guid: 391139a22cafe3d4eada48e0c66c9e12, type: 3}
       propertyPath: m_Name
       value: IceBall
