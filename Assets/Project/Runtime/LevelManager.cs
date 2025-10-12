@@ -1,6 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
@@ -23,6 +25,8 @@ public class LevelManager : MonoBehaviour
         {
             yield return StartCoroutine(SpawnWave(wave));
         }
+        // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
+        StartNextLevel();
     }
 
     private IEnumerator SpawnWave(EnemyWave wave)
@@ -30,7 +34,7 @@ public class LevelManager : MonoBehaviour
         int currentEntryIndex = 0;
 
         while (currentEntryIndex < wave.enemies.Count)
-        { 
+        {
             var entry = wave.enemies[currentEntryIndex];
 
             // Warte die Spawn-Zeit des aktuellen Gegners ab
@@ -51,5 +55,13 @@ public class LevelManager : MonoBehaviour
             enemyComponent.SetMovementType(enemyWaveEntry.movementType, enemyWaveEntry.movementSpeed);
         }
         enemy.transform.position = spawnPosition.transform.position;
+    }
+
+    private void StartNextLevel()
+    {
+        int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextIndex >= SceneManager.sceneCountInBuildSettings)
+            return;
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
