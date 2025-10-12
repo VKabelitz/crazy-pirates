@@ -7,7 +7,7 @@ public class LevelEndMenuLose : MonoBehaviour
     public static LevelEndMenuLose instance;
     public GameObject levelEndMenuLoseUI;
     public TextMeshProUGUI sprocketAmountText;
-    
+
     private void Awake()
     {
         instance = this;
@@ -27,7 +27,7 @@ public class LevelEndMenuLose : MonoBehaviour
 
     public void tryAgain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
     }
 }
