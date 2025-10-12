@@ -8,6 +8,7 @@ public class BuildableSpot : MonoBehaviour
         {
             TowerPlaceManager.Instance.canBePlaced = true;
             Debug.Log("Tower in buildable spot");
+            
             // You can add additional logic here, such as allowing placement
         }
     }
