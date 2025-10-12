@@ -28,6 +28,9 @@ public class AdvancedTower : Tower
     [SerializeField]
     private float rotationSpeed = 0.001f;
 
+    [SerializeField]
+    private GameObject YawWheel;
+
     private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
@@ -93,18 +96,28 @@ public class AdvancedTower : Tower
                 Vector3 targetPos = currentTarget.transform.position;
 
                 // --- YAW: Horizontal rotation around Y axis ---
+                Vector3 yawDirection = targetPos - YawWheel.transform.position;
+                yawDirection.y = 0; // Ignore vertical component
+                
+                if (yawDirection.sqrMagnitude > 0.001f)
+                {
+                    // Calculate target yaw angle
+                    float targetYaw =
+                        Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 90f;
 
-                // Vector3 targetDirection = currentTarget.transform.position - PitchWheel.transform.position;
-                // Vector3 localDirection = PitchWheel.transform.InverseTransformDirection(targetDirection);
+                    // Get current yaw angle
+                    float currentYaw = YawWheel.transform.eulerAngles.y;
 
-                // if (localDirection.sqrMagnitude > 0.001f)
-                // {
-                //     float targetPitch = Mathf.Atan2(localDirection.y, localDirection.z) * Mathf.Rad2Deg;
+                    // Smoothly interpolate yaw
+                    float smoothYaw = Mathf.LerpAngle(
+                        currentYaw,
+                        targetYaw,
+                        Time.deltaTime * rotationSpeed
+                    );
 
-                //     // Apply pitch only on X axis, preserving original Y/Z
-                //     Quaternion pitchRotation = Quaternion.Euler(targetPitch, 90f, 90f);
-                //     PitchWheel.transform.localRotation = initialPitchRotation * pitchRotation;
-                // }
+                    // Apply rotation (preserve other axes if needed)
+                    YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 0f);
+                }
             }
             timePassed += Time.deltaTime;
             if (timePassed >= currentFireRate)
