@@ -3106,6 +3106,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5738823575749202596, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0.003921569
+      objectReference: {fileID: 0}
     - target: {fileID: 5910548976665985240, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.85
@@ -3159,6 +3163,7 @@ PrefabInstance:
     - {fileID: 1729362040475338104, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
     - {fileID: 1307274439096198737, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
     - {fileID: 1167956238874482423, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
+    - {fileID: 6773579111340806245, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2825415185050639675, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
       insertIndex: 0
