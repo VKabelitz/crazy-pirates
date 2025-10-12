@@ -19,6 +19,9 @@ public class TowerPlaceManager : MonoBehaviour
     private List<Renderer> towerRenderers = new List<Renderer>();
     private List<Color[]> originalColors = new List<Color[]>();
 
+    public GameObject highlightPrefab;
+    private GameObject currentHighlight;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -32,17 +35,37 @@ public class TowerPlaceManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
             {
                 Vector3 towerPosition = hit.point;
-                towerPosition.y = towerHeight; // Setze die y-Position fix
+                // Setze die y-Position fix
+                towerPosition.y = towerHeight;
                 currentTower.transform.position = towerPosition; // Tower positionieren
+
+                Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(hit.point);
+                if (currentHighlight == null)
+                {
+                    currentHighlight = Instantiate(
+                        highlightPrefab,
+                        snappedPos,
+                        Quaternion.identity
+                    );
+                }
+                else
+                {
+                    currentHighlight.transform.position = snappedPos;
+                }
+
+                //snappedPos.y = hit.point.y;
 
                 if (Input.GetMouseButtonDown(0)) // Linksklick
                 {
                     //noch einbauen dass dann das Geld abgezogen wird
                     PlaceTower();
+                    Destroy(currentHighlight);
+                    currentTower.transform.position = snappedPos;
                     currentTower = null; // Tower platzieren
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
+                    Destroy(currentHighlight);
                     Destroy(currentTower); // Tower zerstören
                     currentTower = null;
                 }
@@ -105,5 +128,11 @@ public class TowerPlaceManager : MonoBehaviour
             }
         }
         //Geld abziehen von Singlketon Sprocket Börse
+    }
+
+    bool IsCellFree(Vector3 snappedPos)
+    {
+        Collider[] hits = Physics.OverlapBox(snappedPos, new Vector3(0.4f, 0.4f, 0.4f));
+        return hits.Length == 0;
     }
 }
