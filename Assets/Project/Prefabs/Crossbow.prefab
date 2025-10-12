@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4399d7680e2ef3648beb5f736dbe4a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprocketCosts: 200
-  fireRate: 0.4
+  sprocketCosts: 0
+  fireRate: 0.2
   gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
   projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
   projectileSpawnPoint: {fileID: 7937061946606888807}

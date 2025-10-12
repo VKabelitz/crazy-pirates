@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 3.unity
     guid: a0b5b41ffbf1c5e44b3ad8ab5ee1748c
+  - enabled: 1
+    path: Assets/Scenes/Level Victor.unity
+    guid: 9140c0ff569c3354aa1d3af6b714c0ad
   - enabled: 0
     path: Assets/Scenes/Milestone2.unity
     guid: cb2894f1199f11f4fa92f0c86df5fba9
