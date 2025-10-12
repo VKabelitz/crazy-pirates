@@ -24,7 +24,7 @@ public class BasicTower : Tower
     private float rangeRadius = 10f;
 
     [SerializeField]
-    private float targetCheckInterval = 0.5f;
+    private float targetCheckInterval = 0.03f;
 
     [SerializeField]
     private GameObject YawWheel;
@@ -133,7 +133,8 @@ public class BasicTower : Tower
             if (timePassed >= fireRate)
             {
                 timePassed = 0f;
-                Attack();
+                if (currentTarget != null)
+                    Attack();
             }
             yield return null;
         }
