@@ -5,7 +5,7 @@ public enum MovementType
     LinearMovement
 }
 
-public class Enemy : MonoBehaviour, IEnemy, IPoolable
+public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
 {
     [SerializeField]
     private ObjectPool enemyPool;
@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
     public int collisionDamage = 10;
     public int sprocketAmount = 30;
     private float defaultMovementSpeed = 2f;
+
 
     public void Awake()
     {
@@ -71,5 +72,6 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
         }
         gameObject.SetActive(false);
     }
+
 
 }
