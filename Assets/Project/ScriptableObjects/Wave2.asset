@@ -20,18 +20,30 @@ MonoBehaviour:
   - spawnTime: 1
     movementType: 0
     movementSpeed: 3
-  - spawnTime: 3
+  - spawnTime: 1
     movementType: 0
     movementSpeed: 3
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 3
+  - spawnTime: 2
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 4
   - spawnTime: 2
     movementType: 0
     movementSpeed: 3
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 0
+    movementSpeed: 4
   - spawnTime: 2
     movementType: 0
-    movementSpeed: 3
+    movementSpeed: 7
   - spawnTime: 2
     movementType: 0
-    movementSpeed: 3
+    movementSpeed: 7
