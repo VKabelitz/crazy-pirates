@@ -1850,6 +1850,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 515700822}
     - target: {fileID: 8770140483488045345, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
+      propertyPath: levelSequence
+      value: 
+      objectReference: {fileID: 11400000, guid: f752144badc634868a8cef3f02b15287, type: 2}
+    - target: {fileID: 8770140483488045345, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
       propertyPath: levelEndMenuUI
       value: 
       objectReference: {fileID: 515700822}

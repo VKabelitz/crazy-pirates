@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbb12684c5d1c54eaccddcdc32de4cd, type: 3}
+  m_Name: WaveLevel3 4
+  m_EditorClassIdentifier: 
+  waveDuration: 4
+  enemies:
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 6
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 9
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 3
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 17
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 14
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 8
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 5
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 16
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 16
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 25
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 25
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 25
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 20
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 25
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 20
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 20
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 20
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 20
