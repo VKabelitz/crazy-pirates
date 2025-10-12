@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2250242759873521712}
   - component: {fileID: 4958521787009225871}
+  - component: {fileID: -6001913159724785281}
   m_Layer: 0
   m_Name: Tesla
   m_TagString: Tower
@@ -86,6 +87,27 @@ MonoBehaviour:
   rangeRadius: 10
   targetCheckInterval: 0.5
   rotationSpeed: 0.001
+--- !u!65 &-6001913159724785281
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5845530841866571755}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8858292219757682128
 PrefabInstance:
   m_ObjectHideFlags: 0

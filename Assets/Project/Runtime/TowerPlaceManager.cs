@@ -84,7 +84,6 @@ public class TowerPlaceManager : MonoBehaviour
                     {
                         currentHighlight.GetComponent<Renderer>().material.color = color;
                     }
-                    // currentHighlight.GetComponent<Renderer>().material.color = Color.red;
                 }
 
                 //snappedPos.y = hit.point.y;
@@ -94,6 +93,7 @@ public class TowerPlaceManager : MonoBehaviour
                     if (canBePlaced == true)
                     {
                         PlaceTower();
+                        canBePlaced = false;
                         Destroy(currentHighlight);
                         currentTower.transform.position = snappedPos;
                         currentTower = null; // Tower platzieren
@@ -105,6 +105,7 @@ public class TowerPlaceManager : MonoBehaviour
                     {
                         spot.SetActive(false);
                     }
+                    canBePlaced = false;
                     Destroy(currentHighlight);
                     Destroy(currentTower); // Tower zerstören
                     currentTower = null;
@@ -178,6 +179,7 @@ public class TowerPlaceManager : MonoBehaviour
                 mat.color = c;
             }
         }
+        
         //Geld abziehen von Singlketon Sprocket Börse
     }
 
