@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Enemy
   - WayPoints
+<<<<<<< HEAD
+=======
+  - BuildAble
+>>>>>>> main
   - Tower
   layers:
   - Default
@@ -15,7 +19,7 @@ TagManager:
   - Water
   - UI
   - groundMask
-  - 
+  - canBePlacedAt
   - 
   - 
   - 
