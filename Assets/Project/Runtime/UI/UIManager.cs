@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
@@ -23,7 +24,8 @@ public class UIManager : MonoBehaviour
     {
         //sprocketText.text = sprockets.ToString() + " Sprockets";
         //healthText.text = healthProgress.ToString();
-        Cursor.SetCursor(cursorTexture, Vector2.zero, cursorMode);
+        Vector2 hotspot = new Vector2(0, 0);
+        Cursor.SetCursor(cursorTexture, hotspot, cursorMode);
 
     }
 
