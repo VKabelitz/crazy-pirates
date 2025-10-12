@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2250242759873521712}
-  - component: {fileID: 173625732458804062}
+  - component: {fileID: 4958521787009225871}
   m_Layer: 0
   m_Name: Tesla
   m_TagString: Untagged
@@ -65,7 +65,7 @@ Transform:
   - {fileID: 9035417852609182267}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &173625732458804062
+--- !u!114 &4958521787009225871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,20 +74,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5845530841866571755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46dc2ad76dd02443adf217ccf2e6e9c, type: 3}
+  m_Script: {fileID: 11500000, guid: e91edf8d6aac75f4daedad81b4f2608c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprocketCosts: 100
   gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
   projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
-  projectileSpawnPoint: {fileID: 1493514762819898889}
+  projectileSpawnPoint: {fileID: 2250242759873521712}
   projectilePool: {fileID: 2286453677775285567, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
   fireRate: 0.4
-  rangeRadius: 8.17
+  rangeRadius: 10
   targetCheckInterval: 0.5
-  YawWheel: {fileID: 921465534918114531}
-  PitchWheel: {fileID: 6368102011081341638}
   rotationSpeed: 0.001
-  sprocketCosts: 20
 --- !u!1001 &8858292219757682128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,16 +159,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d588e608acfb94be7bc8cd5d32e59cbf, type: 3}
---- !u!1 &921465534918114531 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8513859187771203891, guid: d588e608acfb94be7bc8cd5d32e59cbf, type: 3}
-  m_PrefabInstance: {fileID: 8858292219757682128}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6368102011081341638 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6733177361254619370, guid: d588e608acfb94be7bc8cd5d32e59cbf, type: 3}
-  m_PrefabInstance: {fileID: 8858292219757682128}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9035417852609182267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d588e608acfb94be7bc8cd5d32e59cbf, type: 3}
