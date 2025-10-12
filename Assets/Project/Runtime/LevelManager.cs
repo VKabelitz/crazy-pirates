@@ -65,7 +65,8 @@ public class LevelManager : MonoBehaviour
     }
 
     public void StartNextLevel()
-    {
+    {   
+        Time.timeScale = 0f;
         int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextIndex >= SceneManager.sceneCountInBuildSettings)
             return;
