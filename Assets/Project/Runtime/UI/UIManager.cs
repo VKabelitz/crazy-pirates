@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        sprocketText.text = sprockets.ToString() + " Sprockets";
+        //sprocketText.text = sprockets.ToString() + " Sprockets";
         //healthText.text = healthProgress.ToString();
     }
 
