@@ -1643,7 +1643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1372911876}
   m_Layer: 0
-  m_Name: Arrows
+  m_Name: ArrowIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
