@@ -28,5 +28,6 @@ public class LevelEndMenuLose : MonoBehaviour
     public void tryAgain()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
     }
 }

@@ -17,8 +17,6 @@ public class SuperAdvancedTower : Tower
     [SerializeField]
     private ObjectPool projectilePool;
 
-    [SerializeField]
-    private float fireRate = 0.4f;
 
     [SerializeField]
     private float rangeRadius = 10f;
@@ -86,48 +84,48 @@ public class SuperAdvancedTower : Tower
     }
 
     private IEnumerator Fire()
-{
-    float timePassed = 0f;
-    while (true)
     {
-        if (currentTarget != null)
+        float timePassed = 0f;
+        while (true)
         {
-            Vector3 targetPos = currentTarget.transform.position;
-
-            // --- YAW: Horizontal rotation around Y axis ---
-            Vector3 yawDirection = targetPos - YawWheel.transform.position;
-            yawDirection.y = 0; // Ignore vertical component
-
-            if (yawDirection.sqrMagnitude > 0.001f)
-            {
-                // Berechne den Ziel-Yaw-Winkel
-                float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 90f;
-
-                // Interpoliere den aktuellen Yaw-Winkel zum Ziel-Yaw-Winkel
-                float currentYaw = YawWheel.transform.eulerAngles.y;
-                float smoothYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.deltaTime * rotationSpeed);
-
-                // Setze die Rotation des YawWheel (nur um die Y-Achse)
-                YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 0f);
-            }
-        }
-
-        timePassed += Time.deltaTime;
-        if (timePassed >= fireRate)
-        {
-            timePassed = 0f;
             if (currentTarget != null)
-                Attack();
+            {
+                Vector3 targetPos = currentTarget.transform.position;
+
+                // --- YAW: Horizontal rotation around Y axis ---
+                Vector3 yawDirection = targetPos - YawWheel.transform.position;
+                yawDirection.y = 0; // Ignore vertical component
+
+                if (yawDirection.sqrMagnitude > 0.001f)
+                {
+                    // Berechne den Ziel-Yaw-Winkel
+                    float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 90f;
+
+                    // Interpoliere den aktuellen Yaw-Winkel zum Ziel-Yaw-Winkel
+                    float currentYaw = YawWheel.transform.eulerAngles.y;
+                    float smoothYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.deltaTime * rotationSpeed);
+
+                    // Setze die Rotation des YawWheel (nur um die Y-Achse)
+                    YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 0f);
+                }
+            }
+
+            timePassed += Time.deltaTime;
+            if (timePassed >= currentFireRate)
+            {
+                timePassed = 0f;
+                if (currentTarget != null)
+                    Attack();
+            }
+            yield return null;
         }
-        yield return null;
     }
-}
 
     public void Attack()
     {
         GameObject projectile = projectilePool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
-        
+
         if (currentTarget != null)
         {
             // Berechne die Richtung zum Ziel
