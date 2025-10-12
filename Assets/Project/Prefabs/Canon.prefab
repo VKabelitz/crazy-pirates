@@ -82,7 +82,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
   projectileSpawnPoint: {fileID: 3198308043127880218}
   projectilePool: {fileID: 2286453677775285567, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
-  fireRate: 0.4
+  fireRate: 2
   rangeRadius: 10
   targetCheckInterval: 0.5
   YawWheel: {fileID: 3469777414899594470}

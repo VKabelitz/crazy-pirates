@@ -2042,7 +2042,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 9d59f86c466e69143b126261268248bb, type: 2}
-  sounds: []
+  sounds:
+  - name: turret1_shoot
+    clip: {fileID: 8300000, guid: ace5600c7e0617744be4d348bb378d31, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 0.22
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
 --- !u!1 &4855911384663716347
 GameObject:
   m_ObjectHideFlags: 0
