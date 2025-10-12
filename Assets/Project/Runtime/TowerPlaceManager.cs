@@ -90,7 +90,7 @@ public class TowerPlaceManager : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0)) // Linksklick
                 {
-                    if (canBePlaced == true)
+                    if (canBePlaced == true && IsCellFree(snappedPos))
                     {
                         PlaceTower();
                         canBePlaced = false;
@@ -179,13 +179,32 @@ public class TowerPlaceManager : MonoBehaviour
                 mat.color = c;
             }
         }
-        
+
         //Geld abziehen von Singlketon Sprocket Börse
     }
 
     bool IsCellFree(Vector3 snappedPos)
     {
+        int currentTowerCounter = 0;
         Collider[] hits = Physics.OverlapBox(snappedPos, new Vector3(0.4f, 0.4f, 0.4f));
-        return hits.Length == 0;
+        if (hits.Length == 0)
+        {
+            return true;
+        }
+        else
+        {
+            foreach (Collider hit in hits)
+            {
+                if (hit.CompareTag("Tower"))
+                {
+                    currentTowerCounter++;
+                }
+            }
+            if (currentTowerCounter > 1)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
