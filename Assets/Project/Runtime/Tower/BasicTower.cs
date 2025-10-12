@@ -1,24 +1,47 @@
-using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicTower : MonoBehaviour, Tower
+public class BasicTower : Tower
 {
-    [SerializeField] private GameObject gate;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform projectileSpawnPoint;
-    [SerializeField] private ObjectPool projectilePool;
-    [SerializeField] private float fireRate = 0.4f;
-    [SerializeField] private float rangeRadius = 10f;
-    [SerializeField] private float targetCheckInterval = 0.5f;
-    [SerializeField] private GameObject YawWheel;
-    [SerializeField] private GameObject PitchWheel;
-    [SerializeField] private float rotationSpeed = 0.001f;
+    [SerializeField]
+    private GameObject gate;
+
+    [SerializeField]
+    private GameObject projectilePrefab;
+
+    [SerializeField]
+    private Transform projectileSpawnPoint;
+
+    [SerializeField]
+    private ObjectPool projectilePool;
+
+    [SerializeField]
+    private float fireRate = 0.4f;
+
+    [SerializeField]
+    private float rangeRadius = 10f;
+
+    [SerializeField]
+    private float targetCheckInterval = 0.03f;
+
+    [SerializeField]
+    private GameObject YawWheel;
+
+    [SerializeField]
+    private GameObject PitchWheel;
+
+    [SerializeField]
+    private float rotationSpeed = 0.001f;
     private Quaternion initialPitchRotation;
 
-
     private GameObject currentTarget;
+
+    void Awake()
+    {
+        sprocketCosts = 20;
+    }
 
     private void Start()
     {
@@ -69,7 +92,6 @@ public class BasicTower : MonoBehaviour, Tower
         {
             if (currentTarget != null)
             {
-
                 Vector3 targetPos = currentTarget.transform.position;
 
                 // --- YAW: Horizontal rotation around Y axis ---
@@ -79,13 +101,18 @@ public class BasicTower : MonoBehaviour, Tower
                 if (yawDirection.sqrMagnitude > 0.001f)
                 {
                     // Calculate target yaw angle
-                    float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
+                    float targetYaw =
+                        Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
 
                     // Get current yaw angle
                     float currentYaw = YawWheel.transform.eulerAngles.y;
 
                     // Smoothly interpolate yaw
-                    float smoothYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.deltaTime * rotationSpeed);
+                    float smoothYaw = Mathf.LerpAngle(
+                        currentYaw,
+                        targetYaw,
+                        Time.deltaTime * rotationSpeed
+                    );
 
                     // Apply rotation (preserve other axes if needed)
                     YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 90.0f);
@@ -101,14 +128,13 @@ public class BasicTower : MonoBehaviour, Tower
                 //     Quaternion pitchRotation = Quaternion.Euler(targetPitch, 90f, 90f);
                 //     PitchWheel.transform.localRotation = initialPitchRotation * pitchRotation;
                 // }
-
-
             }
             timePassed += Time.deltaTime;
             if (timePassed >= fireRate)
             {
                 timePassed = 0f;
-                Attack();
+                if (currentTarget != null)
+                    Attack();
             }
             yield return null;
         }
@@ -140,6 +166,11 @@ public class BasicTower : MonoBehaviour, Tower
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, currentTarget.transform.position);
         }
+    }
+
+    public override int GetSprocketCosts()
+    {
+        return base.GetSprocketCosts();
     }
 #endif
 }

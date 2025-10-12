@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5610027940121815374}
   - component: {fileID: 7952276030051113431}
   - component: {fileID: 889697134223240776}
-  - component: {fileID: 7213430402569531278}
+  - component: {fileID: 4262419832251297351}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -143,7 +143,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7213430402569531278
+--- !u!114 &4262419832251297351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,13 +152,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7064622618721180028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46dc2ad76dd02443adf217ccf2e6e9c, type: 3}
+  m_Script: {fileID: 11500000, guid: e91edf8d6aac75f4daedad81b4f2608c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprocketCosts: 0
   gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
   projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
-  projectileSpawnPoint: {fileID: 8305749051257993144}
+  projectileSpawnPoint: {fileID: 0}
   projectilePool: {fileID: 2286453677775285567, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
   fireRate: 0.4
   rangeRadius: 10
   targetCheckInterval: 0.5
+  YawWheel: {fileID: 0}
+  PitchWheel: {fileID: 0}
+  rotationSpeed: 0.001
+  sprocketCosts: 100

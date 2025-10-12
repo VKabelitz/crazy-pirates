@@ -1,21 +1,32 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class TowerPlaceManager : MonoBehaviour
 {
-    [SerializeField] GameObject towerPrefab;
-    [SerializeField] LayerMask groundMask;
-    [SerializeField] float towerHeight = 0.89f;
-    [SerializeField] float transparentAlpha = 0.4f;
+    [SerializeField]
+    GameObject[] towerPrefab;
+
+    [SerializeField]
+    LayerMask groundMask;
+
+    [SerializeField]
+    float towerHeight = 0.89f;
+
+    [SerializeField]
+    float transparentAlpha = 0.4f;
     private GameObject currentTower;
     private Camera mainCamera;
     private List<Renderer> towerRenderers = new List<Renderer>();
     private List<Color[]> originalColors = new List<Color[]>();
 
+    public GameObject highlightPrefab;
+    private GameObject currentHighlight;
+
     void Start()
     {
         mainCamera = Camera.main;
     }
+
     void Update()
     {
         if (currentTower != null)
@@ -24,31 +35,56 @@ public class TowerPlaceManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
             {
                 Vector3 towerPosition = hit.point;
-                towerPosition.y = towerHeight; // Setze die y-Position fix
+                // Setze die y-Position fix
+                towerPosition.y = towerHeight;
                 currentTower.transform.position = towerPosition; // Tower positionieren
+
+                Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(hit.point);
+                if (currentHighlight == null)
+                {
+                    currentHighlight = Instantiate(
+                        highlightPrefab,
+                        snappedPos,
+                        Quaternion.identity
+                    );
+                }
+                else
+                {
+                    currentHighlight.transform.position = snappedPos;
+                }
+
+                //snappedPos.y = hit.point.y;
 
                 if (Input.GetMouseButtonDown(0)) // Linksklick
                 {
                     //noch einbauen dass dann das Geld abgezogen wird
                     PlaceTower();
+                    Destroy(currentHighlight);
+                    currentTower.transform.position = snappedPos;
                     currentTower = null; // Tower platzieren
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
+                    Destroy(currentHighlight);
                     Destroy(currentTower); // Tower zerstören
                     currentTower = null;
                 }
             }
         }
     }
-    public void StartPlacingTower()
+
+    public void StartPlacingTower(int towerIndex)
     {
         if (towerPrefab == null)
         {
             return;
         }
-        currentTower = Instantiate(towerPrefab); // erstelle einen Tower wenn keiner grade platziert wird
-        currentTower.GetComponent<BasicTower>().enabled = false;
+        currentTower = Instantiate(towerPrefab[towerIndex]); // erstelle einen Tower wenn keiner grade platziert wird
+        if (currentTower.TryGetComponent<Tower>(out Tower tower))
+        {
+            ((MonoBehaviour)tower).enabled = false;
+        }
+
         // Transparenz aktivieren
         towerRenderers.Clear();
         originalColors.Clear();
@@ -66,7 +102,7 @@ public class TowerPlaceManager : MonoBehaviour
 
                 // wichtig: Shader muss Transparenz unterstützen!
                 r.materials[i].SetFloat("_Surface", 1); // nur bei URP nötig
-                r.materials[i].renderQueue = 3000;      // Transparent-Queue
+                r.materials[i].renderQueue = 3000; // Transparent-Queue
             }
             originalColors.Add(colors);
         }
@@ -74,18 +110,29 @@ public class TowerPlaceManager : MonoBehaviour
 
     private void PlaceTower()
     {
-        currentTower.GetComponent<BasicTower>().enabled = true;
-        // Transparenz zurücksetzen
-            for (int i = 0; i < towerRenderers.Count; i++)
-            {
-                for (int j = 0; j < towerRenderers[i].materials.Length; j++)
-                {
-                    var mat = towerRenderers[i].materials[j];
-                    Color c = originalColors[i][j];
-                    mat.color = c;
-                }
-            }
-        //Geld abziehen von Singlketon Sprocket Börse
+        if (currentTower.TryGetComponent<Tower>(out Tower tower))
+        {
+            ((MonoBehaviour)tower).enabled = true;
+            Debug.Log("Tower placed, cost: " + tower.GetSprocketCosts());
+            SprocketManager.instance.SubstractSprocket(tower.GetSprocketCosts());
+        }
 
+        // Transparenz zurücksetzen
+        for (int i = 0; i < towerRenderers.Count; i++)
+        {
+            for (int j = 0; j < towerRenderers[i].materials.Length; j++)
+            {
+                var mat = towerRenderers[i].materials[j];
+                Color c = originalColors[i][j];
+                mat.color = c;
+            }
+        }
+        //Geld abziehen von Singlketon Sprocket Börse
+    }
+
+    bool IsCellFree(Vector3 snappedPos)
+    {
+        Collider[] hits = Physics.OverlapBox(snappedPos, new Vector3(0.4f, 0.4f, 0.4f));
+        return hits.Length == 0;
     }
 }

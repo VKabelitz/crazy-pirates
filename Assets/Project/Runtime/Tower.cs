@@ -1,9 +1,13 @@
 using UnityEngine;
 
-public interface Tower
+public abstract class Tower : MonoBehaviour
 {
     public static int range;
     public static bool attackingEnemy;
+    public int sprocketCosts;
 
-    public void Attack();
+    public virtual int GetSprocketCosts()
+    {
+        return sprocketCosts;
+    }
 }
