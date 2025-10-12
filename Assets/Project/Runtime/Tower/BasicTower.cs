@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Linq;
+using UnityEditor;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +15,6 @@ public class BasicTower : Tower
 
     [SerializeField]
     private Transform projectileSpawnPoint;
-
 
     [SerializeField]
     private float rangeRadius = 10f;
@@ -29,6 +30,11 @@ public class BasicTower : Tower
 
     [SerializeField]
     private float rotationSpeed = 0.001f;
+
+    [SerializeField]
+    public GameObject projectilePoolPrefab;
+    
+    private ObjectPool pool;
     private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
@@ -36,10 +42,29 @@ public class BasicTower : Tower
     void Awake()
     {
         sprocketCosts = 20;
+
+        if (projectilePoolPrefab == null)
+        {
+            Debug.LogError($"[{name}] ProjectilePoolPrefab not assigned!");
+            return;
+        }
+
+        GameObject poolInstance = Instantiate(projectilePoolPrefab);
+        pool = poolInstance.GetComponent<ObjectPool>();
+
+        if (pool == null)
+        {
+            Debug.LogError($"[{name}] The assigned projectilePoolPrefab has no ObjectPool component!");
+        }
+        else
+        {
+            Debug.Log($"[{name}] Pool created successfully with ID {pool.GetInstanceID()}");
+        }
     }
 
     private void Start()
     {
+        Debug.Log("BasicTower Start called.");
         initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
@@ -139,8 +164,8 @@ public class BasicTower : Tower
     public void Attack()
     {
         Debug.Log("Tower id: " + this.GetInstanceID());
-        Debug.Log("pool id: " + projectilePool.GetInstanceID());
-        GameObject projectile = projectilePool.GetFromPool();
+        Debug.Log("pool id: " + pool.GetInstanceID());
+        GameObject projectile = pool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
 
         if (currentTarget != null)
