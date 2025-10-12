@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 6649719437876240187}
   - component: {fileID: 9034615373974600450}
   - component: {fileID: 2899629691842443692}
+  - component: {fileID: 4556136689553118776}
   m_Layer: 0
   m_Name: LevelEndMenu
   m_TagString: Untagged
@@ -1178,6 +1179,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4556136689553118776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502058084327112047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733226b55155b1045b15c04165fbbf95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelEndMenuUI: {fileID: 2502058084327112047}
+  sprocketAmountText: {fileID: 5602720833425695997}
 --- !u!1 &2527844033523179757
 GameObject:
   m_ObjectHideFlags: 0

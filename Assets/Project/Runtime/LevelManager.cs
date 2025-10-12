@@ -14,8 +14,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject spawnPosition;
 
-    [SerializeField]
-    private GameObject levelMenuUI;
 
     public void Start()
     {
@@ -29,7 +27,8 @@ public class LevelManager : MonoBehaviour
             yield return StartCoroutine(SpawnWave(wave));
         }
         // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
-        levelMenuUI.SetActive(true);
+        LevelEndMenu.instance.activateMenu();
+
     }
 
     private IEnumerator SpawnWave(EnemyWave wave)
