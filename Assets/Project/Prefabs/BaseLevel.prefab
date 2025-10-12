@@ -4184,6 +4184,15 @@ MonoBehaviour:
     soundType: 2
     ignorePause: 0
     source: {fileID: 0}
+  - name: arrow_shoot
+    clip: {fileID: 8300000, guid: 6b05ad154f5729f4fb6be63370391a6b, type: 3}
+    audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    soundType: 2
+    ignorePause: 0
+    source: {fileID: 0}
 --- !u!1 &4855911384663716347
 GameObject:
   m_ObjectHideFlags: 0

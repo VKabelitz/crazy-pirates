@@ -149,7 +149,7 @@ public class SuperAdvancedTower : Tower
             projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
 
         // Play sound from AudioManager
-        AudioManager.instance.PlaySound("turret1_shoot");
+        AudioManager.instance.PlaySound("arrow_shoot");
     }
 
 #if UNITY_EDITOR
