@@ -2719,7 +2719,7 @@ PrefabInstance:
     - target: {fileID: 1668730043698732162, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
       propertyPath: 'towerPrefab.Array.data[1]'
       value: 
-      objectReference: {fileID: 7064622618721180028, guid: 6c4bd1d82a1c04b42ba1dd94c4bb2b3c, type: 3}
+      objectReference: {fileID: 5845530841866571755, guid: 0408275b21f2841a787a374e100642da, type: 3}
     - target: {fileID: 1668730043698732162, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
       propertyPath: 'towerPrefab.Array.data[2]'
       value: 
