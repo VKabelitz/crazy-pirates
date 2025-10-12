@@ -18,9 +18,6 @@ public class BasicTower : Tower
     private ObjectPool projectilePool;
 
     [SerializeField]
-    private float fireRate = 0.4f;
-
-    [SerializeField]
     private float rangeRadius = 10f;
 
     [SerializeField]
@@ -43,8 +40,10 @@ public class BasicTower : Tower
         sprocketCosts = 20;
     }
 
+
     private void Start()
     {
+        currentFireRate = fireRate;
         initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
@@ -132,6 +131,7 @@ public class BasicTower : Tower
             timePassed += Time.deltaTime;
             if (timePassed >= fireRate)
             {
+                Debug.Log("Current fire rate: " + currentFireRate);
                 timePassed = 0f;
                 if (currentTarget != null)
                     Attack();
