@@ -144,7 +144,20 @@ public class BasicTower : Tower
     {
         GameObject projectile = projectilePool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
-        projectile.transform.rotation = Quaternion.identity;
+        
+        if (currentTarget != null)
+        {
+            // Berechne die Richtung zum Ziel
+            Vector3 directionToTarget = (currentTarget.transform.position - projectileSpawnPoint.position).normalized;
+
+            // Setze die Rotation des Projektils so, dass es in Richtung des Gegners zeigt
+            projectile.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
+        else
+        {
+            // Standardrotation, falls kein Ziel vorhanden ist
+            projectile.transform.rotation = Quaternion.identity;
+        }
 
         var poolable = projectile.GetComponent<IPoolable>();
         poolable?.OnActivate();
