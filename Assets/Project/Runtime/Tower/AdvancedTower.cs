@@ -15,7 +15,7 @@ public class AdvancedTower : Tower
     private Transform projectileSpawnPoint;
 
     [SerializeField]
-    private ObjectPool projectilePool;
+    private GameObject projectilePoolPrefab;
 
 
 
@@ -34,10 +34,13 @@ public class AdvancedTower : Tower
     private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
+    private ObjectPool pool;
 
     void Awake()
     {
         sprocketCosts = 100;
+        GameObject poolInstance = Instantiate(projectilePoolPrefab);
+        pool = poolInstance.GetComponent<ObjectPool>();
     }
 
     private void Start()
@@ -132,7 +135,7 @@ public class AdvancedTower : Tower
 
     public void Attack()
     {
-        GameObject projectile = projectilePool.GetFromPool();
+        GameObject projectile = pool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
         projectile.transform.rotation = Quaternion.identity;
 

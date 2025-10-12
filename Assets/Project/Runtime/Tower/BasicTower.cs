@@ -15,7 +15,7 @@ public class BasicTower : Tower
     private Transform projectileSpawnPoint;
 
     [SerializeField]
-    private ObjectPool projectilePool;
+    private GameObject projectilePoolPrefab;
 
     [SerializeField]
     private float rangeRadius = 10f;
@@ -32,12 +32,14 @@ public class BasicTower : Tower
     [SerializeField]
     private float rotationSpeed = 0.001f;
     private Quaternion initialPitchRotation;
-
+    private ObjectPool pool;
     private GameObject currentTarget;
 
     void Awake()
     {
         sprocketCosts = 20;
+        GameObject poolInstance = Instantiate(projectilePoolPrefab);
+        pool = poolInstance.GetComponent<ObjectPool>();
     }
 
     private void Start()
@@ -140,7 +142,7 @@ public class BasicTower : Tower
 
     public void Attack()
     {
-        GameObject projectile = projectilePool.GetFromPool();
+        GameObject projectile = pool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
 
         if (currentTarget != null)
