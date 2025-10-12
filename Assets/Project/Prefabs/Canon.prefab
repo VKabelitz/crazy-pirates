@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46dc2ad76dd02443adf217ccf2e6e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprocketCosts: 0
   gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
   projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
   projectileSpawnPoint: {fileID: 3198308043127880218}
