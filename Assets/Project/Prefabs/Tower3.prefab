@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 5610027940121815374}
   - component: {fileID: 7952276030051113431}
   - component: {fileID: 889697134223240776}
-  - component: {fileID: 4262419832251297351}
+  - component: {fileID: 8261019736902471666}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: Tower3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c2f653c60f4ddb443b7f38115c71a222, type: 2}
+  - {fileID: 2100000, guid: 03db882693972e241b5a9f8227f27c7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,7 +143,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4262419832251297351
+--- !u!114 &8261019736902471666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7064622618721180028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91edf8d6aac75f4daedad81b4f2608c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4399d7680e2ef3648beb5f736dbe4a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprocketCosts: 0
@@ -163,7 +163,4 @@ MonoBehaviour:
   fireRate: 0.4
   rangeRadius: 10
   targetCheckInterval: 0.5
-  YawWheel: {fileID: 0}
-  PitchWheel: {fileID: 0}
   rotationSpeed: 0.001
-  sprocketCosts: 100

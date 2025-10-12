@@ -4,7 +4,7 @@ using UnityEngine;
 public class TowerPlaceManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject towerPrefab;
+    GameObject[] towerPrefab;
 
     [SerializeField]
     LayerMask groundMask;
@@ -50,14 +50,17 @@ public class TowerPlaceManager : MonoBehaviour
         }
     }
 
-    public void StartPlacingTower()
+    public void StartPlacingTower(int towerIndex)
     {
         if (towerPrefab == null)
         {
             return;
         }
-        currentTower = Instantiate(towerPrefab); // erstelle einen Tower wenn keiner grade platziert wird
-        currentTower.GetComponent<BasicTower>().enabled = false;
+        currentTower = Instantiate(towerPrefab[towerIndex]); // erstelle einen Tower wenn keiner grade platziert wird
+        if (currentTower.TryGetComponent<Tower>(out Tower tower))
+        {
+            ((MonoBehaviour)tower).enabled = false;
+        }
 
         // Transparenz aktivieren
         towerRenderers.Clear();
@@ -84,11 +87,11 @@ public class TowerPlaceManager : MonoBehaviour
 
     private void PlaceTower()
     {
-        currentTower.GetComponent<BasicTower>().enabled = true;
-        if (currentTower.TryGetComponent(out BasicTower basicTower))
+        if (currentTower.TryGetComponent<Tower>(out Tower tower))
         {
-            Debug.Log("Tower placed, cost: " + basicTower.GetSprocketCosts());
-            SprocketManager.instance.SubstractSprocket(basicTower.GetSprocketCosts());
+            ((MonoBehaviour)tower).enabled = true;
+            Debug.Log("Tower placed, cost: " + tower.GetSprocketCosts());
+            SprocketManager.instance.SubstractSprocket(tower.GetSprocketCosts());
         }
 
         // Transparenz zurücksetzen

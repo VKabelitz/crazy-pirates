@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicTower : Tower
+public class SuperAdvancedTower : Tower
 {
     [SerializeField]
     private GameObject gate;
@@ -27,29 +27,28 @@ public class BasicTower : Tower
     private float targetCheckInterval = 0.5f;
 
     [SerializeField]
-    private GameObject YawWheel;
-
-    [SerializeField]
-    private GameObject PitchWheel;
-
-    [SerializeField]
     private float rotationSpeed = 0.001f;
+
     private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
 
     void Awake()
     {
-        sprocketCosts = 20;
+        sprocketCosts = 200;
     }
 
     private void Start()
     {
-        initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
         StartCoroutine(TargetUpdater());
         StartCoroutine(Fire());
+    }
+
+    public override int GetSprocketCosts()
+    {
+        return base.GetSprocketCosts();
     }
 
     private IEnumerator TargetUpdater()
@@ -95,28 +94,7 @@ public class BasicTower : Tower
                 Vector3 targetPos = currentTarget.transform.position;
 
                 // --- YAW: Horizontal rotation around Y axis ---
-                Vector3 yawDirection = targetPos - YawWheel.transform.position;
-                yawDirection.y = 0; // Ignore vertical component
 
-                if (yawDirection.sqrMagnitude > 0.001f)
-                {
-                    // Calculate target yaw angle
-                    float targetYaw =
-                        Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 180f;
-
-                    // Get current yaw angle
-                    float currentYaw = YawWheel.transform.eulerAngles.y;
-
-                    // Smoothly interpolate yaw
-                    float smoothYaw = Mathf.LerpAngle(
-                        currentYaw,
-                        targetYaw,
-                        Time.deltaTime * rotationSpeed
-                    );
-
-                    // Apply rotation (preserve other axes if needed)
-                    YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 90.0f);
-                }
                 // Vector3 targetDirection = currentTarget.transform.position - PitchWheel.transform.position;
                 // Vector3 localDirection = PitchWheel.transform.InverseTransformDirection(targetDirection);
 
@@ -165,11 +143,6 @@ public class BasicTower : Tower
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, currentTarget.transform.position);
         }
-    }
-
-    public override int GetSprocketCosts()
-    {
-        return base.GetSprocketCosts();
     }
 #endif
 }
