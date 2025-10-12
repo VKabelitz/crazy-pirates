@@ -30,6 +30,6 @@ public class LevelEndMenu : MonoBehaviour
 
     public void loadMenu()
     {
-        SceneManager.LoadScene("Menü");
+        SceneManager.LoadSceneAsync("Menü");
     }
 }
