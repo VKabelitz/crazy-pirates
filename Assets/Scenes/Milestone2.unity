@@ -897,7 +897,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1835949700}
         m_TargetAssemblyTypeName: TowerPlaceManager, Assembly-CSharp
         m_MethodName: StartPlacingTower
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2554,6 +2554,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1668730043698732162, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
       propertyPath: towerPrefab
+      value: 
+      objectReference: {fileID: 8025664517355020572, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+    - target: {fileID: 1668730043698732162, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
+      propertyPath: 'towerPrefab.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8025664517355020572, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+    - target: {fileID: 1668730043698732162, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
+      propertyPath: 'towerPrefab.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8025664517355020572, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
+    - target: {fileID: 1668730043698732162, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
+      propertyPath: 'towerPrefab.Array.data[2]'
       value: 
       objectReference: {fileID: 8025664517355020572, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
     - target: {fileID: 4403117389870012250, guid: fcf7bdc071745db4eb9339481048b40d, type: 3}
