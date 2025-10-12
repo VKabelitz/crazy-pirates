@@ -13,4 +13,5 @@ public class EnemyWaveEntry
 {
     public float spawnTime;
     public MovementType movementType;
+    public float movementSpeed;
 }

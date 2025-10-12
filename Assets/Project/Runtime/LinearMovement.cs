@@ -42,7 +42,7 @@ public class LinearMovement : BaseMovement
         Vector3 targetPos = wayPoints[currentWayPointIndex].position;
 
         targetPos.y = current.y; // Keep the same height
-        
+
         transform.position = Vector3.MoveTowards(current, targetPos, Time.deltaTime * movementSpeed);
 
         // Rotation
@@ -57,5 +57,15 @@ public class LinearMovement : BaseMovement
         {
             currentWayPointIndex++;
         }
+    }
+
+    public void SetMovementSpeed(float speed)
+    {
+        movementSpeed = speed;
+    }
+    
+    public float GetMovementSpeed()
+    {
+        return movementSpeed;
     }
 }

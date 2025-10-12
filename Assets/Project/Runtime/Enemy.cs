@@ -8,15 +8,15 @@ public enum MovementType
 public class Enemy : MonoBehaviour, IEnemy, IPoolable
 {
     [SerializeField]
-    private float movementSpeed;
     private ObjectPool enemyPool;
     private Health health;
     public int collisionDamage = 10;
     public int sprocketAmount = 30;
+    private float defaultMovementSpeed = 2f;
 
     public void Awake()
     {
-        SetMovementType(MovementType.LinearMovement);
+        SetMovementType(MovementType.LinearMovement, defaultMovementSpeed);
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
     }
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
         health.TakeDamage(damage);
     }
 
-    public void SetMovementType(MovementType movementType)
+    public void SetMovementType(MovementType movementType, float movementSpeed)
     {
         if (gameObject.TryGetComponent(out BaseMovement movementComponent))
         {
@@ -37,7 +37,9 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
         {
             case MovementType.LinearMovement:
             default:
-                gameObject.AddComponent<LinearMovement>();
+                LinearMovement linearMovement = gameObject.AddComponent<LinearMovement>();
+                linearMovement.SetMovementSpeed(movementSpeed);
+
                 Debug.Log("Linear Movement Added");
                 break;
         }
@@ -64,9 +66,10 @@ public class Enemy : MonoBehaviour, IEnemy, IPoolable
         {
             // ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
             // scoreManager.AddScore(5);
-            
+
             SprocketManager.instance.AddSprockets(sprocketAmount);
         }
         gameObject.SetActive(false);
     }
+
 }
