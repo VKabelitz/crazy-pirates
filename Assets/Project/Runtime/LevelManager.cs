@@ -23,6 +23,17 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(RunLevelSequence());
     }
 
+    void Update()
+    {
+      // Überprüfe, ob die Taste "E" gedrückt wurde
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+        // Führe die gewünschte Aktion aus
+        Debug.Log("E wurde gedrückt!");
+         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }  
+    }
+
     private IEnumerator RunLevelSequence()
     {
         foreach (EnemyWave wave in levelSequence.waves)
