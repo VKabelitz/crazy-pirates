@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject spawnPosition;
 
+
     public void Start()
     {
         AudioManager.instance.SwitchMusic("Theme");
@@ -31,7 +32,8 @@ public class LevelManager : MonoBehaviour
 
         AudioManager.instance.PlaySound("victory");
         // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
-        StartNextLevel();
+        LevelEndMenu.instance.activateMenu();
+
     }
 
     private IEnumerator SpawnWave(EnemyWave wave)
@@ -62,7 +64,7 @@ public class LevelManager : MonoBehaviour
         enemy.transform.position = spawnPosition.transform.position;
     }
 
-    private void StartNextLevel()
+    public void StartNextLevel()
     {
         int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextIndex >= SceneManager.sceneCountInBuildSettings)
