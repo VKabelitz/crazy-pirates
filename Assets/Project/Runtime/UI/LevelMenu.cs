@@ -6,7 +6,7 @@ public class LevelMenu : MonoBehaviour
     public void PlayLevel1()
     {
         //TODO: change to Level 1 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
     }
 
     public void PlayLevel2()

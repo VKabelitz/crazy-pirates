@@ -14,6 +14,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject spawnPosition;
 
+    [SerializeField]
+    private GameObject levelMenuUI;
+
     public void Start()
     {
         StartCoroutine(RunLevelSequence());
@@ -26,7 +29,7 @@ public class LevelManager : MonoBehaviour
             yield return StartCoroutine(SpawnWave(wave));
         }
         // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
-        StartNextLevel();
+        levelMenuUI.SetActive(true);
     }
 
     private IEnumerator SpawnWave(EnemyWave wave)
@@ -57,7 +60,7 @@ public class LevelManager : MonoBehaviour
         enemy.transform.position = spawnPosition.transform.position;
     }
 
-    private void StartNextLevel()
+    public void StartNextLevel()
     {
         int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextIndex >= SceneManager.sceneCountInBuildSettings)
