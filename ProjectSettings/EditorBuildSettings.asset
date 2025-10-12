@@ -19,7 +19,7 @@ EditorBuildSettings:
     guid: cb2894f1199f11f4fa92f0c86df5fba9
   - enabled: 1
     path: Assets/Scenes/Milestone3.unity
-    guid: 9ef0d173a39bca64380861b2c48f7ef1
+    guid: 926537bf0462b9f45ad81ffaa1d5b7c2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
