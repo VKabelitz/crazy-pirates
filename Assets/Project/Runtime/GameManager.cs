@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
         if (!instance)
         {
             instance = this;
-            AudioManager.instance.Play("MainTheme");
         }
 
     }
