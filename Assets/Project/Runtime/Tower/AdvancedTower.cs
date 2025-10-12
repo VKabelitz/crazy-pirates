@@ -17,8 +17,7 @@ public class AdvancedTower : Tower
     [SerializeField]
     private ObjectPool projectilePool;
 
-    [SerializeField]
-    private float fireRate = 0.4f;
+
 
     [SerializeField]
     private float rangeRadius = 10f;
@@ -108,7 +107,7 @@ public class AdvancedTower : Tower
                 // }
             }
             timePassed += Time.deltaTime;
-            if (timePassed >= fireRate)
+            if (timePassed >= currentFireRate)
             {
                 timePassed = 0f;
                 if (currentTarget != null)

@@ -130,7 +130,7 @@ public class BasicTower : Tower
                 // }
             }
             timePassed += Time.deltaTime;
-            if (timePassed >= fireRate)
+            if (timePassed >= currentFireRate)
             {
                 timePassed = 0f;
                 if (currentTarget != null)
@@ -144,7 +144,7 @@ public class BasicTower : Tower
     {
         GameObject projectile = projectilePool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
-        
+
         if (currentTarget != null)
         {
             // Berechne die Richtung zum Ziel
