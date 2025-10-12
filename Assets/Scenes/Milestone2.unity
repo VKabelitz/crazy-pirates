@@ -1011,6 +1011,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8922335722820525568, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
+      propertyPath: 'towerPrefab.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7370691358272999734, guid: 415b9200094314b90ae374784d121a26, type: 3}
+    - target: {fileID: 8922335722820525568, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
       propertyPath: 'buildableSpots.Array.data[0]'
       value: 
       objectReference: {fileID: 2062695002}
