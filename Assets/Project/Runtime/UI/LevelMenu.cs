@@ -23,4 +23,11 @@ public class LevelMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
         Time.timeScale = 1f;
     }
+
+    public void PlayLevel4()
+    {
+        //TODO: change to level 3
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        Time.timeScale = 1f;
+    }
 }
