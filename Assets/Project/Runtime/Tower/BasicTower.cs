@@ -152,6 +152,9 @@ public class BasicTower : Tower
         var projectileComp = projectile.GetComponent<Projectile>();
         if (currentTarget != null)
             projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
+
+        // Play sound from AudioManager
+        AudioManager.instance.PlaySound("turret1_shoot");
     }
 
 #if UNITY_EDITOR

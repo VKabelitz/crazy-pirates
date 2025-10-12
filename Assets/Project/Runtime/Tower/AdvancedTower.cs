@@ -129,6 +129,8 @@ public class AdvancedTower : Tower
         var projectileComp = projectile.GetComponent<Projectile>();
         if (currentTarget != null)
             projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
+
+        AudioManager.instance.PlaySound("turret2_shoot");
     }
 
 #if UNITY_EDITOR

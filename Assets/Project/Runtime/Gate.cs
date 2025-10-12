@@ -22,6 +22,7 @@ public class Gate : MonoBehaviour
         {
             if (gameObject.TryGetComponent(out Health health))
             {
+                AudioManager.instance.PlaySound("door_damage");
                 health.TakeDamage(other.gameObject.GetComponent<Enemy>().collisionDamage);
                 UIManager.instance.UpdateHealth(other.gameObject.GetComponent<Enemy>().collisionDamage);
                 if (other.gameObject.TryGetComponent(out IPoolable poolable))

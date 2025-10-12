@@ -79,6 +79,8 @@ public class TowerPlaceManager : MonoBehaviour
         {
             return;
         }
+
+        AudioManager.instance.PlaySound("click");
         currentTower = Instantiate(towerPrefab[towerIndex]); // erstelle einen Tower wenn keiner grade platziert wird
         if (currentTower.TryGetComponent<Tower>(out Tower tower))
         {
@@ -110,6 +112,7 @@ public class TowerPlaceManager : MonoBehaviour
 
     private void PlaceTower()
     {
+        AudioManager.instance.PlaySound("turret_build");
         if (currentTower.TryGetComponent<Tower>(out Tower tower))
         {
             ((MonoBehaviour)tower).enabled = true;
