@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
 
     public void Start()
     {
+        AudioManager.instance.SwitchMusic("Theme");
         StartCoroutine(RunLevelSequence());
     }
 
