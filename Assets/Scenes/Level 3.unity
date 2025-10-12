@@ -1055,7 +1055,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceBall
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4186389721664702875, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
+    - {fileID: 5040493262180929947, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4582088338261729700, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
