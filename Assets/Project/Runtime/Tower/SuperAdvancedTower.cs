@@ -14,9 +14,6 @@ public class SuperAdvancedTower : Tower
     [SerializeField]
     private Transform projectileSpawnPoint;
 
-    [SerializeField]
-    private ObjectPool projectilePool;
-
 
     [SerializeField]
     private float rangeRadius = 10f;

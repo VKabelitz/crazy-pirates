@@ -5,6 +5,8 @@ public abstract class Tower : MonoBehaviour
     public static int range;
     public static bool attackingEnemy;
     public int sprocketCosts;
+    [SerializeField]
+    protected ObjectPool projectilePool;
 
     [SerializeField]
     protected float fireRate = 0.4f;

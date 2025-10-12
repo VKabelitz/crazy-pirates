@@ -14,8 +14,6 @@ public class AdvancedTower : Tower
     [SerializeField]
     private Transform projectileSpawnPoint;
 
-    [SerializeField]
-    private ObjectPool projectilePool;
 
 
 

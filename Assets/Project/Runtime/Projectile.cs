@@ -5,6 +5,7 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private int damage;
     [SerializeField] private ParticleSystem OnHitEffect;
+    [SerializeField]
     private ObjectPool projectilePool;
     private Enemy currentTarget;
 
@@ -23,7 +24,7 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
 
     public void OnActivate() => gameObject.SetActive(true);
     public void OnDeactivate() => gameObject.SetActive(false);
-    public void ReturnToPool() => projectilePool.ReturnToPool(gameObject);
+    public void ReturnToPool() => projectilePool?.ReturnToPool(gameObject);
     public void SetPool(ObjectPool pool) => projectilePool = pool;
 
     private void OnTriggerEnter(Collider other)
@@ -43,6 +44,11 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
         }
     }
 
+    private void Start()
+    {
+        // if (projectilePool.;
+        //     projectilePool.InitializePool();
+    }
     private void Update()
     {
         // 💡 Safety check: If target is null OR inactive, return to pool.

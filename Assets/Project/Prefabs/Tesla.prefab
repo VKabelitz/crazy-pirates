@@ -79,11 +79,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprocketCosts: 100
-  gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
-  projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
-  projectileSpawnPoint: {fileID: 1493514762819898889}
   projectilePool: {fileID: 2286453677775285567, guid: 3c650e414be364e4a8b0f6dc8e64c80e, type: 3}
   fireRate: 1
+  gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
+  projectilePrefab: {fileID: 5307051855296515989, guid: e0d665ef08f01d249bbb7cfa73c6b758, type: 3}
+  projectileSpawnPoint: {fileID: 1493514762819898889}
   rangeRadius: 10
   targetCheckInterval: 0.5
   rotationSpeed: 0.001

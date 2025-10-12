@@ -14,8 +14,6 @@ public class BasicTower : Tower
     [SerializeField]
     private Transform projectileSpawnPoint;
 
-    [SerializeField]
-    private ObjectPool projectilePool;
 
     [SerializeField]
     private float rangeRadius = 10f;
@@ -140,6 +138,8 @@ public class BasicTower : Tower
 
     public void Attack()
     {
+        Debug.Log("Tower id: " + this.GetInstanceID());
+        Debug.Log("pool id: " + projectilePool.GetInstanceID());
         GameObject projectile = projectilePool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
 
