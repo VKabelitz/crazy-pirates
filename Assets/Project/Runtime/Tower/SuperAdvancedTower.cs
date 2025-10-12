@@ -38,7 +38,7 @@ public class SuperAdvancedTower : Tower
 
     void Awake()
     {
-        sprocketCosts = 20;
+        sprocketCosts = 200;
     }
 
     private void Start()
