@@ -39,6 +39,35 @@ public class TowerPlaceManager : MonoBehaviour
     {
         mainCamera = Camera.main;
         canBePlaced = false;
+
+        // Automatically find buildable spots
+        GameObject buildableParent = GameObject.FindGameObjectWithTag("Buildable");
+
+        if (buildableParent != null)
+        {
+            List<GameObject> foundSpots = new List<GameObject>();
+
+            // Loop through all first-level children (spots)
+            foreach (Transform spot in buildableParent.transform)
+            {
+                // Loop through second-level children (planes)
+                foreach (Transform plane in spot)
+                {
+                    foundSpots.Add(plane.gameObject);
+                }
+            }
+
+            buildableSpots = foundSpots.ToArray();
+            foreach (GameObject spot in buildableSpots)
+            {
+                spot.SetActive(false);
+            }
+            Debug.Log($"[TowerPlaceManager] Found {buildableSpots.Length} buildable spots in the scene.");
+        }
+        else
+        {
+            Debug.LogWarning("[TowerPlaceManager] No GameObject with tag 'Buildable' found in the scene!");
+        }
     }
 
     void Update()
