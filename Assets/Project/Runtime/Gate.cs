@@ -38,8 +38,9 @@ public class Gate : MonoBehaviour
 
     }
     private void OnDestroy()
-    {
+    {   
         Debug.Log("Gate destroyed!");
+        LevelEndMenuLose.instance.activateMenu();
     }
 
 }

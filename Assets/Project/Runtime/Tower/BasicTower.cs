@@ -18,9 +18,6 @@ public class BasicTower : Tower
     private ObjectPool projectilePool;
 
     [SerializeField]
-    private float fireRate = 0.4f;
-
-    [SerializeField]
     private float rangeRadius = 10f;
 
     [SerializeField]
@@ -132,6 +129,7 @@ public class BasicTower : Tower
             timePassed += Time.deltaTime;
             if (timePassed >= currentFireRate)
             {
+                Debug.Log("Current fire rate: " + currentFireRate);
                 timePassed = 0f;
                 if (currentTarget != null)
                     Attack();
