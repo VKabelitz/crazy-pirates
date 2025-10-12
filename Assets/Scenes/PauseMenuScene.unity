@@ -4038,8 +4038,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprocketText: {fileID: 1778996989}
   healthbar: {fileID: 237571101}
-  cursorTexture: {fileID: 2800000, guid: fd3246ff0fe64764d9e33361cee50712, type: 3}
-  cursorMode: 0
+  cursorTexture: {fileID: 2800000, guid: 50be95253630a0443a96269e554b76e2, type: 3}
+  cursorMode: 1
 --- !u!114 &2084550861
 MonoBehaviour:
   m_ObjectHideFlags: 0
