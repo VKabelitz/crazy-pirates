@@ -1830,6 +1830,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.44
       objectReference: {fileID: 0}
+    - target: {fileID: 868924848608348466, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 94001b0219fb62740bbb210a5714f5a1, type: 3}
     - target: {fileID: 1013401816000261047, guid: 421e6239adc43cb45b9092c5e38d01f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.16
