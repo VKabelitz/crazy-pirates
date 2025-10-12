@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     public void Start()
     {
         AudioManager.instance.SwitchMusic("Theme");
+        AudioManager.instance.PlaySound("level_start");
         StartCoroutine(RunLevelSequence());
     }
 
@@ -26,6 +27,8 @@ public class LevelManager : MonoBehaviour
         {
             yield return StartCoroutine(SpawnWave(wave));
         }
+
+        AudioManager.instance.PlaySound("victory");
         // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
         StartNextLevel();
     }
