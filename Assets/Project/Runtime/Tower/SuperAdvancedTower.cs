@@ -24,31 +24,32 @@ public class SuperAdvancedTower : Tower
     private float rangeRadius = 10f;
 
     [SerializeField]
-    private float targetCheckInterval = 0.5f;
+    private float targetCheckInterval = 0.03f;
+
+    [SerializeField]
+    private GameObject YawWheel;
+
+    [SerializeField]
+    private GameObject PitchWheel;
 
     [SerializeField]
     private float rotationSpeed = 0.001f;
-
     private Quaternion initialPitchRotation;
 
     private GameObject currentTarget;
 
     void Awake()
     {
-        sprocketCosts = 200;
+        sprocketCosts = 20;
     }
 
     private void Start()
     {
+        initialPitchRotation = PitchWheel.transform.localRotation;
         if (gate == null)
             Debug.LogWarning("Gate reference is missing in BasicTower.");
         StartCoroutine(TargetUpdater());
         StartCoroutine(Fire());
-    }
-
-    public override int GetSprocketCosts()
-    {
-        return base.GetSprocketCosts();
     }
 
     private IEnumerator TargetUpdater()
@@ -85,43 +86,61 @@ public class SuperAdvancedTower : Tower
     }
 
     private IEnumerator Fire()
+{
+    float timePassed = 0f;
+    while (true)
     {
-        float timePassed = 0f;
-        while (true)
+        if (currentTarget != null)
         {
-            if (currentTarget != null)
+            Vector3 targetPos = currentTarget.transform.position;
+
+            // --- YAW: Horizontal rotation around Y axis ---
+            Vector3 yawDirection = targetPos - YawWheel.transform.position;
+            yawDirection.y = 0; // Ignore vertical component
+
+            if (yawDirection.sqrMagnitude > 0.001f)
             {
-                Vector3 targetPos = currentTarget.transform.position;
+                // Berechne den Ziel-Yaw-Winkel
+                float targetYaw = Mathf.Atan2(yawDirection.x, yawDirection.z) * Mathf.Rad2Deg + 90f;
 
-                // --- YAW: Horizontal rotation around Y axis ---
+                // Interpoliere den aktuellen Yaw-Winkel zum Ziel-Yaw-Winkel
+                float currentYaw = YawWheel.transform.eulerAngles.y;
+                float smoothYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.deltaTime * rotationSpeed);
 
-                // Vector3 targetDirection = currentTarget.transform.position - PitchWheel.transform.position;
-                // Vector3 localDirection = PitchWheel.transform.InverseTransformDirection(targetDirection);
-
-                // if (localDirection.sqrMagnitude > 0.001f)
-                // {
-                //     float targetPitch = Mathf.Atan2(localDirection.y, localDirection.z) * Mathf.Rad2Deg;
-
-                //     // Apply pitch only on X axis, preserving original Y/Z
-                //     Quaternion pitchRotation = Quaternion.Euler(targetPitch, 90f, 90f);
-                //     PitchWheel.transform.localRotation = initialPitchRotation * pitchRotation;
-                // }
+                // Setze die Rotation des YawWheel (nur um die Y-Achse)
+                YawWheel.transform.rotation = Quaternion.Euler(0f, smoothYaw, 0f);
             }
-            timePassed += Time.deltaTime;
-            if (timePassed >= fireRate)
-            {
-                timePassed = 0f;
-                Attack();
-            }
-            yield return null;
         }
+
+        timePassed += Time.deltaTime;
+        if (timePassed >= fireRate)
+        {
+            timePassed = 0f;
+            if (currentTarget != null)
+                Attack();
+        }
+        yield return null;
     }
+}
 
     public void Attack()
     {
         GameObject projectile = projectilePool.GetFromPool();
         projectile.transform.position = projectileSpawnPoint.position;
-        projectile.transform.rotation = Quaternion.identity;
+        
+        if (currentTarget != null)
+        {
+            // Berechne die Richtung zum Ziel
+            Vector3 directionToTarget = (currentTarget.transform.position - projectileSpawnPoint.position).normalized;
+
+            // Setze die Rotation des Projektils so, dass es in Richtung des Gegners zeigt
+            projectile.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
+        else
+        {
+            // Standardrotation, falls kein Ziel vorhanden ist
+            projectile.transform.rotation = Quaternion.identity;
+        }
 
         var poolable = projectile.GetComponent<IPoolable>();
         poolable?.OnActivate();
@@ -129,6 +148,9 @@ public class SuperAdvancedTower : Tower
         var projectileComp = projectile.GetComponent<Projectile>();
         if (currentTarget != null)
             projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
+
+        // Play sound from AudioManager
+        AudioManager.instance.PlaySound("turret1_shoot");
     }
 
 #if UNITY_EDITOR
@@ -143,6 +165,11 @@ public class SuperAdvancedTower : Tower
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, currentTarget.transform.position);
         }
+    }
+
+    public override int GetSprocketCosts()
+    {
+        return base.GetSprocketCosts();
     }
 #endif
 }
