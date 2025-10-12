@@ -38,9 +38,10 @@ public class Gate : MonoBehaviour
 
     }
     private void OnDestroy()
-    {   
+    {
         Debug.Log("Gate destroyed!");
-        LevelEndMenuLose.instance.activateMenu();
+        if (health.HealthPoints <= 0)
+            LevelEndMenuLose.instance.activateMenu();
     }
 
 }
