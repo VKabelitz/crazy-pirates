@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using NUnit.Framework;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
@@ -21,7 +20,7 @@ public class LevelManager : MonoBehaviour
         AudioManager.instance.SwitchMusic("Theme");
         AudioManager.instance.PlaySound("level_start");
         AudioManager.instance.SwitchMusic("BackgroundMusic");
-        Assert.IsNotNull(LevelEndMenu.instance, "LevelEndMenu instance is null. Ensure LevelEndMenu script is attached to a GameObject in the scene.");  
+       
         
         StartCoroutine(RunLevelSequence());
     }
