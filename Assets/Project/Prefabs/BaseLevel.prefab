@@ -472,7 +472,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -3581,6 +3581,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 9d59f86c466e69143b126261268248bb, type: 2}
   sounds:
+  - name: BackgroundMusic
+    clip: {fileID: 8300000, guid: 58d2d42c8936b4aabbd2a5aab846d509, type: 3}
+    audioMixerGroup: {fileID: -4360038731013671570, guid: 9d59f86c466e69143b126261268248bb, type: 2}
+    volume: 0.03
+    pitch: 1
+    loop: 1
+    soundType: 1
+    ignorePause: 0
+    source: {fileID: 0}
   - name: turret1_shoot
     clip: {fileID: 8300000, guid: ace5600c7e0617744be4d348bb378d31, type: 3}
     audioMixerGroup: {fileID: -5355350120914867915, guid: 9d59f86c466e69143b126261268248bb, type: 2}
