@@ -17,9 +17,8 @@ public class LevelManager : MonoBehaviour
 
     public void Start()
     {
-        AudioManager.instance.SwitchMusic("Theme");
         AudioManager.instance.PlaySound("level_start");
-        AudioManager.instance.SwitchMusic("BackgroundMusic");        
+        AudioManager.instance.SwitchMusic("BackgroundMusic");
         StartCoroutine(RunLevelSequence());
     }
 
@@ -69,7 +68,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void StartNextLevel()
-    {   
+    {
         Debug.Log("Loading next level...");
         Time.timeScale = 1f;
         int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;

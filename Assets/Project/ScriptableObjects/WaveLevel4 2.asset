@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dbb12684c5d1c54eaccddcdc32de4cd, type: 3}
-  m_Name: WaveV1
+  m_Name: WaveLevel4 2
   m_EditorClassIdentifier: 
-  waveDuration: 25
+  waveDuration: 20
   enemies:
   - spawnTime: 1
     movementType: 0
@@ -20,51 +20,57 @@ MonoBehaviour:
   - spawnTime: 1
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 0.4
+  - spawnTime: 0.7
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 0.4
+  - spawnTime: 0.7
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 1
+  - spawnTime: 0.7
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 1
+  - spawnTime: 0.7
     movementType: 0
     movementSpeed: 2
   - spawnTime: 2
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 0.4
-    movementType: 0
-    movementSpeed: 8
   - spawnTime: 1
     movementType: 0
     movementSpeed: 4
   - spawnTime: 0.4
     movementType: 0
-    movementSpeed: 5
+    movementSpeed: 2
   - spawnTime: 0.4
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 1
+  - spawnTime: 0.4
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 0.1
+  - spawnTime: 0.4
     movementType: 0
     movementSpeed: 2
-  - spawnTime: 1
+  - spawnTime: 0.2
+    movementType: 0
+    movementSpeed: 2
+  - spawnTime: 0.2
     movementType: 0
     movementSpeed: 4
-  - spawnTime: 0.1
+  - spawnTime: 0.2
     movementType: 0
     movementSpeed: 5
-  - spawnTime: 0.1
+  - spawnTime: 0.2
     movementType: 0
     movementSpeed: 6
+  - spawnTime: 0.2
+    movementType: 0
+    movementSpeed: 14
+  - spawnTime: 0.2
+    movementType: 0
+    movementSpeed: 16
+  - spawnTime: 0.3
+    movementType: 0
+    movementSpeed: 17
   - spawnTime: 0.1
     movementType: 0
-    movementSpeed: 2
-  - spawnTime: 0.1
-    movementType: 0
-    movementSpeed: 2
+    movementSpeed: 20

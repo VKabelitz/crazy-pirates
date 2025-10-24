@@ -78,17 +78,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46dc2ad76dd02443adf217ccf2e6e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprocketCosts: 0
-  fireRate: 2
-  gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
-  projectilePrefab: {fileID: 5307051855296515989, guid: 0b6aaf22d0e54c643a30a94a5f614326, type: 3}
-  projectileSpawnPoint: {fileID: 3198308043127880218}
-  projectilePoolPrefab: {fileID: 262824278697953883, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
-  rangeRadius: 10
-  targetCheckInterval: 0.5
+  sprocketCosts: 20
+  projectileSound: turret1_shoot
   YawWheel: {fileID: 3469777414899594470}
-  PitchWheel: {fileID: 2449540148275526627}
   rotationSpeed: 5
+  gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
+  rangeRadius: 10
+  projectilePoolPrefab: {fileID: 262824278697953883, guid: a318f27aed4e3a44896b9d12d6ac5980, type: 3}
+  fireRate: 2
+  projectileSpawnPoint: {fileID: 3198308043127880218}
 --- !u!65 &6311051801587802405
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,11 +165,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54aa785e9bc1746268a45a3eff83b2d4, type: 3}
---- !u!1 &2449540148275526627 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7878320963273520232, guid: 54aa785e9bc1746268a45a3eff83b2d4, type: 3}
-  m_PrefabInstance: {fileID: 5524765441021136779}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3469777414899594470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8974768924996942701, guid: 54aa785e9bc1746268a45a3eff83b2d4, type: 3}
