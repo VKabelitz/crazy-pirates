@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbb12684c5d1c54eaccddcdc32de4cd, type: 3}
   m_Name: WaveV1 2
   m_EditorClassIdentifier: 
-  waveDuration: 35
+  waveDuration: 27
   enemies:
   - spawnTime: 1
     movementType: 0
@@ -74,6 +74,54 @@ MonoBehaviour:
   - spawnTime: 0.1
     movementType: 0
     movementSpeed: 20
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 40
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
+  - spawnTime: 0.1
+    movementType: 0
+    movementSpeed: 12
   - spawnTime: 0.1
     movementType: 0
     movementSpeed: 12
