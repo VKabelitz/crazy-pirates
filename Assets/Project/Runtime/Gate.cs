@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 public class Gate : MonoBehaviour
 {
     private Health health;
+    public float destroyFadeDuration = 0.0f;
 
 
     public void Awake()

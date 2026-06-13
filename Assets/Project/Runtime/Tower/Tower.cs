@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.AI;
 public abstract class Tower : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public abstract class Tower : MonoBehaviour
     protected float currentFireRate;
     public static int range;
     public static bool attackingEnemy;
+    public float destroyFadeDuration = 3.0f;
+    public bool fireActive = false;
     protected ObjectPool pool;
 
 
@@ -46,6 +49,7 @@ public abstract class Tower : MonoBehaviour
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
         Debug.Log("Set Health of Tower to " + health.HealthPoints);
+        fireActive = true;
     }
 
     protected virtual void Start()
@@ -154,11 +158,49 @@ public abstract class Tower : MonoBehaviour
         Debug.Log("Tower destroyed!");
     }
 
+    public IEnumerator FadeAndDestroy()
+    {   
+        fireActive = false;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        // Cache all materials
+        List<Material> mats = new List<Material>();
+        foreach (var r in renderers)
+            mats.AddRange(r.materials);
+
+        float t = 0f;
+
+        while (t < destroyFadeDuration)
+        {
+            t += Time.deltaTime;
+            float alpha = 1f - (t / destroyFadeDuration);
+
+            foreach (var m in mats)
+            {
+                if (m.HasProperty("_Color"))
+                {
+                    Color c = m.color;
+                    c.a = alpha;
+                    m.color = c;
+                }
+            }
+
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+
     private IEnumerator Fire()
     {
+
         float timePassed = 0f;
         while (true)
         {
+            if (!fireActive)
+            {
+                yield return null;
+                continue;
+            }
             if (currentTarget != null)
             {
                 FaceTarget();
