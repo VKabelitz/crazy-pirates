@@ -16,7 +16,6 @@ public class Health : MonoBehaviour, IHealth
     public void TakeDamage(int damage)
     {
         HealthPoints -= damage;
-        Debug.Log("Health: " + HealthPoints, gameObject);
         if (HealthPoints <= 0)
         {
             DestroyObject();
