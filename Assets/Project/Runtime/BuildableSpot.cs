@@ -6,7 +6,7 @@ public class BuildableSpot : MonoBehaviour
     {
         if (other.CompareTag("Tower"))
         {
-            TowerPlaceManager.Instance.canBePlaced = true;
+            //TowerPlaceManager.Instance.canBePlaced = true;
             Debug.Log("Tower in buildable spot");
             
             // You can add additional logic here, such as allowing placement
@@ -17,7 +17,7 @@ public class BuildableSpot : MonoBehaviour
     {
         if (other.CompareTag("Tower"))
         {
-            TowerPlaceManager.Instance.canBePlaced = false;
+            //TowerPlaceManager.Instance.canBePlaced = false;
             Debug.Log("Tower in not buildable spot");
             // You can add additional logic here, such as allowing placement
         }
