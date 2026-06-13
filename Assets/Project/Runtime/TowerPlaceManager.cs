@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using UnityEngine;
 
 
@@ -99,7 +100,22 @@ public class TowerPlaceManager : MonoBehaviour
     //     // Text mit den genauen Pixelkoordinaten daneben schreiben
     //     GUI.Label(new Rect(guiX + 15, guiY - 10, 200, 20), $"Mouse: ({mousePos.x:F0}, {mousePos.y:F0})");
     // }
-    
+    public void ReleaseSpotByPosition(Vector3 pos)
+    {
+        Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(pos);
+        GameObject toRelease = null;
+        foreach (GameObject spot in takenSpots)
+        {
+            toRelease = spot;
+            if(Vector3.Distance(snappedPos, spot.transform.position) < tol)
+            {
+                break;
+            }
+        }
+        
+        takenSpots.Remove(toRelease);
+        buildableSpots.Add(toRelease);
+    }
     void Update()
     {
         foreach (GameObject spot in buildableSpots)
@@ -156,7 +172,7 @@ public class TowerPlaceManager : MonoBehaviour
                     currentTower = null; // Tower platzieren
                     
                 }
-                else if (canBePlaced && Input.GetMouseButtonDown(1))
+                else if (Input.GetMouseButtonDown(1))
                 {
                     foreach (GameObject spot in buildableSpots) {
                         spot.SetActive(false);
