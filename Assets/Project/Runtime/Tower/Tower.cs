@@ -30,7 +30,7 @@ public abstract class Tower : MonoBehaviour
     protected float currentFireRate;
     public static int range;
     public static bool attackingEnemy;
-    public float destroyFadeDuration = 3.0f;
+    public float destroyFadeDuration = 1.0f;
     public bool fireActive = false;
     protected ObjectPool pool;
 
