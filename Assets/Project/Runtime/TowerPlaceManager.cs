@@ -69,21 +69,59 @@ public class TowerPlaceManager : MonoBehaviour
             Debug.LogWarning("[TowerPlaceManager] No GameObject with tag 'Buildable' found in the scene!");
         }
     }
+    void DrawDebugAt(Vector3 pos, Color color)
+    {
+        Debug.DrawRay(pos, Vector3.up * 2f, color);
+        Debug.DrawLine(pos + Vector3.left * 0.5f, pos + Vector3.right * 0.5f, color);
+        Debug.DrawLine(pos + Vector3.forward * 0.5f, pos + Vector3.back * 0.5f, color);
+    }
+
+    void OnGUI()
+    {
+        // Hol die aktuelle Mausposition (Y-Achse muss für GUI invertiert werden)
+        Vector3 mousePos = Input.mousePosition;
+        float guiX = mousePos.x;
+        float guiY = Screen.height - mousePos.y;
+
+        // Größe des Debug-Fadenkreuzes
+        float size = 20f;
+        
+        // Setze die Farbe für die GUI-Linien
+        GUI.color = Color.red;
+
+        // Horizontale Linie des Fadenkreuzes
+        GUI.DrawTexture(new Rect(guiX - size / 2, guiY, size, 2), Texture2D.whiteTexture);
+        // Vertikale Linie des Fadenkreuzes
+        GUI.DrawTexture(new Rect(guiX, guiY - size / 2, 2, size), Texture2D.whiteTexture);
+
+        // Text mit den genauen Pixelkoordinaten daneben schreiben
+        GUI.Label(new Rect(guiX + 15, guiY - 10, 200, 20), $"Mouse: ({mousePos.x:F0}, {mousePos.y:F0})");
+    }
 
     void Update()
     {
+        Ray rayy = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        // Zeichnet den tatsächlichen Mausstrahl im Scene-View (100 Meter lang)
+        Debug.DrawRay(rayy.origin, rayy.direction * 100f, Color.yellow);
+        if (Physics.Raycast(rayy, out RaycastHit hitt, Mathf.Infinity, groundMask))
+        {
+            DrawDebugAt(hitt.point, Color.blue);
+        }
+
         if (currentTower != null)
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
             {
                 Vector3 towerPosition = hit.point;
+                
                 // Setze die y-Position fix
                 towerPosition.y = towerHeight;
                 currentTower.transform.position = towerPosition; // Tower positionieren
-
                 Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(hit.point);
 
+                DrawDebugAt(snappedPos, Color.red);
                 if (currentHighlight == null)
                 {
                     currentHighlight = Instantiate(

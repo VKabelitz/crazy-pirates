@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
 
     public void Start()
     {
-        AudioManager.instance.SwitchMusic("Theme");
         AudioManager.instance.PlaySound("level_start");
         AudioManager.instance.SwitchMusic("BackgroundMusic");
         StartCoroutine(RunLevelSequence());
@@ -25,15 +24,16 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RunLevelSequence()
     {
+        Debug.Log("Starting Level Sequence, in total " + levelSequence.waves.Count + " waves.");
         foreach (EnemyWave wave in levelSequence.waves)
         {
+            Debug.Log("Starting new wave with " + wave.enemies.Count + " enemies.");
             yield return StartCoroutine(SpawnWave(wave));
         }
 
         AudioManager.instance.PlaySound("victory");
         // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
         LevelEndMenu.instance.activateMenu();
-
     }
 
     private IEnumerator SpawnWave(EnemyWave wave)
@@ -43,7 +43,8 @@ public class LevelManager : MonoBehaviour
         while (currentEntryIndex < wave.enemies.Count)
         {
             var entry = wave.enemies[currentEntryIndex];
-
+            Debug.Log("CUrrent Entry Index: " + currentEntryIndex);
+            Debug.Log($"Spawning enemy of type {entry} after {entry.spawnTime} seconds.");
             // Warte die Spawn-Zeit des aktuellen Gegners ab
             yield return new WaitForSeconds(entry.spawnTime);
 
@@ -51,6 +52,8 @@ public class LevelManager : MonoBehaviour
             SpawnEnemy(entry);
             currentEntryIndex++;
         }
+
+        Debug.Log($"Wave completed. Waiting for {wave.waveDuration} seconds before next wave.");
         yield return new WaitForSeconds(wave.waveDuration);
     }
 
@@ -66,6 +69,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartNextLevel()
     {
+        Debug.Log("Loading next level...");
         Time.timeScale = 1f;
         int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextIndex >= SceneManager.sceneCountInBuildSettings)

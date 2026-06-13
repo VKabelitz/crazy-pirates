@@ -13,6 +13,7 @@ public class LevelEndMenu : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("LevelEndMenu Awake called.");
         instance = this;
     }
 
