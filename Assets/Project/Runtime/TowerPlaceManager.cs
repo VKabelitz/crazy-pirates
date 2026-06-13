@@ -11,7 +11,6 @@ public class TowerPlaceManager : MonoBehaviour
 
     private double tol = 0.5;
 
-    [SerializeField]
     List<GameObject> buildableSpots = new List<GameObject>();
     List<GameObject> takenSpots = new List<GameObject>();
 
