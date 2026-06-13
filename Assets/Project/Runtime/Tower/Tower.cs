@@ -14,6 +14,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField]
     protected float rotationSpeed = 0.001f;
     [SerializeField]
+    private Health health;
     private GameObject gate;
     [SerializeField]
     private float rangeRadius = 10f;
@@ -42,12 +43,21 @@ public abstract class Tower : MonoBehaviour
     {
         GameObject poolInstance = Instantiate(projectilePoolPrefab);
         pool = poolInstance.GetComponent<ObjectPool>();
+        if (gameObject.TryGetComponent(out Health health))
+            this.health = health;
+        Debug.Log("Set Health of Tower to " + health.HealthPoints);
     }
 
     protected virtual void Start()
     {
         if (gate == null)
-            Debug.LogWarning("Gate reference is missing in BasicTower.");
+        {
+            gate = FindFirstObjectByType<Gate>().gameObject;
+            if (gate == null)
+            {
+                Debug.LogError("Tower cannot find Gate in the scene!");
+            }
+        }
         StartCoroutine(TargetUpdater());
         StartCoroutine(Fire());
     }
@@ -57,8 +67,14 @@ public abstract class Tower : MonoBehaviour
         {
             currentFireRate += Time.deltaTime;
         }
+        OnHit(1);
+        
     }
 
+    public void OnHit(int damage)
+    {
+        health.TakeDamage(damage);
+    }
     private IEnumerator TargetUpdater()
     {
         while (true)
@@ -77,14 +93,18 @@ public abstract class Tower : MonoBehaviour
     protected void ChooseNearestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies == null || enemies.Length == 0)
+
+        // Filter out destroyed enemies
+        enemies = enemies.Where(e => e != null).ToArray();
+
+        if (enemies.Length == 0)
         {
             currentTarget = null;
             return;
         }
 
         var enemiesInRange = enemies
-            .Where(e => Vector3.Distance(transform.position, e.transform.position) < rangeRadius)
+            .Where(e => e != null && Vector3.Distance(transform.position, e.transform.position) < rangeRadius)
             .ToArray();
 
         if (enemiesInRange.Length == 0)
@@ -94,9 +114,11 @@ public abstract class Tower : MonoBehaviour
         }
 
         currentTarget = enemiesInRange
+            .Where(e => e != null) // extra safety
             .OrderBy(e => Vector3.Distance(gate.transform.position, e.transform.position))
             .FirstOrDefault();
     }
+
 
     protected virtual void Attack()
     {
@@ -127,7 +149,10 @@ public abstract class Tower : MonoBehaviour
         AudioManager.instance.PlaySound(projectileSound);
     }
 
-
+    private void OnDestroy()
+    {
+        Debug.Log("Tower destroyed!");
+    }
 
     private IEnumerator Fire()
     {

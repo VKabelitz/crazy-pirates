@@ -15,20 +15,28 @@ public class Gate : MonoBehaviour
     {
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
+        Debug.Log("Set Health of Gate to " + health.HealthPoints);
+    }
+
+    public void OnHit(int damage)
+    {
+        health.TakeDamage(damage);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            if (gameObject.TryGetComponent(out Health health))
+            if (other.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 AudioManager.instance.PlaySound("door_damage");
-                health.TakeDamage(other.gameObject.GetComponent<Enemy>().collisionDamage);
-                UIManager.instance.UpdateHealth(other.gameObject.GetComponent<Enemy>().collisionDamage);
+                OnHit(enemy.collisionDamage);
+                UIManager.instance.UpdateHealth(enemy.collisionDamage);
                 if (other.gameObject.TryGetComponent(out IPoolable poolable))
                 {
                     poolable.ReturnToPool();
                 }
+                Debug.Log("Gate took " + enemy.collisionDamage + " damage!");
+                Debug.Log("Gate is not at " + health.HealthPoints + " health!");
             }
             else
             {
