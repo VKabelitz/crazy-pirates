@@ -78,27 +78,27 @@ public class TowerPlaceManager : MonoBehaviour
         Debug.DrawLine(pos + Vector3.forward * 0.5f, pos + Vector3.back * 0.5f, color);
     }
 
-    void OnGUI()
-    {
-        // Hol die aktuelle Mausposition (Y-Achse muss für GUI invertiert werden)
-        Vector3 mousePos = Input.mousePosition;
-        float guiX = mousePos.x;
-        float guiY = Screen.height - mousePos.y;
+    // void OnGUI()
+    // {
+    //     // Hol die aktuelle Mausposition (Y-Achse muss für GUI invertiert werden)
+    //     Vector3 mousePos = Input.mousePosition;
+    //     float guiX = mousePos.x;
+    //     float guiY = Screen.height - mousePos.y;
 
-        // Größe des Debug-Fadenkreuzes
-        float size = 20f;
+    //     // Größe des Debug-Fadenkreuzes
+    //     float size = 20f;
         
-        // Setze die Farbe für die GUI-Linien
-        GUI.color = Color.red;
+    //     // Setze die Farbe für die GUI-Linien
+    //     GUI.color = Color.red;
 
-        // Horizontale Linie des Fadenkreuzes
-        GUI.DrawTexture(new Rect(guiX - size / 2, guiY, size, 2), Texture2D.whiteTexture);
-        // Vertikale Linie des Fadenkreuzes
-        GUI.DrawTexture(new Rect(guiX, guiY - size / 2, 2, size), Texture2D.whiteTexture);
+    //     // Horizontale Linie des Fadenkreuzes
+    //     GUI.DrawTexture(new Rect(guiX - size / 2, guiY, size, 2), Texture2D.whiteTexture);
+    //     // Vertikale Linie des Fadenkreuzes
+    //     GUI.DrawTexture(new Rect(guiX, guiY - size / 2, 2, size), Texture2D.whiteTexture);
 
-        // Text mit den genauen Pixelkoordinaten daneben schreiben
-        GUI.Label(new Rect(guiX + 15, guiY - 10, 200, 20), $"Mouse: ({mousePos.x:F0}, {mousePos.y:F0})");
-    }
+    //     // Text mit den genauen Pixelkoordinaten daneben schreiben
+    //     GUI.Label(new Rect(guiX + 15, guiY - 10, 200, 20), $"Mouse: ({mousePos.x:F0}, {mousePos.y:F0})");
+    // }
     
     void Update()
     {

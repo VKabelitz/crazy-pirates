@@ -775,7 +775,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprocketText: {fileID: 7693904772047534069}
   healthbar: {fileID: 4535166958199927108}
-  healthText: {fileID: 7693904772047534069}
+  cursorTexture: {fileID: 2800000, guid: daa4249eac691218f9584c8682d392ba, type: 3}
+  cursorMode: 0
 --- !u!1 &8850901359410310727
 GameObject:
   m_ObjectHideFlags: 0
