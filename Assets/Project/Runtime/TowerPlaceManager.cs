@@ -45,10 +45,10 @@ public class TowerPlaceManager : MonoBehaviour
         mainCamera = Camera.main;
 
         buildableSpots = new List<GameObject>(); // somehow this is already filled.
-        
+
         // Automatically find buildable spots
         GameObject buildableParent = GameObject.FindGameObjectWithTag("Buildable");
-        
+
         if (buildableParent != null)
         {
             // Loop through all first-level children (spots)
@@ -88,7 +88,7 @@ public class TowerPlaceManager : MonoBehaviour
 
     //     // Größe des Debug-Fadenkreuzes
     //     float size = 20f;
-        
+
     //     // Setze die Farbe für die GUI-Linien
     //     GUI.color = Color.red;
 
@@ -107,12 +107,12 @@ public class TowerPlaceManager : MonoBehaviour
         foreach (GameObject spot in takenSpots)
         {
             toRelease = spot;
-            if(Vector3.Distance(snappedPos, spot.transform.position) < tol)
+            if (Vector3.Distance(snappedPos, spot.transform.position) < tol)
             {
                 break;
             }
         }
-        
+
         takenSpots.Remove(toRelease);
         buildableSpots.Add(toRelease);
     }
@@ -120,7 +120,13 @@ public class TowerPlaceManager : MonoBehaviour
     {
         foreach (GameObject spot in buildableSpots)
         {
-            Debug.DrawRay(spot.transform.position, Vector3.up * 100f, Color.yellow);    
+            if (spot == null)
+            {
+                Debug.LogWarning("A buildable spot was null");
+                continue;
+            }
+
+            Debug.DrawRay(spot.transform.position, Vector3.up * 100f, Color.yellow);
         }
         Ray rayy = mainCamera.ScreenPointToRay(Input.mousePosition);
         // Zeichnet den tatsächlichen Mausstrahl im Scene-View (100 Meter lang)
@@ -136,7 +142,7 @@ public class TowerPlaceManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
             {
                 Vector3 towerPosition = hit.point;
-                
+
                 // Setze die y-Position fix
                 towerPosition.y = towerHeight;
                 currentTower.transform.position = towerPosition; // Tower positionieren
@@ -165,16 +171,17 @@ public class TowerPlaceManager : MonoBehaviour
 
                 if (canBePlaced && Input.GetMouseButtonDown(0)) // Linksklick
                 {
-                    
+
                     PlaceTower(validSpot);
                     Destroy(currentHighlight);
                     currentTower.transform.position = snappedPos;
                     currentTower = null; // Tower platzieren
-                    
+
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
-                    foreach (GameObject spot in buildableSpots) {
+                    foreach (GameObject spot in buildableSpots)
+                    {
                         spot.SetActive(false);
                     }
                     Destroy(currentHighlight);
@@ -193,6 +200,8 @@ public class TowerPlaceManager : MonoBehaviour
         }
         foreach (GameObject spot in buildableSpots)
         {
+            if (spot == null)
+                continue;
             spot.SetActive(true);
         }
 
@@ -255,18 +264,20 @@ public class TowerPlaceManager : MonoBehaviour
         buildableSpots.Remove(validSpot);
         takenSpots.Add(validSpot);
     }
-    
+
     private void colorValidCells(Vector3 snappedPos)
     {
-        
-    } 
+
+    }
     GameObject IsCellFree(Vector3 snappedPos)
     {
         // Current cell is free if the position corresponds to one of the buildableSpots.
-        
+
         foreach (GameObject spot in buildableSpots)
         {
-            if(Vector3.Distance(snappedPos, spot.transform.position) < tol)
+            if (spot == null)
+                continue;
+            if (Vector3.Distance(snappedPos, spot.transform.position) < tol)
             {
                 return spot;
             }
