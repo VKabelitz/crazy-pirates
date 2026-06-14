@@ -8,7 +8,7 @@ public enum MovementType
 public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
 {
     [SerializeField]
-    private ObjectPool enemyPool;
+    protected ObjectPool enemyPool;
     private Health health;
     public int collisionDamage = 10;
     public int sprocketAmount = 30;
@@ -20,10 +20,18 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
         SetMovementType(MovementType.LinearMovement, defaultMovementSpeed);
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
+        Debug.Log("Enemy spawned at " + health.HealthPoints + "/ " + health.maxHealth);
+    }
+
+    protected virtual void ResetEnemy()
+    {
+        health.HealthPoints = health.maxHealth;
     }
 
     public void OnHit(int damage)
     {
+        Debug.Log("Enemy took " + damage + " damage!");
+        Debug.Log("Enemy is now at " + health.HealthPoints + "/ " + health.maxHealth);
         health.TakeDamage(damage);
     }
 
@@ -51,8 +59,13 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
         enemyPool = pool;
     }
 
-    public void ReturnToPool()
+    public virtual void ReturnToPool()
     {
+        if (health.HealthPoints <= 0)
+        {
+            SprocketManager.instance.AddSprockets(sprocketAmount);
+        }
+        ResetEnemy();
         enemyPool?.ReturnToPool(gameObject);
     }
 
@@ -63,13 +76,6 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
 
     public void OnDeactivate()
     {
-        if (health.HealthPoints < 1)
-        {
-            // ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
-            // scoreManager.AddScore(5);
-
-            SprocketManager.instance.AddSprockets(sprocketAmount);
-        }
         gameObject.SetActive(false);
     }
 

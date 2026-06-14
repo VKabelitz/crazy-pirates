@@ -6,6 +6,8 @@ public class EnemyWave : ScriptableObject
 {
     public float waveDuration;
     public List<EnemyWaveEntry> enemies;
+    public ObjectPool enemyPool;
+
 }
 
 [System.Serializable]

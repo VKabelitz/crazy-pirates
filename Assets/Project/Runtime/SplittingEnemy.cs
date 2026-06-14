@@ -13,14 +13,19 @@ public class SplittingEnemy : Enemy
     {
         health = GetComponent<Health>();
 
-        if (health != null)
-            health.OnDeath += Split;
     }
 
-    private void OnDestroy()
+    public override void ReturnToPool()
     {
-        if (health != null)
-            health.OnDeath -= Split;
+        Split();
+        base.ReturnToPool();
+    }
+
+    protected override void ResetEnemy()
+    {
+        base.ResetEnemy();
+        splitLevel = 0;
+        transform.localScale = Vector3.one;
     }
 
     private void Split()
@@ -34,11 +39,13 @@ public class SplittingEnemy : Enemy
 
     private void SpawnChild(Vector3 offset)
     {
-        GameObject child = Instantiate(
-            enemyPrefab,
-            transform.position + offset,
-            Quaternion.identity);
-
+        // GameObject child = Instantiate(
+        //     enemyPrefab,
+        //     transform.position + offset,
+        //     Quaternion.identity);
+        GameObject child = enemyPool.GetFromPool();
+        child.transform.position = transform.position + offset;
+        child.transform.rotation = transform.rotation;
         child.transform.localScale =
             transform.localScale * sizeFactor;
 

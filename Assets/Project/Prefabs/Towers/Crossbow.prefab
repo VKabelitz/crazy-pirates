@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 3822105307710281934}
   - component: {fileID: 4751637810794701440}
   - component: {fileID: -4686132134491418992}
+  - component: {fileID: 6759019862445085754}
   m_Layer: 0
   m_Name: Crossbow
   m_TagString: Tower
@@ -81,13 +82,15 @@ MonoBehaviour:
   sprocketCosts: 200
   projectileSound: arrow_shoot
   YawWheel: {fileID: 8386082841536511556}
-  PitchWheel: {fileID: 5578764408215376958}
   rotationSpeed: 5
-  gate: {fileID: 2828136420761081023, guid: c7b4f46fc02fa4f4689f5b1c3a46be3d, type: 3}
-  rangeRadius: 10
+  health: {fileID: 0}
+  rangeRadius: 18
+  targets: 1
   projectilePoolPrefab: {fileID: 262824278697953883, guid: 4be55df1f747e4b06b0729574a81cb3d, type: 3}
-  fireRate: 0.2
+  fireRate: 0.3
   projectileSpawnPoint: {fileID: 7937061946606888807}
+  destroyFadeDuration: 3
+  fireActive: 0
 --- !u!65 &-4686132134491418992
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -109,6 +112,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6759019862445085754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7370691358272999734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5211601ff4889684a8f2819a10fda554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1100
 --- !u!1001 &9210682790177020478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,11 +182,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8df9cc5d370ee4709854413a777997ad, type: 3}
---- !u!1 &5578764408215376958 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -5568371526223589888, guid: 8df9cc5d370ee4709854413a777997ad, type: 3}
-  m_PrefabInstance: {fileID: 9210682790177020478}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8386082841536511556 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8380157826906577798, guid: 8df9cc5d370ee4709854413a777997ad, type: 3}

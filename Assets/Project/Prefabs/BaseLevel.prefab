@@ -4706,18 +4706,6 @@ MonoBehaviour:
   - {fileID: 8025664517355020572, guid: 6af55bb3af0114a0186a4df46d2eff0e, type: 3}
   - {fileID: 5845530841866571755, guid: 0408275b21f2841a787a374e100642da, type: 3}
   - {fileID: 7370691358272999734, guid: 415b9200094314b90ae374784d121a26, type: 3}
-  buildableSpots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -5526,7 +5514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprocketText: {fileID: 4251203412258468867}
   healthbar: {fileID: 4844469198965794180}
-  cursorTexture: {fileID: 2800000, guid: 9188c1e40a0f8654f9d40551136fdc12, type: 3}
+  cursorTexture: {fileID: 2800000, guid: 50be95253630a0443a96269e554b76e2, type: 3}
   cursorMode: 0
 --- !u!1 &5752528791859564784
 GameObject:

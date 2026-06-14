@@ -43,7 +43,6 @@ public class LevelManager : MonoBehaviour
         while (currentEntryIndex < wave.enemies.Count)
         {
             var entry = wave.enemies[currentEntryIndex];
-            Debug.Log("CUrrent Entry Index: " + currentEntryIndex);
             Debug.Log($"Spawning enemy of type {entry} after {entry.spawnTime} seconds.");
             // Warte die Spawn-Zeit des aktuellen Gegners ab
             yield return new WaitForSeconds(entry.spawnTime);

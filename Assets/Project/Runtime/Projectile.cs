@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IMovable, IPoolable
@@ -30,8 +31,11 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
     {
         if (other.CompareTag("Enemy"))
         {
-            if (other.TryGetComponent(out Health hitObjectHealth))
-                hitObjectHealth.TakeDamage(damage);
+            if (other.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                enemy.OnHit(damage);
+            }
+                
 
             if (OnHitEffect != null)
             {

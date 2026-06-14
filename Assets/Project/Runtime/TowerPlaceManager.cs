@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using UnityEngine;
+
 
 public class TowerPlaceManager : MonoBehaviour
 {
@@ -8,8 +10,10 @@ public class TowerPlaceManager : MonoBehaviour
     [SerializeField]
     GameObject[] towerPrefab;
 
-    [SerializeField]
-    GameObject[] buildableSpots;
+    private double tol = 0.5;
+
+    List<GameObject> buildableSpots = new List<GameObject>();
+    List<GameObject> takenSpots = new List<GameObject>();
 
     [SerializeField]
     LayerMask groundMask;
@@ -23,7 +27,8 @@ public class TowerPlaceManager : MonoBehaviour
     private Camera mainCamera;
     private List<Renderer> towerRenderers = new List<Renderer>();
     private List<Color[]> originalColors = new List<Color[]>();
-
+    private Color red = new Color(1f, 0f, 0f);
+    private Color orange = new Color(1f, 0.7f, 0f);
     public GameObject highlightPrefab;
 
     private GameObject currentHighlight;
@@ -38,31 +43,29 @@ public class TowerPlaceManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        canBePlaced = false;
+
+        buildableSpots = new List<GameObject>(); // somehow this is already filled.
 
         // Automatically find buildable spots
         GameObject buildableParent = GameObject.FindGameObjectWithTag("Buildable");
 
         if (buildableParent != null)
         {
-            List<GameObject> foundSpots = new List<GameObject>();
-
             // Loop through all first-level children (spots)
             foreach (Transform spot in buildableParent.transform)
             {
                 // Loop through second-level children (planes)
                 foreach (Transform plane in spot)
                 {
-                    foundSpots.Add(plane.gameObject);
+                    buildableSpots.Add(plane.gameObject);
                 }
             }
 
-            buildableSpots = foundSpots.ToArray();
             foreach (GameObject spot in buildableSpots)
             {
                 spot.SetActive(false);
             }
-            Debug.Log($"[TowerPlaceManager] Found {buildableSpots.Length} buildable spots in the scene.");
+            Debug.Log($"[TowerPlaceManager] Found {buildableSpots.Count} buildable spots in the scene.");
         }
         else
         {
@@ -76,32 +79,56 @@ public class TowerPlaceManager : MonoBehaviour
         Debug.DrawLine(pos + Vector3.forward * 0.5f, pos + Vector3.back * 0.5f, color);
     }
 
-    void OnGUI()
+    // void OnGUI()
+    // {
+    //     // Hol die aktuelle Mausposition (Y-Achse muss für GUI invertiert werden)
+    //     Vector3 mousePos = Input.mousePosition;
+    //     float guiX = mousePos.x;
+    //     float guiY = Screen.height - mousePos.y;
+
+    //     // Größe des Debug-Fadenkreuzes
+    //     float size = 20f;
+
+    //     // Setze die Farbe für die GUI-Linien
+    //     GUI.color = Color.red;
+
+    //     // Horizontale Linie des Fadenkreuzes
+    //     GUI.DrawTexture(new Rect(guiX - size / 2, guiY, size, 2), Texture2D.whiteTexture);
+    //     // Vertikale Linie des Fadenkreuzes
+    //     GUI.DrawTexture(new Rect(guiX, guiY - size / 2, 2, size), Texture2D.whiteTexture);
+
+    //     // Text mit den genauen Pixelkoordinaten daneben schreiben
+    //     GUI.Label(new Rect(guiX + 15, guiY - 10, 200, 20), $"Mouse: ({mousePos.x:F0}, {mousePos.y:F0})");
+    // }
+    public void ReleaseSpotByPosition(Vector3 pos)
     {
-        // Hol die aktuelle Mausposition (Y-Achse muss für GUI invertiert werden)
-        Vector3 mousePos = Input.mousePosition;
-        float guiX = mousePos.x;
-        float guiY = Screen.height - mousePos.y;
+        Vector3 snappedPos = GridManager.Instance.GetSnappedPosition(pos);
+        GameObject toRelease = null;
+        foreach (GameObject spot in takenSpots)
+        {
+            toRelease = spot;
+            if (Vector3.Distance(snappedPos, spot.transform.position) < tol)
+            {
+                break;
+            }
+        }
 
-        // Größe des Debug-Fadenkreuzes
-        float size = 20f;
-        
-        // Setze die Farbe für die GUI-Linien
-        GUI.color = Color.red;
-
-        // Horizontale Linie des Fadenkreuzes
-        GUI.DrawTexture(new Rect(guiX - size / 2, guiY, size, 2), Texture2D.whiteTexture);
-        // Vertikale Linie des Fadenkreuzes
-        GUI.DrawTexture(new Rect(guiX, guiY - size / 2, 2, size), Texture2D.whiteTexture);
-
-        // Text mit den genauen Pixelkoordinaten daneben schreiben
-        GUI.Label(new Rect(guiX + 15, guiY - 10, 200, 20), $"Mouse: ({mousePos.x:F0}, {mousePos.y:F0})");
+        takenSpots.Remove(toRelease);
+        buildableSpots.Add(toRelease);
     }
-
     void Update()
     {
-        Ray rayy = mainCamera.ScreenPointToRay(Input.mousePosition);
+        foreach (GameObject spot in buildableSpots)
+        {
+            if (spot == null)
+            {
+                Debug.LogWarning("A buildable spot was null");
+                continue;
+            }
 
+            Debug.DrawRay(spot.transform.position, Vector3.up * 100f, Color.yellow);
+        }
+        Ray rayy = mainCamera.ScreenPointToRay(Input.mousePosition);
         // Zeichnet den tatsächlichen Mausstrahl im Scene-View (100 Meter lang)
         Debug.DrawRay(rayy.origin, rayy.direction * 100f, Color.yellow);
         if (Physics.Raycast(rayy, out RaycastHit hitt, Mathf.Infinity, groundMask))
@@ -115,7 +142,7 @@ public class TowerPlaceManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
             {
                 Vector3 towerPosition = hit.point;
-                
+
                 // Setze die y-Position fix
                 towerPosition.y = towerHeight;
                 currentTower.transform.position = towerPosition; // Tower positionieren
@@ -134,37 +161,22 @@ public class TowerPlaceManager : MonoBehaviour
                 {
                     currentHighlight.transform.position = snappedPos;
                 }
-                if (canBePlaced == true)
-                {
-                    Color color;
-                    if (ColorUtility.TryParseHtmlString("#DDB572", out color))
-                    {
-                        currentHighlight.GetComponent<Renderer>().material.color = color;
-                    }
 
-                    Debug.Log("CanBePlaced");
-                }
-                else
-                {
-                    Color color;
-                    if (ColorUtility.TryParseHtmlString("#DD8472", out color))
-                    {
-                        currentHighlight.GetComponent<Renderer>().material.color = color;
-                    }
-                }
+                // check whether the thing can be placed. It can be placed when
+                // the grid of the current position is empty.
+                GameObject validSpot = IsCellFree(snappedPos);
+                canBePlaced = validSpot != null;
+                Color color = canBePlaced ? orange : red;
+                currentHighlight.GetComponent<Renderer>().material.color = color;
 
-                //snappedPos.y = hit.point.y;
-
-                if (Input.GetMouseButtonDown(0)) // Linksklick
+                if (canBePlaced && Input.GetMouseButtonDown(0)) // Linksklick
                 {
-                    if (canBePlaced == true && IsCellFree(snappedPos))
-                    {
-                        PlaceTower();
-                        canBePlaced = false;
-                        Destroy(currentHighlight);
-                        currentTower.transform.position = snappedPos;
-                        currentTower = null; // Tower platzieren
-                    }
+
+                    PlaceTower(validSpot);
+                    Destroy(currentHighlight);
+                    currentTower.transform.position = snappedPos;
+                    currentTower = null; // Tower platzieren
+
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
@@ -172,7 +184,6 @@ public class TowerPlaceManager : MonoBehaviour
                     {
                         spot.SetActive(false);
                     }
-                    canBePlaced = false;
                     Destroy(currentHighlight);
                     Destroy(currentTower); // Tower zerstören
                     currentTower = null;
@@ -189,6 +200,8 @@ public class TowerPlaceManager : MonoBehaviour
         }
         foreach (GameObject spot in buildableSpots)
         {
+            if (spot == null)
+                continue;
             spot.SetActive(true);
         }
 
@@ -222,11 +235,13 @@ public class TowerPlaceManager : MonoBehaviour
         }
     }
 
-    private void PlaceTower()
+    private void PlaceTower(GameObject validSpot)
     {
         AudioManager.instance.PlaySound("turret_build");
         foreach (GameObject spot in buildableSpots)
         {
+            if (spot == null)
+                continue;
             spot.SetActive(false);
         }
         if (currentTower.TryGetComponent<Tower>(out Tower tower))
@@ -247,31 +262,28 @@ public class TowerPlaceManager : MonoBehaviour
             }
         }
 
-        //Geld abziehen von Singlketon Sprocket Börse
+        // move current spot from buildableSpot list
+        buildableSpots.Remove(validSpot);
+        takenSpots.Add(validSpot);
     }
 
-    bool IsCellFree(Vector3 snappedPos)
+    private void colorValidCells(Vector3 snappedPos)
     {
-        int currentTowerCounter = 0;
-        Collider[] hits = Physics.OverlapBox(snappedPos, new Vector3(0.4f, 0.4f, 0.4f));
-        if (hits.Length == 0)
+
+    }
+    GameObject IsCellFree(Vector3 snappedPos)
+    {
+        // Current cell is free if the position corresponds to one of the buildableSpots.
+
+        foreach (GameObject spot in buildableSpots)
         {
-            return true;
-        }
-        else
-        {
-            foreach (Collider hit in hits)
+            if (spot == null)
+                continue;
+            if (Vector3.Distance(snappedPos, spot.transform.position) < tol)
             {
-                if (hit.CompareTag("Tower"))
-                {
-                    currentTowerCounter++;
-                }
+                return spot;
             }
-            if (currentTowerCounter > 1)
-            {
-                return false;
-            }
-            return true;
         }
+        return null;
     }
 }

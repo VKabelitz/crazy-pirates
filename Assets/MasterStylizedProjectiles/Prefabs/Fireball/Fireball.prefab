@@ -24552,8 +24552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e530bbe8ebaf0374b9bdb7b7fa206eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  damage: 1
+  movementSpeed: 9
+  damage: 15
   OnHitEffect: {fileID: 3039980818029749698, guid: 7d3425a96b729534e9e11b2591f8fd20, type: 3}
 --- !u!135 &4469849025322491893
 SphereCollider:

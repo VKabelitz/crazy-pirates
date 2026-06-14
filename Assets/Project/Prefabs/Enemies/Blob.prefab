@@ -65,6 +65,10 @@ MonoBehaviour:
   enemyPool: {fileID: 0}
   collisionDamage: 10
   sprocketAmount: 30
+  enemyPrefab: {fileID: 3165328674444133461}
+  splitLevel: 0
+  maxSplitLevel: 3
+  sizeFactor: 0.7
 --- !u!54 &8716311087339568178
 Rigidbody:
   m_ObjectHideFlags: 0
