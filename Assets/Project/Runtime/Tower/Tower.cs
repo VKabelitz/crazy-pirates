@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
+
 public abstract class Tower : MonoBehaviour
 {
 
@@ -37,6 +38,7 @@ public abstract class Tower : MonoBehaviour
     public bool fireActive = false;
     protected ObjectPool pool;
 
+    private TowerPlaceManager manager;
 
 
     public int GetSprocketCosts()
@@ -54,6 +56,8 @@ public abstract class Tower : MonoBehaviour
         Debug.Log("Set Health of Tower to " + health.HealthPoints);
         fireActive = true;
         currentTargets = new List<GameObject>();
+
+        manager = Object.FindFirstObjectByType<TowerPlaceManager>();
     }
 
     protected virtual void Start()
@@ -178,6 +182,7 @@ public abstract class Tower : MonoBehaviour
 
             yield return null;
         }
+        manager.ReleaseSpotByPosition(this.transform.position);
         Destroy(gameObject);
     }
 
