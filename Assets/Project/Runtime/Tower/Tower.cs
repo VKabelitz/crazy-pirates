@@ -21,8 +21,11 @@ public abstract class Tower : MonoBehaviour
     private float rangeRadius = 10f;
     private float targetCheckInterval = 0.03f;
     [SerializeField]
+    private int targets = 1;
+    [SerializeField]
     private GameObject projectilePoolPrefab;
-    protected GameObject currentTarget;
+    protected List<GameObject> currentTargets;
+
     [SerializeField]
     protected float fireRate = 0.4f;
     [SerializeField]
@@ -50,6 +53,7 @@ public abstract class Tower : MonoBehaviour
             this.health = health;
         Debug.Log("Set Health of Tower to " + health.HealthPoints);
         fireActive = true;
+        currentTargets = new List<GameObject>();
     }
 
     protected virtual void Start()
@@ -83,7 +87,7 @@ public abstract class Tower : MonoBehaviour
     {
         while (true)
         {
-            ChooseNearestEnemy();
+            ChooseNearestEnemies();
             yield return new WaitForSeconds(targetCheckInterval);
         }
     }
@@ -94,62 +98,49 @@ public abstract class Tower : MonoBehaviour
     }
 
 
-    protected void ChooseNearestEnemy()
+    protected void ChooseNearestEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        // Filter out destroyed enemies
-        enemies = enemies.Where(e => e != null).ToArray();
-
-        if (enemies.Length == 0)
-        {
-            currentTarget = null;
-            return;
-        }
-
-        var enemiesInRange = enemies
-            .Where(e => e != null && Vector3.Distance(transform.position, e.transform.position) < rangeRadius)
-            .ToArray();
-
-        if (enemiesInRange.Length == 0)
-        {
-            currentTarget = null;
-            return;
-        }
-
-        currentTarget = enemiesInRange
-            .Where(e => e != null) // extra safety
-            .OrderBy(e => Vector3.Distance(gate.transform.position, e.transform.position))
-            .FirstOrDefault();
+        // Filter, sort, limit, convert to list
+        currentTargets = enemies
+            .Where(e => e != null)
+            .Where(e => Vector3.Distance(transform.position, e.transform.position) < rangeRadius)
+            .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
+            .Take(targets)
+            .ToList();
     }
+
 
 
     protected virtual void Attack()
     {
-        GameObject projectile = pool.GetFromPool();
-        projectile.transform.position = projectileSpawnPoint.position;
 
-        if (currentTarget != null)
+        if (currentTargets.Count == 0)
         {
+            return;
+        }
+
+        foreach (GameObject currentTarget in currentTargets)
+
+        {
+            if (currentTarget==null)
+                continue;
+            GameObject projectile = pool.GetFromPool();
+            projectile.transform.position = projectileSpawnPoint.position;
             // Berechne die Richtung zum Ziel
             Vector3 directionToTarget = (currentTarget.transform.position - projectileSpawnPoint.position).normalized;
 
             // Setze die Rotation des Projektils so, dass es in Richtung des Gegners zeigt
             projectile.transform.rotation = Quaternion.LookRotation(directionToTarget);
+
+            var poolable = projectile.GetComponent<IPoolable>();
+            poolable?.OnActivate();
+
+            var projectileComp = projectile.GetComponent<Projectile>();
+            if (currentTarget != null)
+                projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
         }
-        else
-        {
-            // Standardrotation, falls kein Ziel vorhanden ist
-            projectile.transform.rotation = Quaternion.identity;
-        }
-
-        var poolable = projectile.GetComponent<IPoolable>();
-        poolable?.OnActivate();
-
-        var projectileComp = projectile.GetComponent<Projectile>();
-        if (currentTarget != null)
-            projectileComp?.SetTarget(currentTarget.GetComponent<Enemy>());
-
         AudioManager.instance.PlaySound(projectileSound);
     }
 
@@ -201,7 +192,7 @@ public abstract class Tower : MonoBehaviour
                 yield return null;
                 continue;
             }
-            if (currentTarget != null)
+            if (currentTargets != null)
             {
                 FaceTarget();
             }
@@ -209,7 +200,7 @@ public abstract class Tower : MonoBehaviour
             if (timePassed >= currentFireRate)
             {
                 timePassed = 0f;
-                if (currentTarget != null)
+                if (currentTargets != null)
                     Attack();
             }
             yield return null;
@@ -218,7 +209,9 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void FaceTarget()
     {
-        Vector3 targetPos = currentTarget.transform.position;
+        if (currentTargets.Count == 0)
+            return;
+        Vector3 targetPos = currentTargets[0].transform.position;
 
         // --- YAW: Horizontal rotation around Y axis ---
         Vector3 yawDirection = targetPos - YawWheel.transform.position;
@@ -251,8 +244,11 @@ public abstract class Tower : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangeRadius);
 
-        if (currentTarget != null)
+        if (currentTargets.Count == 0)
         {
+            GameObject currentTarget = currentTargets[0];
+            if (currentTarget == null)
+                return;
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, currentTarget.transform.position);
         }

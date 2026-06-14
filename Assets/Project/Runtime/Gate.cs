@@ -9,7 +9,6 @@ using UnityEngine.Rendering;
 public class Gate : MonoBehaviour
 {
     private Health health;
-    public float destroyFadeDuration = 0.0f;
 
 
     public void Awake()
@@ -37,7 +36,7 @@ public class Gate : MonoBehaviour
                     poolable.ReturnToPool();
                 }
                 Debug.Log("Gate took " + enemy.collisionDamage + " damage!");
-                Debug.Log("Gate is not at " + health.HealthPoints + " health!");
+                Debug.Log("Gate is now at " + health.HealthPoints + " health!");
             }
             else
             {

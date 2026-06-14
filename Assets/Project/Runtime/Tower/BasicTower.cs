@@ -23,7 +23,9 @@ public class BasicTower : Tower
 
     protected override void FaceTarget()
     {
-        Vector3 targetPos = currentTarget.transform.position;
+        if (currentTargets.Count == 0)
+            return;
+        Vector3 targetPos = currentTargets[0].transform.position;
 
         // --- YAW: Horizontal rotation around Y axis ---
         Vector3 yawDirection = targetPos - YawWheel.transform.position;

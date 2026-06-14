@@ -85,10 +85,11 @@ MonoBehaviour:
   rotationSpeed: 5
   health: {fileID: 0}
   rangeRadius: 10
+  targets: 3
   projectilePoolPrefab: {fileID: 262824278697953883, guid: 3c650e414be364e4a8b0f6dc8e64c80e, type: 3}
-  fireRate: 1
+  fireRate: 0.9
   projectileSpawnPoint: {fileID: 1493514762819898889}
-  destroyFadeDuration: 3
+  destroyFadeDuration: 0.6
   fireActive: 0
 --- !u!65 &-6001913159724785281
 BoxCollider:
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5211601ff4889684a8f2819a10fda554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 700
+  maxHealth: 900
 --- !u!1001 &8858292219757682128
 PrefabInstance:
   m_ObjectHideFlags: 0

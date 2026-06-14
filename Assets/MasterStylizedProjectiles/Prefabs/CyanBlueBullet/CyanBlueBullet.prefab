@@ -19797,7 +19797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 15
-  damage: 1
+  damage: 5
   OnHitEffect: {fileID: 3039980818029749698, guid: 083c17ed86759cc4487ffa6ca1c4eb1a, type: 3}
 --- !u!135 &-1673112046711999669
 SphereCollider:

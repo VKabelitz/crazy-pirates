@@ -84,9 +84,10 @@ MonoBehaviour:
   YawWheel: {fileID: 8386082841536511556}
   rotationSpeed: 5
   health: {fileID: 0}
-  rangeRadius: 10
+  rangeRadius: 18
+  targets: 1
   projectilePoolPrefab: {fileID: 262824278697953883, guid: 4be55df1f747e4b06b0729574a81cb3d, type: 3}
-  fireRate: 0.2
+  fireRate: 0.3
   projectileSpawnPoint: {fileID: 7937061946606888807}
   destroyFadeDuration: 3
   fireActive: 0
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5211601ff4889684a8f2819a10fda554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 900
+  maxHealth: 1100
 --- !u!1001 &9210682790177020478
 PrefabInstance:
   m_ObjectHideFlags: 0

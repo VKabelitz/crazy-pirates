@@ -20,10 +20,13 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
         SetMovementType(MovementType.LinearMovement, defaultMovementSpeed);
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
+        Debug.Log("Enemy spawned at " + health.HealthPoints + "/ " + health.maxHealth);
     }
 
     public void OnHit(int damage)
     {
+        Debug.Log("Enemy took " + damage + " damage!");
+        Debug.Log("Enemy is now at " + health.HealthPoints + "/ " + health.maxHealth);
         health.TakeDamage(damage);
     }
 
@@ -53,6 +56,11 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
 
     public void ReturnToPool()
     {
+        if (health.HealthPoints <= 0)
+        {
+            SprocketManager.instance.AddSprockets(sprocketAmount);
+        }
+        health.HealthPoints = health.maxHealth;
         enemyPool?.ReturnToPool(gameObject);
     }
 
@@ -63,13 +71,6 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
 
     public void OnDeactivate()
     {
-        if (health.HealthPoints < 1)
-        {
-            // ScoreManager scoreManager = ServiceLocator.Get<ScoreManager>();
-            // scoreManager.AddScore(5);
-
-            SprocketManager.instance.AddSprockets(sprocketAmount);
-        }
         gameObject.SetActive(false);
     }
 
