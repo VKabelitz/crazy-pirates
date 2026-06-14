@@ -5514,7 +5514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprocketText: {fileID: 4251203412258468867}
   healthbar: {fileID: 4844469198965794180}
-  cursorTexture: {fileID: 2800000, guid: 50be95253630a0443a96269e554b76e2, type: 3}
+  cursorTexture: {fileID: 2800000, guid: 9188c1e40a0f8654f9d40551136fdc12, type: 3}
   cursorMode: 0
 --- !u!1 &5752528791859564784
 GameObject:
