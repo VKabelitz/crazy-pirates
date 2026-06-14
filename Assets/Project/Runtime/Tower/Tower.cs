@@ -80,7 +80,7 @@ public abstract class Tower : MonoBehaviour
             currentFireRate += Time.deltaTime;
         }
         OnHit(1);
-        
+
     }
 
     public void OnHit(int damage)
@@ -128,7 +128,7 @@ public abstract class Tower : MonoBehaviour
         foreach (GameObject currentTarget in currentTargets)
 
         {
-            if (currentTarget==null)
+            if (currentTarget == null)
                 continue;
             GameObject projectile = pool.GetFromPool();
             projectile.transform.position = projectileSpawnPoint.position;
@@ -154,7 +154,7 @@ public abstract class Tower : MonoBehaviour
     }
 
     public IEnumerator FadeAndDestroy()
-    {   
+    {
         fireActive = false;
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
@@ -249,7 +249,7 @@ public abstract class Tower : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangeRadius);
 
-        if (currentTargets.Count == 0)
+        if (currentTargets.Count != 0)
         {
             GameObject currentTarget = currentTargets[0];
             if (currentTarget == null)
