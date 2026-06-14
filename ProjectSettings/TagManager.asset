@@ -9,6 +9,7 @@ TagManager:
   - BuildAble
   - Tower
   - Buildable
+  - Projectile
   layers:
   - Default
   - TransparentFX

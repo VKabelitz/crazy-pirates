@@ -1,10 +1,12 @@
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour, IHealth
 {
     [SerializeField]
     public int maxHealth = 50;
     public int HealthPoints { get; set; }
+    public event Action OnDeath;
 
     public void Awake()
     {
@@ -17,6 +19,7 @@ public class Health : MonoBehaviour, IHealth
         Debug.Log("Health: " + HealthPoints, gameObject);
         if (HealthPoints <= 0)
         {
+            OnDeath?.Invoke();
             DestroyObject();
         }
     }
