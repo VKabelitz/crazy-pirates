@@ -36,7 +36,7 @@ public abstract class Tower : MonoBehaviour
     public static bool attackingEnemy;
     public float destroyFadeDuration = 1.0f;
     public bool fireActive = false;
-    protected ObjectPool pool;
+    protected ObjectPool projectilePool;
 
     private TowerPlaceManager manager;
 
@@ -50,7 +50,7 @@ public abstract class Tower : MonoBehaviour
     protected virtual void Awake()
     {
         GameObject poolInstance = Instantiate(projectilePoolPrefab);
-        pool = poolInstance.GetComponent<ObjectPool>();
+        projectilePool = poolInstance.GetComponent<ObjectPool>();
         if (gameObject.TryGetComponent(out Health health))
             this.health = health;
         Debug.Log("Set Health of Tower to " + health.HealthPoints);
@@ -130,7 +130,7 @@ public abstract class Tower : MonoBehaviour
         {
             if (currentTarget == null)
                 continue;
-            GameObject projectile = pool.GetFromPool();
+            GameObject projectile = projectilePool.GetFromPool();
             projectile.transform.position = projectileSpawnPoint.position;
             // Berechne die Richtung zum Ziel
             Vector3 directionToTarget = (currentTarget.transform.position - projectileSpawnPoint.position).normalized;

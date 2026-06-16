@@ -6,7 +6,7 @@ public class EnemyWave : ScriptableObject
 {
     public float waveDuration;
     public List<EnemyWaveEntry> enemies;
-    public ObjectPool enemyPool;
+
 
 }
 
@@ -16,4 +16,5 @@ public class EnemyWaveEntry
     public float spawnTime;
     public MovementType movementType;
     public float movementSpeed;
+    public GameObject enemyPrefab;
 }

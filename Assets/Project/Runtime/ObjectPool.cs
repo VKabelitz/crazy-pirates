@@ -4,15 +4,18 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField]
-    GameObject prefab;
+    private GameObject prefab;
 
     [SerializeField]
-    int initialPoolSize = 10;
+    private int initialPoolSize = 20;
 
     private Queue<GameObject> pool = new();
 
-    public void Awake()
+    public void Init(GameObject prefab, int initialPoolSize)
     {
+        this.prefab = prefab;
+        this.initialPoolSize = initialPoolSize;
+
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameObject prefabInstance = Instantiate(prefab);

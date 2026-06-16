@@ -8,18 +8,39 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private LevelSequence levelSequence;
 
-    [SerializeField]
-    private ObjectPool enemyPool;
-
+    // [SerializeField]
+    // private ObjectPool enemyPool;
+    private Dictionary<GameObject, ObjectPool> enemyPools = new Dictionary<GameObject, ObjectPool>();
     [SerializeField]
     private GameObject spawnPosition;
 
+
+    public void Awake()
+    {
+        initEnemyPools();
+    }
 
     public void Start()
     {
         AudioManager.instance.PlaySound("level_start");
         AudioManager.instance.SwitchMusic("BackgroundMusic");
         StartCoroutine(RunLevelSequence());
+    }
+    private void initEnemyPools()
+    {
+        foreach (EnemyWave wave in levelSequence.waves)
+        {
+            foreach (EnemyWaveEntry entry in wave.enemies)
+            {
+                if (enemyPools.ContainsKey(entry.enemyPrefab))
+                    continue;
+                Debug.Log("Creating pool for enemy prefab " + entry.enemyPrefab);
+                GameObject poolGO = new GameObject(entry.enemyPrefab.name + "_Pool");
+                ObjectPool pool = poolGO.AddComponent<ObjectPool>();
+                pool.Init(entry.enemyPrefab, 20);
+                enemyPools.Add(entry.enemyPrefab, pool);
+            }
+        }
     }
 
     private IEnumerator RunLevelSequence()
@@ -32,7 +53,6 @@ public class LevelManager : MonoBehaviour
         }
 
         AudioManager.instance.PlaySound("victory");
-        // Pause Menu einzeigen mit Button "Nächstes Level" und Anzeige mit Stats
         LevelEndMenu.instance.activateMenu();
     }
 
@@ -44,10 +64,7 @@ public class LevelManager : MonoBehaviour
         {
             var entry = wave.enemies[currentEntryIndex];
             Debug.Log($"Spawning enemy of type {entry} after {entry.spawnTime} seconds.");
-            // Warte die Spawn-Zeit des aktuellen Gegners ab
             yield return new WaitForSeconds(entry.spawnTime);
-
-            // Spawne den Gegner
             SpawnEnemy(entry);
             currentEntryIndex++;
         }
@@ -58,6 +75,7 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnEnemy(EnemyWaveEntry enemyWaveEntry)
     {
+        ObjectPool enemyPool = enemyPools[enemyWaveEntry.enemyPrefab];
         GameObject enemy = enemyPool.GetFromPool();
         if (enemy.TryGetComponent(out Enemy enemyComponent))
         {

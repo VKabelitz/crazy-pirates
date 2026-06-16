@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5211601ff4889684a8f2819a10fda554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 15
 --- !u!54 &8677206723295449261
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   enemyPool: {fileID: 0}
   collisionDamage: 2
   sprocketAmount: 30
+  slowScale: 1.4
 --- !u!1001 &5839481155046825904
 PrefabInstance:
   m_ObjectHideFlags: 0

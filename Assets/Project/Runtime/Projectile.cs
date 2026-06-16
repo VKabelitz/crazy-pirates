@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
 
     public float MovementSpeed => movementSpeed;
 
+
     public void SetTarget(Enemy target)
     {
         currentTarget = target;
@@ -35,7 +36,7 @@ public class Projectile : MonoBehaviour, IMovable, IPoolable
             {
                 enemy.OnHit(damage);
             }
-                
+
 
             if (OnHitEffect != null)
             {

@@ -17,51 +17,68 @@ MonoBehaviour:
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 4
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 10
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 15
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 15
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
     movementSpeed: 15
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 0.5
     movementType: 0
     movementSpeed: 20
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 0.5
     movementType: 0
     movementSpeed: 20
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 0.5
     movementType: 0
     movementSpeed: 20
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 0.5
     movementType: 0
     movementSpeed: 20
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 0.5
     movementType: 0
     movementSpeed: 20
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 0.5
     movementType: 0
     movementSpeed: 20
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
