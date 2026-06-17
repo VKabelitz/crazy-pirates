@@ -13,6 +13,11 @@ SHOT_FIRE = os.path.join(CV, "Screenshot from 2026-06-17 09-38-13.png")  # tower
 TOAD      = os.path.join(GFX, "Toad2.png")    # heli-toad with propeller
 TOAD_FLAT = os.path.join(GFX, "toadd.png")    # plain toad
 GEAR      = os.path.join(GFX, "menuArt.png")  # steampunk gear corner
+RENDER    = os.path.join(CV,  "media", "floattoad.png")  # 3D Blender render of the FloatToad
+CARDS     = [os.path.join(GFX, n) for n in ("canon1.png", "canon2.png", "canon3.png")]  # tower cards
+# Blender renders of the game models (transparent PNGs in media/)
+MODELS    = {n: os.path.join(CV, "media", n + ".png")
+             for n in ("floattoad", "helitoad", "iceball", "cannon", "crossbow", "tesla")}
 
 # ---- palette (warm steampunk) ----
 CREAM   = (244, 230, 200)
@@ -76,6 +81,34 @@ def fit_toad(scale_h):
     s = scale_h / t.height
     return t.resize((round(t.width * s), round(t.height * s)), Image.LANCZOS)
 
+def fit_h(img, scale_h):
+    """Resize an RGBA image to a target height, preserving aspect."""
+    s = scale_h / img.height
+    return img.resize((round(img.width * s), round(img.height * s)), Image.LANCZOS)
+
+def trim(img):
+    """Autocrop transparent margins."""
+    img = img.convert("RGBA")
+    bb = img.split()[3].getbbox()
+    return img.crop(bb) if bb else img
+
+def load_render(scale_h):
+    return fit_h(trim(Image.open(RENDER)), scale_h)
+
+def model_img(name, h, rot=0):
+    """Trimmed Blender render of a game model, sized to height h, optionally rotated."""
+    img = fit_h(trim(Image.open(MODELS[name])), h)
+    if rot:
+        img = img.rotate(rot, expand=True, resample=Image.BICUBIC)
+    return img
+
+def paste_centered(canvas, img, cx, cy, **kw):
+    paste_with_shadow(canvas, img, cx - img.width // 2, cy - img.height // 2, **kw)
+
+def tower_card(scale_h):
+    """Load a tower card cropped tight to its wooden frame, at target height."""
+    return [fit_h(trim(Image.open(p)), scale_h) for p in CARDS]
+
 def rounded_panel(w, h, radius, fill, border=None, bw=0):
     p = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(p)
@@ -109,23 +142,28 @@ def build_preview():
     gear.putalpha(gear.split()[3].point(lambda p: int(p * 0.55)))
     canvas.alpha_composite(gear, (-30, -34))
 
-    # heli-toad mascot, bottom-right (fully visible)
-    toad = fit_toad(430).rotate(-8, expand=True, resample=Image.BICUBIC)
-    paste_with_shadow(canvas, toad, W - toad.width - 34, H - toad.height - 12,
-                      blur=22, alpha=170, dx=14, dy=16)
+    # 3D-rendered FloatToad mascot, bottom-right (fully visible)
+    toad = load_render(560).rotate(-8, expand=True, resample=Image.BICUBIC)
+    paste_with_shadow(canvas, toad, W - toad.width + 6, H - toad.height + 8,
+                      blur=24, alpha=180, dx=14, dy=16)
+
+    # tower-card trio, bottom-left (the arsenal, shown not told)
+    cards = tower_card(132)
+    cw = cards[0].width
+    cxs, cys = 60, H - cards[0].height - 26
+    for i, card in enumerate(cards):
+        paste_with_shadow(canvas, card, cxs + i * (cw + 18), cys,
+                          blur=12, alpha=140, dx=6, dy=8, grow=3)
 
     d = ImageDraw.Draw(canvas)
     # title
-    text(d, (60, 470), "Dieses andere", font(FS, 78), CREAM,
+    text(d, (60, 300), "Dieses andere", font(FS, 78), CREAM,
          outline=DARK2, ow=3, shadow=(0, 0, 0))
-    text(d, (60, 548), "Adventure", font(FS, 78), COPPER,
+    text(d, (60, 378), "Adventure", font(FS, 78), COPPER,
          outline=DARK2, ow=3, shadow=(0, 0, 0))
     # subtitle
-    text(d, (64, 636), "Tower-Defense auf einem schwebenden Piratenschiff",
+    text(d, (64, 466), "Tower-Defense auf einem schwebenden Piratenschiff",
          font(LB, 27), CREAM, shadow=(0, 0, 0), sh_off=(1, 2))
-    # team tag (top-left under gear)
-    text(d, (64, 40), "Ein Game-Jam-Spiel von Richards Haus",
-         font(LB, 24), CREAM, shadow=(0, 0, 0), sh_off=(1, 2))
 
     out = os.path.join(CV, "preview", "preview.png")
     canvas.convert("RGB").save(out, "PNG")
@@ -153,55 +191,35 @@ def build_fast_forward():
 
     d = ImageDraw.Draw(canvas)
 
-    # ---- header ----
-    text(d, (W // 2, 70), "Dieses andere Adventure", font(FS, 96), CREAM,
-         anchor="ma", outline=DARK2, ow=3, shadow=(0, 0, 0))
-    text(d, (W // 2, 196), "Tower-Defense auf einem schwebenden Piratenschiff",
-         font(LB, 38), COPPER, anchor="ma", shadow=(0, 0, 0), sh_off=(1, 2))
-    # divider rule
-    d.line([(W // 2 - 360, 260), (W // 2 + 360, 260)], fill=COPPER, width=3)
-
-    # ---- right: framed screenshot ----
-    shot = cover(Image.open(SHOT_ROW), 880, 520)
-    frame = rounded_panel(880 + 24, 520 + 24, 28, (44, 27, 15, 255),
-                          border=COPPER, bw=6)
-    inner = rounded_panel(880, 520, 18, (0, 0, 0, 255))
+    # ---- centered gameplay screenshot (the hero in the middle) ----
+    sw, sh = 1040, 585
+    shot = cover(Image.open(SHOT_FIRE), sw, sh)
+    frame = rounded_panel(sw + 24, sh + 24, 28, (44, 27, 15, 255), border=COPPER, bw=6)
+    inner = rounded_panel(sw, sh, 18, (0, 0, 0, 255))
     mask = inner.split()[3]
-    fx, fy = 980, 320
-    paste_with_shadow(canvas, frame, fx - 12, fy - 12, blur=26, alpha=160, dx=0, dy=18)
-    shot_r = Image.new("RGBA", (880, 520), (0, 0, 0, 0))
+    fx, fy = (W - sw) // 2, 268
+    paste_with_shadow(canvas, frame, fx - 12, fy - 12, blur=28, alpha=170, dx=0, dy=20)
+    shot_r = Image.new("RGBA", (sw, sh), (0, 0, 0, 0))
     shot_r.paste(shot, (0, 0), mask)
     canvas.alpha_composite(shot_r, (fx, fy))
 
-    # heli-toad mascot overlapping frame, bottom-left of it
-    toad = fit_toad(540).rotate(-7, expand=True, resample=Image.BICUBIC)
-    paste_with_shadow(canvas, toad, 770, H - toad.height - 92,
-                      blur=26, alpha=180, dx=14, dy=16)
-
-    # ---- left: info bullets ----
-    bx, by = 96, 330
-    bullets = [
-        ("Genre", "Tower-Defense / Strategie"),
-        ("Setting", "Ein schwebendes Piratenschiff über den Wolken"),
-        ("Türme", "Kanonen, Magie- & Armbrusttürme"),
-        ("Gegner", "Helitoads & Eismonster"),
-        ("Entstanden", "in einem 3-tägigen Game Jam"),
+    # ---- the cast, spread around the screenshot (3D Blender renders) ----
+    # (name, height, rotation, center-x, center-y)
+    spread = [
+        ("helitoad",  322,  -7,  256,  352),   # top-left    enemy
+        ("floattoad", 332,   7,  220,  662),   # mid-left    enemy
+        ("cannon",    300,  -4,  268,  922),   # bottom-left tower
+        ("iceball",   318,   6, 1664,  350),   # top-right   enemy
+        ("tesla",     366,   0, 1706,  668),   # mid-right   tower
+        ("crossbow",  300,   5, 1664,  922),   # bottom-right tower
     ]
-    lh = 118
-    bf, bf2 = font(LK, 34), font(LR, 30)
-    for i, (head, body) in enumerate(bullets):
-        y = by + i * lh
-        # copper gear-bullet
-        d.ellipse([bx, y + 6, bx + 26, y + 32], fill=COPPER, outline=DARK2, width=2)
-        d.ellipse([bx + 9, y + 15, bx + 17, y + 23], fill=DARK)
-        text(d, (bx + 50, y), head.upper(), bf, COPPER, shadow=(0, 0, 0), sh_off=(1, 1))
-        text(d, (bx + 50, y + 42), body, bf2, CREAM, shadow=(0, 0, 0), sh_off=(1, 1))
+    for name, h, rot, cx, cy in spread:
+        paste_centered(canvas, model_img(name, h, rot), cx, cy,
+                       blur=26, alpha=175, dx=12, dy=16, grow=4)
 
-    # ---- footer band ----
-    band = Image.new("RGBA", (W, 78), (0, 0, 0, 150))
-    canvas.alpha_composite(band, (0, H - 78))
-    text(d, (60, H - 56), "Team „Richards Haus\"", font(LB, 32), CREAM)
-    text(d, (W - 60, H - 56), "CV-Tag 2026", font(LB, 32), COPPER, anchor="ra")
+    # ---- the only text: the title ----
+    text(d, (W // 2, 46), "Dieses andere Adventure", font(FS, 100), CREAM,
+         anchor="ma", outline=DARK2, ow=4, shadow=(0, 0, 0))
 
     out = os.path.join(CV, "fast_forward", "fast_forward.png")
     canvas.convert("RGB").save(out, "PNG")
