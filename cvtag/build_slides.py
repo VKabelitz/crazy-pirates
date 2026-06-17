@@ -2,6 +2,8 @@
 """Generate CV-Tag preview image and fast-forward slide for
 'Dieses andere Adventure' (Team Richards Haus)."""
 import os
+import base64
+import io
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps, ImageChops
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,7 +15,8 @@ SHOT_FIRE = os.path.join(CV, "Screenshot from 2026-06-17 09-38-13.png")  # tower
 TOAD      = os.path.join(GFX, "Toad2.png")    # heli-toad with propeller
 TOAD_FLAT = os.path.join(GFX, "toadd.png")    # plain toad
 GEAR      = os.path.join(GFX, "menuArt.png")  # steampunk gear corner
-RENDER    = os.path.join(CV,  "media", "floattoad.png")  # 3D Blender render of the FloatToad
+HINTER    = os.path.join(GFX, "Hintergrund.png")  # painted sky backdrop
+RENDER    = os.path.join(CV,  "media", "Toad.png")  # hand-drawn HeliToad mascot
 CARDS     = [os.path.join(GFX, n) for n in ("canon1.png", "canon2.png", "canon3.png")]  # tower cards
 # Blender renders of the game models (transparent PNGs in media/)
 MODELS    = {n: os.path.join(CV, "media", n + ".png")
@@ -92,12 +95,42 @@ def trim(img):
     bb = img.split()[3].getbbox()
     return img.crop(bb) if bb else img
 
+def defringe(img, thr=252, radius=12):
+    """Kill the dark matte halo on the Blender renders.
+
+    Their antialiased edge pixels were rendered over a black background, so
+    semi-transparent edges carry near-black colour and show up as a black
+    fringe when composited over a bright backdrop. We bleed the solid object
+    colour outward (alpha-weighted blur) and replace the colour of every
+    not-fully-opaque pixel with it, keeping the original alpha so the silhouette
+    and antialiasing are untouched."""
+    import numpy as np
+    img = img.convert("RGBA")
+    arr = np.asarray(img, dtype=np.float32)
+    rgb, a = arr[..., :3], arr[..., 3]
+    af = a / 255.0  # opacity weight: dark transparent edges contribute little
+
+    blur = ImageFilter.GaussianBlur(radius)
+    # blurred alpha-weighted colour (premultiplied) and blurred alpha
+    pm = (rgb * af[..., None]).clip(0, 255).astype(np.uint8)
+    pm_b = np.asarray(Image.fromarray(pm, "RGB").filter(blur), dtype=np.float32)
+    a_b = np.asarray(Image.fromarray(a.astype(np.uint8), "L").filter(blur),
+                     dtype=np.float32) / 255.0
+
+    safe = a_b > 1e-3
+    bled = np.where(safe[..., None], pm_b / np.where(safe, a_b, 1.0)[..., None], rgb)
+
+    edge = (a < thr)[..., None]
+    out_rgb = np.where(edge, bled, rgb)
+    out = np.dstack([np.clip(out_rgb, 0, 255), a]).astype(np.uint8)
+    return Image.fromarray(out, "RGBA")
+
 def load_render(scale_h):
     return fit_h(trim(Image.open(RENDER)), scale_h)
 
 def model_img(name, h, rot=0):
     """Trimmed Blender render of a game model, sized to height h, optionally rotated."""
-    img = fit_h(trim(Image.open(MODELS[name])), h)
+    img = fit_h(defringe(trim(Image.open(MODELS[name]))), h)
     if rot:
         img = img.rotate(rot, expand=True, resample=Image.BICUBIC)
     return img
@@ -137,14 +170,9 @@ def build_preview():
         bd.line([(0, y), (W, y)], fill=max(0, int(200 * ((y - H * 0.45) / (H * 0.55)))) if y > H * 0.45 else 0)
     canvas.paste((0, 0, 0), (0, 0), bot)
 
-    # steampunk gear corner (top-left), tinted copper, subtle
-    gear = Image.open(GEAR).convert("RGBA").resize((300, 264), Image.LANCZOS)
-    gear.putalpha(gear.split()[3].point(lambda p: int(p * 0.55)))
-    canvas.alpha_composite(gear, (-30, -34))
-
-    # 3D-rendered FloatToad mascot, bottom-right (fully visible)
-    toad = load_render(560).rotate(-8, expand=True, resample=Image.BICUBIC)
-    paste_with_shadow(canvas, toad, W - toad.width + 6, H - toad.height + 8,
+    # hand-drawn HeliToad mascot, bottom-right (fully visible)
+    toad = load_render(620).rotate(-6, expand=True, resample=Image.BICUBIC)
+    paste_with_shadow(canvas, toad, W - toad.width + 18, H - toad.height + 10,
                       blur=24, alpha=180, dx=14, dy=16)
 
     # tower-card trio, bottom-left (the arsenal, shown not told)
@@ -157,37 +185,51 @@ def build_preview():
 
     d = ImageDraw.Draw(canvas)
     # title
-    text(d, (60, 300), "Dieses andere", font(FS, 78), CREAM,
+    text(d, (60, 300), "Das etwas andere", font(FS, 78), CREAM,
          outline=DARK2, ow=3, shadow=(0, 0, 0))
     text(d, (60, 378), "Adventure", font(FS, 78), COPPER,
          outline=DARK2, ow=3, shadow=(0, 0, 0))
-    # subtitle
-    text(d, (64, 466), "Tower-Defense auf einem schwebenden Piratenschiff",
-         font(LB, 27), CREAM, shadow=(0, 0, 0), sh_off=(1, 2))
 
     out = os.path.join(CV, "preview", "preview.png")
     canvas.convert("RGB").save(out, "PNG")
     print("wrote", out, canvas.size)
 
 # ====================================================== FAST FORWARD 1920x1080
+def vignette(w, h, edge=170, top=150, bot=150):
+    """Dark mask: strong at top + bottom + corners, clear in the middle.
+    Keeps a painted backdrop legible behind cream text and renders."""
+    m = Image.new("L", (w, h), 0)
+    d = ImageDraw.Draw(m)
+    for y in range(h):
+        t = y / max(1, h - 1)
+        v = 0
+        if t < 0.34:                       # darken the top band (title)
+            v = max(v, int(top * (1 - t / 0.34)))
+        if t > 0.62:                       # darken the bottom (grounding)
+            v = max(v, int(bot * ((t - 0.62) / 0.38)))
+        d.line([(0, y), (w, y)], fill=v)
+    # side darkening for the gear corners + cast
+    side = Image.new("L", (w, h), 0)
+    sd = ImageDraw.Draw(side)
+    for x in range(w):
+        t = x / max(1, w - 1)
+        v = 0
+        if t < 0.22:
+            v = int(edge * (1 - t / 0.22))
+        elif t > 0.78:
+            v = int(edge * ((t - 0.78) / 0.22))
+        sd.line([(x, 0), (x, h)], fill=v)
+    return ImageChops.lighter(m, side)
+
 def build_fast_forward():
     W, H = 1920, 1080
-    # atmospheric background: blurred, darkened screenshot + warm gradient
-    bg = cover(Image.open(SHOT_FIRE), W, H).filter(ImageFilter.GaussianBlur(14))
-    bg.alpha_composite(Image.new("RGBA", (W, H), (30, 16, 6, 150)))
-    grad = vgrad(W, H, (26, 15, 7), (12, 7, 3))
-    grad.putalpha(150)
-    bg.alpha_composite(grad)
+    # painted sky backdrop (fits the floating pirate ship), warmed + vignetted
+    bg = cover(Image.open(HINTER), W, H)
+    bg.alpha_composite(Image.new("RGBA", (W, H), (40, 22, 8, 70)))   # warm wash
+    dark = Image.new("RGBA", (W, H), (10, 6, 3, 255))
+    dark.putalpha(vignette(W, H))
+    bg.alpha_composite(dark)
     canvas = bg
-
-    # gear corners
-    gear = Image.open(GEAR).convert("RGBA")
-    g1 = gear.resize((360, 316), Image.LANCZOS)
-    g1.putalpha(g1.split()[3].point(lambda p: int(p * 0.5)))
-    canvas.alpha_composite(g1, (-40, -46))
-    g2 = ImageOps.mirror(ImageOps.flip(g1))
-    g2.putalpha(g2.split()[3].point(lambda p: int(p * 0.9)))
-    canvas.alpha_composite(g2, (W - g2.width + 40, H - g2.height + 46))
 
     d = ImageDraw.Draw(canvas)
 
@@ -218,11 +260,30 @@ def build_fast_forward():
                        blur=26, alpha=175, dx=12, dy=16, grow=4)
 
     # ---- the only text: the title ----
-    text(d, (W // 2, 46), "Dieses andere Adventure", font(FS, 100), CREAM,
+    text(d, (W // 2, 46), "Das etwas andere Adventure", font(FS, 100), CREAM,
          anchor="ma", outline=DARK2, ow=4, shadow=(0, 0, 0))
 
-    out = os.path.join(CV, "fast_forward", "fast_forward.png")
-    canvas.convert("RGB").save(out, "PNG")
+    # The CV-Tag fast-forward slide must be delivered as .svg. The artwork is
+    # built from photographic screenshots, painted backdrop and 3D renders, so
+    # the composed frame is embedded losslessly as a single image inside an SVG
+    # canvas (valid SVG, scales cleanly, imports into PowerPoint).
+    rgb = canvas.convert("RGB")
+    buf = io.BytesIO()
+    rgb.save(buf, "PNG")
+    b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+    svg = (
+        f'<?xml version="1.0" encoding="UTF-8"?>\n'
+        f'<svg xmlns="http://www.w3.org/2000/svg" '
+        f'xmlns:xlink="http://www.w3.org/1999/xlink" '
+        f'width="{W}" height="{H}" viewBox="0 0 {W} {H}">\n'
+        f'  <title>Dieses andere Adventure – Fast Forward</title>\n'
+        f'  <image x="0" y="0" width="{W}" height="{H}" '
+        f'xlink:href="data:image/png;base64,{b64}"/>\n'
+        f'</svg>\n'
+    )
+    out = os.path.join(CV, "fast_forward", "fast_forward.svg")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(svg)
     print("wrote", out, canvas.size)
 
 if __name__ == "__main__":

@@ -1,7 +1,8 @@
 Dieses andere Adventure
 
-„Dieses andere Adventure" ist ein Tower-Defense-Spiel, das in nur drei Tagen während eines Game Jams entstanden ist. Das gesamte Geschehen spielt auf einem schwebenden Piratenschiff hoch über den Wolken. Aus allen Richtungen nähern sich skurrile Gegner – allen voran die Helitoads, große grüne Kröten mit rotierenden Holzpropellern, sowie eisige Monster, die ins Innere des Schiffs eindringen wollen.
+„Dieses andere Adventure" ist ein Tower-Defense-Spiel entwickelt in Unity, entstanden in einem Wochenend-Gamejam.  
 
-Deine Aufgabe: Platziere geschickt verschiedene Verteidigungstürme – Kanonen, Magietürme und Armbrusttürme – und sammle Sprockets, um dein Schiff vor den Angreifern zu schützen. Mit handgezeichnetem Steampunk-Look, charmanter Comic-Ästhetik und stetig steigender Schwierigkeit verbindet das Spiel strategisches Platzieren mit schnellem Reagieren.
+Worum gehts im Spiel? Platziere geschickt verschiedene Verteidigungstürme – Kanonen, Magietürme und Armbrusttürme – und sammle Sprockets um noch mehr Türme zu bauen. Wellen von Kröten und Icicles versuchen dein Piraten-Dampfschiff zu überrennen und an deine hart erkämpfte Piratenbeute zu gelangen. Wir hoffen Ihr habt viel Spaß beim spielen :)
 
-Entwickelt vom Team „Richards Haus". Komm am CV-Tag vorbei und hilf uns, das Schiff zu verteidigen!
+-- Lea, William, Viktor, Lena und Richard
+
