@@ -182,6 +182,8 @@ public class TowerPlaceManager : MonoBehaviour
                 {
                     foreach (GameObject spot in buildableSpots)
                     {
+                        if (spot == null)
+                            continue;
                         spot.SetActive(false);
                     }
                     Destroy(currentHighlight);

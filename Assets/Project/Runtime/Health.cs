@@ -7,12 +7,17 @@ public class Health : MonoBehaviour, IHealth
 {
     [SerializeField]
     public int maxHealth = 50;
-    public int HealthPoints { get; set; }
+
+    [NonSerialized]
+    public int HealthPoints;
     public event Action OnDeath;
+    [NonSerialized]
+    public int originalMaxHealth;
 
     public void Awake()
     {
         HealthPoints = maxHealth;
+        originalMaxHealth = maxHealth;
     }
 
     public void TakeDamage(int damage)
@@ -22,6 +27,15 @@ public class Health : MonoBehaviour, IHealth
         {
             OnDeath?.Invoke();
             DestroyObject();
+        }
+    }
+
+    public void SetMaxHealth(int maxHealth)
+    {
+        this.maxHealth = maxHealth;
+        if (HealthPoints > maxHealth)
+        {
+            HealthPoints = maxHealth;
         }
     }
 

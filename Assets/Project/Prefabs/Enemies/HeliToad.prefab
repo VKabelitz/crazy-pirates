@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 0}
-  collisionDamage: 4
+  collisionDamage: 1
   sprocketAmount: 30
 --- !u!54 &7895448816011752168
 Rigidbody:

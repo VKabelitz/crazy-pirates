@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 0}
-  collisionDamage: 2
+  collisionDamage: 1
   sprocketAmount: 30
   slowScale: 1.4
 --- !u!1001 &5839481155046825904

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LinearMovement : BaseMovement
 {
     [SerializeField] private List<Transform> wayPoints = new List<Transform>();
-    private int currentWayPointIndex = 0;
+    public int currentWayPointIndex = 0;
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float rotationSpeed = 5f;
 
@@ -63,7 +63,7 @@ public class LinearMovement : BaseMovement
     {
         movementSpeed = speed;
     }
-    
+
     public float GetMovementSpeed()
     {
         return movementSpeed;

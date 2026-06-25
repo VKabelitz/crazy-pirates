@@ -9,10 +9,11 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
 {
     [SerializeField]
     protected ObjectPool enemyPool;
-    private Health health;
+    protected Health health;
     public int collisionDamage = 10;
     public int sprocketAmount = 30;
     private float defaultMovementSpeed = 2f;
+    protected LinearMovement linearMovement;
 
 
     public void Awake()
@@ -46,7 +47,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
         {
             case MovementType.LinearMovement:
             default:
-                LinearMovement linearMovement = gameObject.AddComponent<LinearMovement>();
+                linearMovement = gameObject.AddComponent<LinearMovement>();
                 linearMovement.SetMovementSpeed(movementSpeed);
 
                 Debug.Log("Linear Movement Added");
