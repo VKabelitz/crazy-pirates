@@ -87,7 +87,7 @@ MonoBehaviour:
   rangeRadius: 18
   targets: 1
   projectilePoolPrefab: {fileID: 262824278697953883, guid: 4be55df1f747e4b06b0729574a81cb3d, type: 3}
-  fireRate: 0.2
+  fireRate: 0.18
   projectileSpawnPoint: {fileID: 7937061946606888807}
   destroyFadeDuration: 3
   fireActive: 0
@@ -125,7 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1300
-  originalMaxHealth: 0
 --- !u!1001 &9210682790177020478
 PrefabInstance:
   m_ObjectHideFlags: 0

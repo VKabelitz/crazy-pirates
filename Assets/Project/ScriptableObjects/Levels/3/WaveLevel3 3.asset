@@ -16,69 +16,65 @@ MonoBehaviour:
   enemies:
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 10
+    movementSpeed: 4
+    enemyPrefab: {fileID: 409548482380544259, guid: ab2f40c4193042cbd80fa538d2faab51, type: 3}
+  - spawnTime: 1
+    movementType: 0
+    movementSpeed: 7
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 10
+    movementSpeed: 7
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 10
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 1
-    movementType: 0
-    movementSpeed: 10
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
+    movementSpeed: 4
+    enemyPrefab: {fileID: 409548482380544259, guid: ab2f40c4193042cbd80fa538d2faab51, type: 3}
   - spawnTime: 4
     movementType: 0
-    movementSpeed: 10
+    movementSpeed: 7
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 10
+    movementSpeed: 7
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 10
+    movementSpeed: 7
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 10
+    movementSpeed: 4
+    enemyPrefab: {fileID: 409548482380544259, guid: ab2f40c4193042cbd80fa538d2faab51, type: 3}
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+    enemyPrefab: {fileID: 4940693720019197228, guid: e039e1231b379964cae89d9f2b7f4b26, type: 3}
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 4
+    enemyPrefab: {fileID: 4940693720019197228, guid: e039e1231b379964cae89d9f2b7f4b26, type: 3}
+  - spawnTime: 3
+    movementType: 0
+    movementSpeed: 3
+    enemyPrefab: {fileID: 409548482380544259, guid: ab2f40c4193042cbd80fa538d2faab51, type: 3}
+  - spawnTime: 2
+    movementType: 0
+    movementSpeed: 8
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 15
+    movementSpeed: 8
+    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
+  - spawnTime: 0.5
+    movementType: 0
+    movementSpeed: 12
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
   - spawnTime: 1
     movementType: 0
-    movementSpeed: 15
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 1
-    movementType: 0
-    movementSpeed: 15
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 0.5
-    movementType: 0
-    movementSpeed: 20
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 0.5
-    movementType: 0
-    movementSpeed: 20
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 0.5
-    movementType: 0
-    movementSpeed: 20
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 0.5
-    movementType: 0
-    movementSpeed: 20
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 0.5
-    movementType: 0
-    movementSpeed: 20
-    enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}
-  - spawnTime: 0.5
-    movementType: 0
-    movementSpeed: 20
+    movementSpeed: 8
     enemyPrefab: {fileID: 6724039501192514025, guid: 25d501dee37495043a89ce70c92ef09a, type: 3}

@@ -12,7 +12,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable
     protected Health health;
     public int collisionDamage = 10;
     public int sprocketAmount = 30;
-    private float defaultMovementSpeed = 2f;
+    private float defaultMovementSpeed = 3f;
     protected LinearMovement linearMovement;
 
 

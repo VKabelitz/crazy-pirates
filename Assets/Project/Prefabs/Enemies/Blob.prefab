@@ -64,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 0}
   collisionDamage: 1
-  sprocketAmount: 40
+  sprocketAmount: 50
   enemyPrefab: {fileID: 3165328674444133461}
   splitLevel: 0
   maxSplitLevel: 3

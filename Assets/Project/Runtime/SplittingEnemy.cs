@@ -46,7 +46,7 @@ public class SplittingEnemy : Enemy
         int divisor = 1 << splitLevel;       // divison by 2^splitLevel by bit shifting
         Debug.Log("Enemy spawned at split level " + splitLevel + " with health " + health.HealthPoints + "/" + health.maxHealth);
         health.SetMaxHealth((int)math.ceil(health.maxHealth / divisor));
-        sprocketAmount = (int)math.ceil(sprocketAmount / splitLevel);
+        sprocketAmount = (int)math.ceil(1.2f * (float)sprocketAmount / ((float)splitLevel));
     }
 
     private void SpawnChild(Vector3 offset)
