@@ -41,4 +41,4 @@ MonoBehaviour:
   - spawnTime: 3
     movementType: 0
     movementSpeed: 2
-    enemyPrefab: {fileID: 409548482380544259, guid: ab2f40c4193042cbd80fa538d2faab51, type: 3}
+    enemyPrefab: {fileID: 3165328674444133461, guid: eff88b909c692bc479e9fc133901d9ad, type: 3}
